@@ -7,8 +7,12 @@
                     xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
                     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
                     xmlns:native="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
-                    xmlns:themes="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys">
+                    xmlns:themes="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys"
+                    xmlns:touch="clr-namespace:Globeweigh.UI.Touch">
 
+    <Style x:Key="WindowBaseStyle" TargetType="{x:Type touch:WindowBase}">
+        <Setter Property="shared:ViewModelBehavior.LoadUnload" Value="True"/>
+    </Style>
 
     <Style x:Key="GreyHeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>
@@ -79,20 +83,20 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+    <Style x:Key="RoundedButtonStyle" TargetType="Button">
         <Setter Property="OverridesDefaultStyle" Value="True"/>
         <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="Foreground" Value="#FF2C7EDC"/>
+        <Setter Property="FontSize" Value="17"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="BorderThickness" Value="2"/>
-        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Name="border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}">
+                    <Border Name="border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="4">
                         <Grid >
-                            <TextBlock Text="{TemplateBinding Content}" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" Name="content" Foreground="{TemplateBinding Foreground}" Margin="0,0,0,4"/>
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Center" VerticalAlignment="Center" Name="content" FontWeight="Bold"/>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

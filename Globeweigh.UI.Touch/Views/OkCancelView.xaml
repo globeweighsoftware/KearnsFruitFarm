@@ -1,4 +1,4 @@
-﻿<shared:WindowBase
+﻿<touch:WindowBase
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,17 +7,18 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
         xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
+        xmlns:touch="clr-namespace:Globeweigh.UI.Touch"
         x:Class="Globeweigh.UI.Touch.OkCancelView" WindowStyle="None" Margin="50"
         AllowsTransparency="True" mc:Ignorable="d"  ResizeMode="NoResize"  
         d:DesignWidth="1280" d:DesignHeight="1024" WindowStartupLocation="CenterScreen" WindowState="Normal" 
-        md:DialogServiceViews.IsRegistered ="True" Background="{DynamicResource MainNavyBrush}" IsOwnerSize="True" >
+        md:DialogServiceViews.IsRegistered ="True" Background="{DynamicResource MainNavyBrush}" IsMainWindowSize="True" >
 
-    <shared:WindowBase.Resources>
+    <touch:WindowBase.Resources>
 
         <converters:TrueToCollapsedConverter x:Key="TrueToCollapsedConverter"/>
         <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
 
-    </shared:WindowBase.Resources>
+    </touch:WindowBase.Resources>
     <Border Background="White" Margin="10">
 
         <Grid>
@@ -41,4 +42,7 @@
             </Grid>
         </Grid>
     </Border>
-</shared:WindowBase>
+</touch:WindowBase>
+
+
+

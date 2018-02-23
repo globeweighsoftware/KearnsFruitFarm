@@ -18,8 +18,6 @@
           <Property Name="UpperLimitOverride" Type="int" />
           <Property Name="NominalOverride" Type="int" />
           <Property Name="TareOverride" Type="int" />
-          <Property Name="FiftyCount" Type="int" Nullable="false" />
-          <Property Name="IsLive" Type="bit" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateClosed" Type="datetime" />
@@ -159,10 +157,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ScaleNumber" Type="int" Nullable="false" />
           <Property Name="OperatorId" Type="int" />
-          <Property Name="NetConnectionIpAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="ScaleIpAddress" Type="nvarchar" MaxLength="50" />
-          <Property Name="Slave" Type="bit" Nullable="false" />
-          <Property Name="SlaveOrder" Type="int" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -173,53 +168,42 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwBatchView' does not have a
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="Closed" />
             <PropertyRef Name="DateCreated" />
-            <PropertyRef Name="ProductName" />
             <PropertyRef Name="Deleted" />
             <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="Override" />
-            <PropertyRef Name="FiftyCount" />
-            <PropertyRef Name="IsLive" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Closed" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
-          <Property Name="LowerLimit" Type="int" />
-          <Property Name="UpperLimit" Type="int" />
-          <Property Name="NominalWeight" Type="int" />
-          <Property Name="AveragePacksPerminute" Type="int" />
           <Property Name="PortionCount" Type="int" />
-          <Property Name="Tare" Type="int" />
           <Property Name="DateClosed" Type="datetime" />
           <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="50" />
           <Property Name="NominalOverride" Type="int" />
           <Property Name="UpperLimitOverride" Type="int" />
           <Property Name="LowerLimitOverride" Type="int" />
           <Property Name="Override" Type="bit" Nullable="false" />
           <Property Name="TareOverride" Type="int" />
-          <Property Name="FiftyCount" Type="int" Nullable="false" />
-          <Property Name="IsLive" Type="bit" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LowerLimit" Type="int" />
+          <Property Name="UpperLimit" Type="int" />
+          <Property Name="Tare" Type="int" />
+          <Property Name="NominalWeight" Type="int" />
+          <Property Name="AveragePacksPerminute" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorBatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwOperatorBatch">
           <Key>
-            <PropertyRef Name="BatchId" />
-            <PropertyRef Name="OperatorId" />
             <PropertyRef Name="FullName" />
-            <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="BatchId" Type="int" Nullable="false" />
-          <Property Name="OperatorId" Type="int" Nullable="false" />
           <Property Name="FullName" Type="nvarchar" MaxLength="101" Nullable="false" />
-          <Property Name="PortionCount" Type="int" />
-          <Property Name="TotalWeightGrams" Type="int" />
-          <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="bigint" />
+          <Property Name="TimeElapsedId" Type="int" />
           <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="BatchId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorRefData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -250,16 +234,15 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
             <PropertyRef Name="OperatorName" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="OperatorId" Type="int" Nullable="false" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
           <Property Name="BatchId" Type="int" Nullable="false" />
           <Property Name="ScaleNo" Type="int" Nullable="false" />
           <Property Name="Weight" Type="int" Nullable="false" />
-          <Property Name="Giveaway" Type="int" />
           <Property Name="OperatorName" Type="nvarchar" MaxLength="101" Nullable="false" />
-          <Property Name="Tare" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Giveaway" Type="int" />
         </EntityType>
         <Function Name="spOperatorBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="batchId" Type="int" Mode="In" />
@@ -282,35 +265,30 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
     [vwBatchView].[ProductId] AS [ProductId], 
     [vwBatchView].[Closed] AS [Closed], 
     [vwBatchView].[DateCreated] AS [DateCreated], 
-    [vwBatchView].[ProductName] AS [ProductName], 
     [vwBatchView].[Deleted] AS [Deleted], 
-    [vwBatchView].[LowerLimit] AS [LowerLimit], 
-    [vwBatchView].[UpperLimit] AS [UpperLimit], 
-    [vwBatchView].[NominalWeight] AS [NominalWeight], 
-    [vwBatchView].[AveragePacksPerminute] AS [AveragePacksPerminute], 
     [vwBatchView].[PortionCount] AS [PortionCount], 
-    [vwBatchView].[Tare] AS [Tare], 
     [vwBatchView].[DateClosed] AS [DateClosed], 
     [vwBatchView].[TimeElapsedTicks] AS [TimeElapsedTicks], 
-    [vwBatchView].[Code] AS [Code], 
     [vwBatchView].[NominalOverride] AS [NominalOverride], 
     [vwBatchView].[UpperLimitOverride] AS [UpperLimitOverride], 
     [vwBatchView].[LowerLimitOverride] AS [LowerLimitOverride], 
     [vwBatchView].[Override] AS [Override], 
     [vwBatchView].[TareOverride] AS [TareOverride], 
-    [vwBatchView].[FiftyCount] AS [FiftyCount], 
-    [vwBatchView].[IsLive] AS [IsLive]
+    [vwBatchView].[ProductName] AS [ProductName], 
+    [vwBatchView].[LowerLimit] AS [LowerLimit], 
+    [vwBatchView].[UpperLimit] AS [UpperLimit], 
+    [vwBatchView].[Tare] AS [Tare], 
+    [vwBatchView].[NominalWeight] AS [NominalWeight], 
+    [vwBatchView].[AveragePacksPerminute] AS [AveragePacksPerminute]
     FROM [dbo].[vwBatchView] AS [vwBatchView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwOperatorBatch" EntityType="Self.vwOperatorBatch" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vwOperatorBatch].[BatchId] AS [BatchId], 
-    [vwOperatorBatch].[OperatorId] AS [OperatorId], 
     [vwOperatorBatch].[FullName] AS [FullName], 
-    [vwOperatorBatch].[PortionCount] AS [PortionCount], 
-    [vwOperatorBatch].[TotalWeightGrams] AS [TotalWeightGrams], 
     [vwOperatorBatch].[TimeElapsedTicks] AS [TimeElapsedTicks], 
-    [vwOperatorBatch].[id] AS [id]
+    [vwOperatorBatch].[TimeElapsedId] AS [TimeElapsedId], 
+    [vwOperatorBatch].[id] AS [id], 
+    [vwOperatorBatch].[BatchId] AS [BatchId]
     FROM [dbo].[vwOperatorBatch] AS [vwOperatorBatch]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwOperatorRefData" EntityType="Self.vwOperatorRefData" store:Type="Views" store:Schema="dbo">
@@ -325,16 +303,15 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySet Name="vwPortionView" EntityType="Self.vwPortionView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwPortionView].[id] AS [id], 
-    [vwPortionView].[ProductName] AS [ProductName], 
     [vwPortionView].[DateCreated] AS [DateCreated], 
     [vwPortionView].[OperatorId] AS [OperatorId], 
     [vwPortionView].[Deleted] AS [Deleted], 
     [vwPortionView].[BatchId] AS [BatchId], 
     [vwPortionView].[ScaleNo] AS [ScaleNo], 
     [vwPortionView].[Weight] AS [Weight], 
-    [vwPortionView].[Giveaway] AS [Giveaway], 
     [vwPortionView].[OperatorName] AS [OperatorName], 
-    [vwPortionView].[Tare] AS [Tare]
+    [vwPortionView].[ProductName] AS [ProductName], 
+    [vwPortionView].[Giveaway] AS [Giveaway]
     FROM [dbo].[vwPortionView] AS [vwPortionView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
@@ -359,13 +336,13 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySet Name="ErrorLogs" EntityType="GlobeweighModel.ErrorLog" />
           <EntitySet Name="Operators" EntityType="GlobeweighModel.Operator" />
           <EntitySet Name="Portions" EntityType="GlobeweighModel.Portion" />
+          <EntitySet Name="Products" EntityType="GlobeweighModel.Product" />
           <EntitySet Name="ReferenceDatas" EntityType="GlobeweighModel.ReferenceData" />
           <EntitySet Name="Scales" EntityType="GlobeweighModel.Scale" />
           <EntitySet Name="vwBatchViews" EntityType="GlobeweighModel.vwBatchView" />
           <EntitySet Name="vwOperatorBatches" EntityType="GlobeweighModel.vwOperatorBatch" />
           <EntitySet Name="vwOperatorRefDatas" EntityType="GlobeweighModel.vwOperatorRefData" />
           <EntitySet Name="vwPortionViews" EntityType="GlobeweighModel.vwPortionView" />
-          <EntitySet Name="Products" EntityType="GlobeweighModel.Product" />
           </EntityContainer>
         <ComplexType Name="spGetDispatchPalletProductsGrouped_Result">
           <Property Type="Int32" Name="BoxCount" Nullable="true" />
@@ -410,8 +387,6 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="UpperLimitOverride" Type="Int32" />
           <Property Name="NominalOverride" Type="Int32" />
           <Property Name="TareOverride" Type="Int32" />
-          <Property Name="FiftyCount" Type="Int32" Nullable="false" />
-          <Property Name="IsLive" Type="Boolean" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateClosed" Type="DateTime" Precision="3" />
@@ -505,6 +480,22 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateDeleted" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LowerLimit" Type="Int32" />
+          <Property Name="UpperLimit" Type="Int32" />
+          <Property Name="Tare" Type="Int32" />
+          <Property Name="NominalWeight" Type="Int32" />
+          <Property Name="AveragePacksPerminute" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="ReferenceData">
           <Key>
             <PropertyRef Name="id" />
@@ -535,10 +526,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ScaleNumber" Type="Int32" Nullable="false" />
           <Property Name="OperatorId" Type="Int32" />
-          <Property Name="NetConnectionIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ScaleIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Slave" Type="Boolean" Nullable="false" />
-          <Property Name="SlaveOrder" Type="Int32" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="vwBatchView">
@@ -547,51 +535,40 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="Closed" />
             <PropertyRef Name="DateCreated" />
-            <PropertyRef Name="ProductName" />
             <PropertyRef Name="Deleted" />
             <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="Override" />
-            <PropertyRef Name="FiftyCount" />
-            <PropertyRef Name="IsLive" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Closed" Type="Boolean" Nullable="false" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
-          <Property Name="LowerLimit" Type="Int32" />
-          <Property Name="UpperLimit" Type="Int32" />
-          <Property Name="NominalWeight" Type="Int32" />
-          <Property Name="AveragePacksPerminute" Type="Int32" />
           <Property Name="PortionCount" Type="Int32" />
-          <Property Name="Tare" Type="Int32" />
           <Property Name="DateClosed" Type="DateTime" Precision="3" />
           <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NominalOverride" Type="Int32" />
           <Property Name="UpperLimitOverride" Type="Int32" />
           <Property Name="LowerLimitOverride" Type="Int32" />
           <Property Name="Override" Type="Boolean" Nullable="false" />
           <Property Name="TareOverride" Type="Int32" />
-          <Property Name="FiftyCount" Type="Int32" Nullable="false" />
-          <Property Name="IsLive" Type="Boolean" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LowerLimit" Type="Int32" />
+          <Property Name="UpperLimit" Type="Int32" />
+          <Property Name="Tare" Type="Int32" />
+          <Property Name="NominalWeight" Type="Int32" />
+          <Property Name="AveragePacksPerminute" Type="Int32" />
         </EntityType>
         <EntityType Name="vwOperatorBatch">
           <Key>
-            <PropertyRef Name="BatchId" />
-            <PropertyRef Name="OperatorId" />
             <PropertyRef Name="FullName" />
-            <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="BatchId" Type="Int32" Nullable="false" />
-          <Property Name="OperatorId" Type="Int32" Nullable="false" />
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
-          <Property Name="PortionCount" Type="Int32" />
-          <Property Name="TotalWeightGrams" Type="Int32" />
-          <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="Int64" />
+          <Property Name="TimeElapsedId" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="BatchId" Type="Int32" />
         </EntityType>
         <EntityType Name="vwOperatorRefData">
           <Key>
@@ -618,32 +595,15 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
             <PropertyRef Name="OperatorName" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="OperatorId" Type="Int32" Nullable="false" />
           <Property Name="Deleted" Type="Boolean" Nullable="false" />
           <Property Name="BatchId" Type="Int32" Nullable="false" />
           <Property Name="ScaleNo" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Int32" Nullable="false" />
-          <Property Name="Giveaway" Type="Int32" />
           <Property Name="OperatorName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
-          <Property Name="Tare" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LowerLimit" Type="Int32" />
-          <Property Name="UpperLimit" Type="Int32" />
-          <Property Name="Tare" Type="Int32" />
-          <Property Name="NominalWeight" Type="Int32" />
-          <Property Name="AveragePacksPerminute" Type="Int32" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
-          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Giveaway" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -671,8 +631,6 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
                 <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
-                <ScalarProperty Name="FiftyCount" ColumnName="FiftyCount" />
                 <ScalarProperty Name="TareOverride" ColumnName="TareOverride" />
                 <ScalarProperty Name="NominalOverride" ColumnName="NominalOverride" />
                 <ScalarProperty Name="UpperLimitOverride" ColumnName="UpperLimitOverride" />
@@ -780,6 +738,23 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="GlobeweighModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
+                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ReferenceDatas">
             <EntityTypeMapping TypeName="GlobeweighModel.ReferenceData">
               <MappingFragment StoreEntitySet="ReferenceData">
@@ -808,10 +783,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
             <EntityTypeMapping TypeName="GlobeweighModel.Scale">
               <MappingFragment StoreEntitySet="Scale">
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="SlaveOrder" ColumnName="SlaveOrder" />
-                <ScalarProperty Name="Slave" ColumnName="Slave" />
                 <ScalarProperty Name="ScaleIpAddress" ColumnName="ScaleIpAddress" />
-                <ScalarProperty Name="NetConnectionIpAddress" ColumnName="NetConnectionIpAddress" />
                 <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
                 <ScalarProperty Name="ScaleNumber" ColumnName="ScaleNumber" />
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -821,24 +793,21 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="vwBatchViews">
             <EntityTypeMapping TypeName="GlobeweighModel.vwBatchView">
               <MappingFragment StoreEntitySet="vwBatchView">
-                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
-                <ScalarProperty Name="FiftyCount" ColumnName="FiftyCount" />
+                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
+                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="TareOverride" ColumnName="TareOverride" />
                 <ScalarProperty Name="Override" ColumnName="Override" />
                 <ScalarProperty Name="LowerLimitOverride" ColumnName="LowerLimitOverride" />
                 <ScalarProperty Name="UpperLimitOverride" ColumnName="UpperLimitOverride" />
                 <ScalarProperty Name="NominalOverride" ColumnName="NominalOverride" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
                 <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
-                <ScalarProperty Name="Tare" ColumnName="Tare" />
                 <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
-                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
-                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
-                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
-                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Closed" ColumnName="Closed" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -849,13 +818,11 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="vwOperatorBatches">
             <EntityTypeMapping TypeName="GlobeweighModel.vwOperatorBatch">
               <MappingFragment StoreEntitySet="vwOperatorBatch">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
-                <ScalarProperty Name="TotalWeightGrams" ColumnName="TotalWeightGrams" />
-                <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
                 <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TimeElapsedId" ColumnName="TimeElapsedId" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -873,33 +840,15 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="vwPortionViews">
             <EntityTypeMapping TypeName="GlobeweighModel.vwPortionView">
               <MappingFragment StoreEntitySet="vwPortionView">
-                <ScalarProperty Name="Tare" ColumnName="Tare" />
-                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
                 <ScalarProperty Name="Giveaway" ColumnName="Giveaway" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="ScaleNo" ColumnName="ScaleNo" />
                 <ScalarProperty Name="BatchId" ColumnName="BatchId" />
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="GlobeweighModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
-                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
-                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
-                <ScalarProperty Name="Tare" ColumnName="Tare" />
-                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
-                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

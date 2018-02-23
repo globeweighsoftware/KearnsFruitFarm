@@ -21,8 +21,6 @@ namespace Globeweigh.UI.Shared.Services
         List<vwOperatorBatch> GetOperatorBatchSummary(int batchId);
     }
 
-
-
     public class BatchRepository : IBatchRepository
     {
         public async Task<List<vwBatchView>> GetBatchesAsync(DateTime day)
@@ -107,7 +105,7 @@ namespace Globeweigh.UI.Shared.Services
                 var batch = await context.Batches.Where(a => a.id == batchId).FirstOrDefaultAsync();
                 if (batch == null) return null;
                 batch.TimeElapsedTicks = ticks;
-                batch.FiftyCount = fifytyCount;
+                //batch.FiftyCount = fifytyCount;
                 context.Batches.Attach(batch);
                 context.Entry(batch).State = EntityState.Modified;
                 await context.SaveChangesAsync();

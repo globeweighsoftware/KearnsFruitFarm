@@ -15,7 +15,7 @@
                 <ResourceDictionary Source="Resources/CommonColours.xaml"/>
                 <ResourceDictionary Source="Resources/ElementStyles.xaml"/>
                 <ResourceDictionary Source="Resources/GridControlResources.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/Globeweigh.UI.Shared;component/ResourceDictionaries/SharedElementStyles.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/Globeweigh.UI.Shared;component/ResourceDictionaries/SharedElementStyles.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

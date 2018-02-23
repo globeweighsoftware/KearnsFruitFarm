@@ -12,14 +12,14 @@
         <EntityTypeShape EntityType="GlobeweighModel.EntityTypeField" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="GlobeweighModel.ErrorLog" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobeweighModel.Operator" Width="1.5" PointX="6.75" PointY="3.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.Portion" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.ReferenceData" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.Scale" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.vwBatchView" Width="1.5" PointX="2.75" PointY="8.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.vwOperatorBatch" Width="1.5" PointX="8.75" PointY="4.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.vwOperatorRefData" Width="1.5" PointX="8.75" PointY="8.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.vwPortionView" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GlobeweighModel.Product" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.Portion" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.Product" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.ReferenceData" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.Scale" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.vwBatchView" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.vwOperatorBatch" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.vwOperatorRefData" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.vwPortionView" Width="1.5" PointX="10.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

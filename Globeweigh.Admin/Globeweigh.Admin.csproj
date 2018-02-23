@@ -145,6 +145,7 @@
     <Compile Include="BaseClasses\DialogViewModelBase.cs" />
     <Compile Include="BaseClasses\ViewModelBase.cs" />
     <Compile Include="BaseClasses\AdminViewModelBase.cs" />
+    <Compile Include="BaseClasses\WindowBase.cs" />
     <Compile Include="Controls\MenuListBoxItem.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Installer1.cs">

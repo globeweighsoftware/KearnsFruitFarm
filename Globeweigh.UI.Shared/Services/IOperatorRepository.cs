@@ -13,27 +13,18 @@ namespace Globeweigh.UI.Shared.Services
     {
         Task<List<Operator>> GetOperators();
         Task<Operator> MarkOperatorAsDeletedAsync(int OperatorId);
-        Task<Operator> GetOperator(int OperatorId);
+        Task<Operator> GetOperator(int operatorId);
         Task<Operator> AddUpdateOperatorAsync(Operator Operator);
-        Task<List<Operator>> GetOperatorsForBatch(int batchId);
+        Task<List<vwOperatorBatch>> GetOperatorsForBatch(int batchId);
     }
 
     public class OperatorRepository : IOperatorRepository
     {
-        public async Task<List<Operator>> GetOperatorsForBatch(int batchId)
+        public async Task<List<vwOperatorBatch>> GetOperatorsForBatch(int batchId)
         {
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {
-                return await (from t1 in context.vwOperatorRefDatas
-                    from t2 in context.Batch_OperatorTime.Where(a => a.OperatorId == t1.id && a.BatchId == batchId).DefaultIfEmpty()
-
-                    select new Operator()
-                    {
-                        id = t1.id,
-                        TimeElapsed = (long)t2.TimeElapsedTicks,
-                        TimeElapsedId = t2.id,
-                        ShiftId = t1.ShiftId
-                    }).ToListAsync();
+                return await context.vwOperatorBatches.Where(a => a.BatchId == batchId || a.BatchId != null).ToListAsync();
             }
         }
 

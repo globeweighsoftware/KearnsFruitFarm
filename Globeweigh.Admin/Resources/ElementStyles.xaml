@@ -5,8 +5,13 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                     xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
+                    xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
+                    xmlns:admin="clr-namespace:Globeweigh.Admin"
                     mc:Ignorable="d">
 
+    <Style x:Key="WindowBaseStyle" TargetType="{x:Type admin:WindowBase}">
+        <Setter Property="shared:ViewModelBehavior.LoadUnload" Value="True"/>
+    </Style>
 
     <Style x:Key="GreyHeaderTextBlockStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>

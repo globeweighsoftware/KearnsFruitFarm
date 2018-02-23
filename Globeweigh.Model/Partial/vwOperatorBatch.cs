@@ -9,10 +9,14 @@ namespace Globeweigh.Model
             get
             {
                 if (TimeElapsedTicks == 0) return 0;
-                if (PortionCount == 0) return 0;
-                double seconds = TimeSpan.FromTicks(TimeElapsedTicks).TotalSeconds;
-                if (seconds == 0) return 0;
-                return ((decimal)(PortionCount / seconds) * 60);
+//                if (PortionCount == 0) return 0;
+//
+//                double seconds = TimeSpan.FromTicks((long) TimeElapsedTicks).TotalSeconds;
+//                if (seconds == 0) return 0;
+//                return ((decimal)(PortionCount / seconds) * 60);
+
+
+                return -1;
             }
         }
 
@@ -20,7 +24,8 @@ namespace Globeweigh.Model
         {
             get
             {
-                return TimeSpan.FromTicks(TimeElapsedTicks).ToString();
+                if (TimeElapsedTicks == null) return "";
+                return TimeSpan.FromTicks((long) TimeElapsedTicks).ToString();
 //                if (TimeElapsed == null) return "";
 //                int days = 0;
 //                if (((DateTime)TimeElapsed).Day > 1)

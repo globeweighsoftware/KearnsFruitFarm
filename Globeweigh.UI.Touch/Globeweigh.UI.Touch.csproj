@@ -204,6 +204,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BaseClasses\WindowBase.cs" />
     <Compile Include="Helpers\EAN128Parser.cs" />
     <Compile Include="Helpers\UtilitiesTouch.cs" />
     <Compile Include="Installer1.cs">

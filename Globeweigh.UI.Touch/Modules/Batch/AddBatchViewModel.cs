@@ -52,14 +52,6 @@ namespace Globeweigh.UI.Touch
             set { Set(ref _SelectedProduct, value); }
         }
 
-        private bool? _DialogResult;
-        public bool? DialogResult
-        {
-            get { return _DialogResult; }
-            private set { Set(ref _DialogResult, value); }
-        }
-
-
         #endregion
 
         #region Commands

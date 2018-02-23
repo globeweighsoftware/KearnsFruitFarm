@@ -47,6 +47,8 @@ namespace Globeweigh.UI.Touch
             SimpleIoc.Default.Register<IBatchRepository>(() => new BatchRepository());
             SimpleIoc.Default.Register<IOperatorRepository>(() => new OperatorRepository());
             SimpleIoc.Default.Register<IProductRepository>(() => new ProductRepository());
+            SimpleIoc.Default.Register<IPortionRepository>(() => new PortionRepository());
+            SimpleIoc.Default.Register<IScaleRepository>(() => new ScaleRepository());
         }
 
 

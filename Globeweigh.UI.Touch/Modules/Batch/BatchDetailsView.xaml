@@ -3,21 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-	         xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
 	         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
 	         xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
-	         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
-	         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+	         xmlns:internal="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
 	         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
 	         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-	         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-	         xmlns:command="http://www.galasoft.ch/mvvmlight"
-	         md:DialogServiceViews.IsRegistered="True"
+	         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+	         xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
+             xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+             xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
+             md:DialogServiceViews.IsRegistered="True" dx:ThemeManager.ThemeName="MetropolisLight"
 	         x:Class="Globeweigh.UI.Touch.BatchDetailsView"
              mc:Ignorable="d" 
-             d:DesignHeight="768" d:DesignWidth="1024" Background="White"
-                 dx:ThemeManager.ThemeName="MetropolisLight"
-             shared:ViewModelBehavior.LoadUnload="True" DataContext="{Binding BatchDetailsView, Source={StaticResource Locator}}">
+             d:DesignHeight="1024" d:DesignWidth="1280"
+             shared:ViewModelBehavior.LoadUnload="True"
+             DataContext="{Binding BatchDetailsView, Source={StaticResource Locator}}" >
     <UserControl.Resources>
         <ResourceDictionary>
 
@@ -25,31 +25,12 @@
             <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
             <converters:TrueToCollapsedConverter x:Key="TrueToCollapsedConverter"/>
             <converters:NullToVisibleConverter x:Key="NullToVisibleConverter"/>
-<!--            <converters:BooleanToCollapsedMultiConverter x:Key="BooleanToCollapsedMultiConverter"/>-->
             <converters:GreaterThanOrEqualConverter x:Key="GreaterThanOrEqualConverter" Cutoff="6"/>
 
-            <Style x:Key="NavigateBackButtonStyle" TargetType="{x:Type Button}">
-                <Setter Property="OverridesDefaultStyle" Value="True"/>
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate  TargetType="{x:Type Button}">
-                            <Grid Background="{TemplateBinding Background}">
-                                <Ellipse Stroke="{TemplateBinding BorderBrush}" StrokeThickness="3"/>
-<!--                                <ed:BlockArrow Height="Auto" Orientation="Left" Stroke="White" Width="Auto" Margin="10" StrokeThickness="3" ArrowBodySize="0.29"/>-->
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter Property="Margin" Value="4"/>
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter Property="Background" Value="Black"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+            <Style x:Key="rowStyle" TargetType="{x:Type dxg:RowControl}">
+                <Setter Property="Height" Value="24"/>
             </Style>
+
             <Style x:Key="ScaleBorderStyle" TargetType="{x:Type Border}">
                 <!--<Setter Property="Background" Value="{DynamicResource appBarBackgroundBrush}"/>-->
                 <Setter Property="BorderBrush" Value="{DynamicResource DividerLineGrayBrush}"/>
@@ -60,12 +41,12 @@
             <Style x:Key="ScaleItemContainerStyle" TargetType="{x:Type ListViewItem}">
                 <Setter Property="VerticalContentAlignment" Value="Stretch"/>
                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                <Setter Property="Foreground" Value="{DynamicResource blueForegroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource GlobeweighBlueBrush}"/>
                 <Setter Property="Margin" Value="4"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border  d:DesignWidth="630" d:DesignHeight="126" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
+                            <Border  d:DesignWidth="420" d:DesignHeight="170" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
                                 <!--<Border.Effect>
                                     <DropShadowEffect ShadowDepth="1"/>
                                 </Border.Effect>-->
@@ -75,9 +56,9 @@
                                             <ColumnDefinition Width="90"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <Border x:Name="statusBorder" Background="#FFE0E0E0" BorderBrush="{DynamicResource DividerLineBrush}" BorderThickness="0">
+                                        <Border x:Name="statusBorder" Background="#FFE0E0E0" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0">
                                             <Grid Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <Ellipse x:Name="circle" Fill="{DynamicResource blueForegroundBrush}" Stroke="Black" Height="70" StrokeThickness="0" Margin="0" Width="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                <Ellipse x:Name="circle" Fill="{DynamicResource GlobeweighBlueBrush}" Stroke="Black" Height="70" StrokeThickness="0" Margin="0" Width="70" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                                 <TextBlock Text="{Binding ScaleNumber, FallbackValue=2}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="34" Margin="0" Grid.Row="1" FontWeight="Bold" Foreground="White"/>
                                             </Grid>
                                         </Border>
@@ -90,7 +71,7 @@
                                                     <ColumnDefinition Width="85*"/>
                                                     <ColumnDefinition Width="120"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource DividerLineBrush}" BorderThickness="0,0,1,0" Grid.ColumnSpan="1">
+                                                <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,1,0" Grid.ColumnSpan="1">
                                                     <Grid Margin="14,10" VerticalAlignment="Center">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="*"/>
@@ -120,9 +101,9 @@
                                                         </Grid>
                                                     </Grid>
                                                 </Border>
-                                                <Border Margin="4" Background="White" BorderBrush="{DynamicResource DividerLineBrush}" Grid.Column="1" HorizontalAlignment="Right" Width="112">
+                                                <Border Margin="4" Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Column="1" HorizontalAlignment="Right" Width="112">
                                                     <Grid Margin="0,10">
-                                                        <Button Margin="10" Content="Logoff" BorderThickness="1" Style="{DynamicResource SecondaryButtonStyle}" Command="{Binding OperatorLogOffCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                                        <Button Margin="10" Content="Logoff" BorderThickness="1"  Style="{DynamicResource RoundedButtonStyle}" Command="{Binding OperatorLogOffCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                                     </Grid>
                                                 </Border>
                                             </Grid>
@@ -131,14 +112,14 @@
                                                     <ColumnDefinition Width="*"/>
                                                     <ColumnDefinition Width="120"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource DividerLineBrush}" BorderThickness="0,0,1,0" Grid.ColumnSpan="1">
+                                                <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,1,0" Grid.ColumnSpan="1">
                                                     <Grid Margin="30,14">
                                                         <TextBlock Text="DISCONNECTED" FontSize="28" VerticalAlignment="Center" Foreground="#FFC70000" HorizontalAlignment="Center" FontWeight="Bold"/>
                                                     </Grid>
                                                 </Border>
-                                                <Border Margin="0" Background="White" BorderBrush="{DynamicResource DividerLineBrush}" Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto">
+                                                <Border Margin="0" Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto">
                                                     <Grid Margin="0,10">
-                                                        <Button Margin="10" Content="Retry" BorderThickness="1" Style="{DynamicResource SecondaryButtonStyle}" Command="{Binding RetryConnectionCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
+                                                        <Button Margin="10" Content="Retry" BorderThickness="1" Style="{DynamicResource RoundedButtonStyle}" Command="{Binding RetryConnectionCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
                                                     </Grid>
                                                 </Border>
                                             </Grid>
@@ -154,7 +135,7 @@
                                     <Setter Property="Fill" TargetName="circle" Value="Red"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding UserPacksPerMin}" Value="0.0" >
-                                    <Setter Property="Fill" TargetName="circle" Value="{DynamicResource blueForegroundBrush}"/>
+                                    <Setter Property="Fill" TargetName="circle" Value="{DynamicResource GlobeweighBlueBrush}"/>
                                 </DataTrigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -164,216 +145,195 @@
 
             <ControlTemplate x:Key="SelectUserButtonStyle" TargetType="{x:Type Button}">
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Transparent">
-                    <TextBlock Text="Select User to Log in" FontSize="30" Foreground="{DynamicResource blueForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Select User to Log in" FontSize="30" Foreground="{DynamicResource GlobeweighBlueBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </ControlTemplate>
-
-            <Style x:Key="Over100AndOverrideTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseElementStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsOver100}" Value="True">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding SelectedBatchView.Override}" Value="True">
-                        <Setter Property="Foreground" Value="Red"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
-            <Style x:Key="Over100TextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseElementStyle}">
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsOver100}" Value="True">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-
-
-
 
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="PreviewKeyDown">
-            <command:EventToCommand Command="{Binding KeyPreviewDownCommand}" PassEventArgsToCommand="True"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
-    <Grid Background="{DynamicResource ContentGreyBrush}">
-        <Grid>
+    <Grid Background="White" Margin="0">
+        <Grid Margin="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="60"/>
+
             </Grid.RowDefinitions>
-            <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource DividerLineGrayBrush}"/>
-            <Border Background="#FF2F323A">
-                <Grid>
+            <Border Style="{DynamicResource BorderBlurStyle}" Background="{DynamicResource LightGreyBrush}">
+                <Grid Margin="0,0,20,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1179*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Height="46" Width="46" Command="{Binding NavigateBackCommand}" Visibility="{Binding IsSlave, Converter={StaticResource TrueToCollapsedConverter}}" BorderBrush="White" BorderThickness="10" Style="{DynamicResource NavigateBackButtonStyle}"/>
-                    <TextBlock Text="{Binding SelectedBatchView.id, StringFormat=BatchNo: \{0\}, FallbackValue=BatchNo: Id}" Grid.Column="1" VerticalAlignment="Center" FontSize="28" Foreground="White" Margin="0,0,20,0"/>
-                    <TextBlock Text="{Binding SelectedBatchView.ProductName, StringFormat=Product: \{0\}, FallbackValue=Product Name}" Grid.Column="2" VerticalAlignment="Center" FontSize="28" Foreground="White" Margin="20,0"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <internal:BackButton dx:ThemeManager.ThemeName="MetropolisLight" Margin="0,0,10,0" VerticalAlignment="Center" Command="{Binding NavigateBackCommand}" StrokeThickness="4" Width="60" Height="60"  />
+                        <TextBlock Text="Batch ID: " Margin="0" VerticalAlignment="Center" FontSize="30" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
+                        <TextBlock Text="{Binding SelectedBatchView.id}" Margin="0" VerticalAlignment="Center" FontSize="30" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
+                    </StackPanel>
+
                 </Grid>
             </Border>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Border x:Name="BatchsBorder" Background="{DynamicResource ContentGreyBrush}" Margin="0,3,0,0">
-                    <ListView x:Name="lstScales" Width="Auto" Height="Auto" ItemsSource="{Binding ScaleList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource ScaleItemContainerStyle}" Grid.Row="1" Grid.Column="1" Background="{x:Null}">
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="1" Rows="6"/>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Border>
-                <Border x:Name="BatchOptionsBorder" Grid.Column="1" Background="{DynamicResource ContentGreyBrush}" Margin="4,4,4,0">
-                    <Grid>
-                        <Grid x:Name="LiveGrid" Margin="0">
+            <Border Margin="0" Grid.Row="2" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,2" >
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1,0,0,0" Margin="0" Background="{DynamicResource LightGreyBrush}" Grid.Column="2">
+                        <ListView x:Name="lstScales" Width="Auto" Height="Auto" ItemsSource="{Binding ScaleList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource ScaleItemContainerStyle}" Grid.Row="1" Grid.Column="1" Background="{x:Null}">
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+<!--                                    <UniformGrid Columns="1" Rows="8"/>-->
+                                    <controls:UniformGridWithOrientation Orientation="Vertical" Columns="2" Rows="5"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Border>
+                    <Border BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1,0,0,0" Margin="0" Grid.Column="1"/>
+                    <Border  Background="White" Margin="0">
+                        <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="2*"/>
-                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="130"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="130"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="100"/>
+
                             </Grid.RowDefinitions>
-                            <Grid Margin="4">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid Background="White">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="34"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource DividerLineGrayBrush}">
-                                        <Grid Margin="14,3.312">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="160"/>
-                                                <ColumnDefinition Width="17*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="Product Details" Foreground="{DynamicResource blueForegroundBrush}" VerticalAlignment="Center" FontSize="20" Margin="0"/>
-                                            <TextBlock Text="(Overridden)" Foreground="Red" VerticalAlignment="Center" FontSize="20" Margin="0" Grid.Column="1" Visibility="{Binding SelectedBatchView.Override, Converter={StaticResource TrueToVisibilityConverter}}"/>
-                                        </Grid>
-                                    </Border>
-                                    <Grid Grid.Row="1" Margin="16,10">
+                            <Border Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,1">
+                                <Grid Margin="14,3.312">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="17*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Product Details"  VerticalAlignment="Center" FontSize="18" Margin="0" Foreground="{DynamicResource GlobeweighBlueBrush}" FontFamily="Segoe UI Semibold"/>
+                                    <TextBlock Text="(Overridden)" Foreground="Red" VerticalAlignment="Center" FontSize="20" Margin="0" Grid.Column="1" Visibility="{Binding SelectedBatchView.Override, Converter={StaticResource TrueToVisibilityConverter}}"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="0,0,0,1" Background="{DynamicResource LightGreyBrush}" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Row="1">
+                                <Grid Margin="0">
+                                    <Grid Margin="10,4">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="130"/>
+                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Product:" VerticalAlignment="Center" FontSize="16"/>
-                                        <TextBlock Text="Lower Limit:" VerticalAlignment="Center" FontSize="16" Grid.Row="1"/>
-                                        <TextBlock Text="Upper Limit:" VerticalAlignment="Center" FontSize="16" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.ProductName}" VerticalAlignment="Center" FontSize="16" Grid.Column="1" Grid.ColumnSpan="3"/>
-                                        <TextBlock Text="{Binding BatchLowerLimit, StringFormat=\{0\}g}" VerticalAlignment="Center" FontSize="16" Grid.Row="1" Grid.Column="1" Style="{DynamicResource Over100AndOverrideTextBlockStyle}"/>
-                                        <TextBlock Text="{Binding BatchUpperLimit, StringFormat=\{0\}g}" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="1" Style="{DynamicResource Over100AndOverrideTextBlockStyle}"/>
-                                        <TextBlock Text="Tare:" VerticalAlignment="Center" FontSize="16" Grid.Column="2" Grid.Row="1"/>
-                                        <TextBlock Text="Nominal Weight:" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.Tare, StringFormat=\{0\}g}" VerticalAlignment="Center" FontSize="16" Grid.Row="1" Grid.Column="3"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.NominalWeight, StringFormat=\{0\}g}" VerticalAlignment="Center" FontSize="16" Grid.Column="3" Grid.Row="2"/>
+                                        <TextBlock Text="Product:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
+                                        <TextBlock Text="{Binding SelectedBatchView.ProductName}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="1" Grid.ColumnSpan="3"/>
+                                        <TextBlock Text="Lower:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1"/>
+                                        <TextBlock Text="{Binding BatchLowerLimit, StringFormat=\{0\}g}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="1"/>
+                                        <TextBlock Text="Upper:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2"/>
+                                        <TextBlock Text="{Binding BatchUpperLimit, StringFormat=\{0\}g}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="1"/>
+                                        <TextBlock Text="Nominal:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding SelectedBatchView.Tare, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="3"/>
+                                        <TextBlock Text="Tare:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding SelectedBatchView.NominalWeight, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="3"/>
+
                                     </Grid>
+
+
                                 </Grid>
-                                <Grid Background="White" Grid.RowSpan="2" Grid.Row="1" Visibility="{Binding IsSlave, Converter={StaticResource TrueToCollapsedConverter}}">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="34"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Border BorderThickness="0,1" BorderBrush="{DynamicResource DividerLineGrayBrush}">
-                                        <TextBlock Text="Batch Summary" Foreground="{DynamicResource blueForegroundBrush}" VerticalAlignment="Center" FontSize="20" Margin="14,0"/>
-                                    </Border>
-                                    <Grid Grid.Row="1" Margin="16,10">
+                            </Border>
+                            <Border Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,1" Grid.Row="2">
+                                <Grid Margin="14,3.312">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="17*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Batch Summary"  VerticalAlignment="Center" FontSize="18" Margin="0" Foreground="{DynamicResource GlobeweighBlueBrush}" FontFamily="Segoe UI Semibold"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="0,0,0,1" Background="{DynamicResource LightGreyBrush}" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Row="3">
+                                <Grid Margin="0">
+                                    <Grid Margin="10,4">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="86"/>
+                                            <ColumnDefinition Width="100"/>
                                             <ColumnDefinition Width="110"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="120"/>
-                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="40"/>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
+
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="Time Elapsed:" VerticalAlignment="Center" FontSize="16"/>
-                                        <TextBlock Text="Total Packs:" VerticalAlignment="Center" FontSize="16" Grid.Row="1"/>
-                                        <TextBlock Text="Packs/Min:" VerticalAlignment="Center" FontSize="16" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.TimeElapsedDisplay}" VerticalAlignment="Center" FontSize="16" Grid.Column="1"/>
-                                        <TextBlock Text="{Binding TotalPacksCount}" VerticalAlignment="Center" FontSize="16" Grid.Row="1" Grid.Column="1" Style="{DynamicResource Over100TextBlockStyle}"/>
-                                        <TextBlock Text="{Binding PacksPerMin, StringFormat=N2}" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="1"/>
-                                        <TextBlock Text="Total Weight:" VerticalAlignment="Center" FontSize="16" Grid.Column="2"/>
-                                        <TextBlock Text="Avg. Weight:" VerticalAlignment="Center" FontSize="16" Grid.Column="2" Grid.Row="1"/>
-                                        <TextBlock Text="Avg. Giveaway:" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding TotalWeight, StringFormat=\{0\}Kg}" VerticalAlignment="Center" FontSize="16" Grid.Column="3"/>
-                                        <TextBlock Text="{Binding AverageWeight, StringFormat=\{0\}g}" VerticalAlignment="Center" FontSize="16" Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="1"/>
-                                        <TextBlock Text="{Binding GiveawayDisplay}" VerticalAlignment="Center" FontSize="16" Grid.Row="2" Grid.Column="3"/>
+                                        <TextBlock Text="Time:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
+                                        <TextBlock Text="{Binding SelectedBatchView.TimeElapsedDisplay}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="1"/>
+                                        <TextBlock Text="Total Packs:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1"/>
+                                        <TextBlock Text="{Binding TotalPacksCount}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="1"/>
+                                        <TextBlock Text="Packs/Min:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2"/>
+                                        <TextBlock Text="{Binding PacksPerMin, StringFormat=N2}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="1"/>
+
+                                        <TextBlock Text="Total Weight:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding TotalWeight, StringFormat=\{0\}Kg}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="3"/>
+                                        <TextBlock Text="Avg. Weight:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding AverageWeight, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="3"/>
+                                        <TextBlock Text="Avg. Giveaway:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding GiveawayDisplay}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="18" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="3"/>
+
                                     </Grid>
+
+
                                 </Grid>
-                            </Grid>
-                            <Grid Margin="4,2,4,4" Grid.Row="1" Visibility="{Binding IsSlave, Converter={StaticResource TrueToCollapsedConverter}}">
-                                <Grid Background="White" Grid.Row="1">
-                                    <dxg:GridControl ShowBorder="True" FontSize="14" ItemsSource="{Binding PortionList}" SelectionMode="None" Margin="4">
-                                        <dxg:GridControl.Columns>
-                                            <dxg:GridColumn FieldName="OperatorName" Header="Operator">
-                                                <dxg:GridColumn.EditSettings>
-                                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                                </dxg:GridColumn.EditSettings>
-                                            </dxg:GridColumn>
-                                            <dxg:GridColumn FieldName="ScaleNo" Header="Scale" Width="60">
-                                                <dxg:GridColumn.EditSettings>
-                                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                                </dxg:GridColumn.EditSettings>
-                                            </dxg:GridColumn>
-                                            <dxg:GridColumn FieldName="Giveaway" Header="Giveaway" Width="70">
-                                                <dxg:GridColumn.EditSettings>
-                                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                                </dxg:GridColumn.EditSettings>
-                                            </dxg:GridColumn>
-                                            <dxg:GridColumn FieldName="Weight" Header="Weight" Width="60">
-                                                <dxg:GridColumn.EditSettings>
-                                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                                </dxg:GridColumn.EditSettings>
-                                            </dxg:GridColumn>
-                                            <dxg:GridColumn FieldName="DateCreated" Header="Date/Time" Width="120" >
-                                                <dxg:GridColumn.EditSettings>
-                                                    <dxe:TextEditSettings MaskType="DateTime" Mask="dd/MM/yyyy HH:mm" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Left" />
-                                                </dxg:GridColumn.EditSettings>
-                                            </dxg:GridColumn>
-                                        </dxg:GridControl.Columns>
-                                        <dxg:GridControl.View>
-                                            <dxg:TableView AllowEditing="False" ShowAutoFilterRow="False" AllowPerPixelScrolling="True" AutoWidth="True" ShowIndicator="False"
-                                                ShowGroupPanel="False" ShowSearchPanelMode="Never" NavigationStyle="None" ShowFilterPanelMode="Never" AllowMoveColumnToDropArea="False" AlternateRowBackground="{DynamicResource ContentGreyBrush}"/>
-                                        </dxg:GridControl.View>
-                                    </dxg:GridControl>
+                            </Border>
+                            <dxg:GridControl x:Name="grdPalletProducts" ItemsSource="{Binding PortionList}" FontSize="14" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="4" FontFamily="Segoe UI Semibold" Margin="2" >
+                                <dxg:GridControl.View>
+                                    <dxg:TableView AllowPerPixelScrolling="True" AllowSorting="False" ShowColumnHeaders="True" RowStyle="{DynamicResource rowStyle}" ShowGroupPanel="False" ShowIndicator="True" AutoWidth="True" NavigationStyle="None" />
+                                </dxg:GridControl.View>
+                                <dxg:GridControl.Columns>
+                                    <dxg:GridColumn FieldName="OperatorName" Header="Operator">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="ScaleNo" Header="Scale" Width="60" FixedWidth="True">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <!--<dxg:GridColumn FieldName="Giveaway" Header="Giveaway" Width="70" FixedWidth="True">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>-->
+                                    <dxg:GridColumn FieldName="Weight" Header="Weight" Width="60" FixedWidth="True">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                    <dxg:GridColumn FieldName="DateCreated" Header="Date/Time" Width="120" FixedWidth="True">
+                                        <dxg:GridColumn.EditSettings>
+                                            <dxe:TextEditSettings MaskType="DateTime" Mask="dd/MM/yyyy HH:mm" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Left" />
+                                        </dxg:GridColumn.EditSettings>
+                                    </dxg:GridColumn>
+                                </dxg:GridControl.Columns>
+                            </dxg:GridControl>
+                            <Border Grid.Row="5" Margin="2" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--                                    <Button Content="Scan Boxes" Command="{Binding ScanBoxesCommand}" Style="{DynamicResource PrimaryButtonStyle}" BorderThickness="2" Height="66" Margin="10,0,5,0"/>-->
+
                                 </Grid>
-                            </Grid>
+                            </Border>
                         </Grid>
-                    </Grid>
-                </Border>
-
-
-            </Grid>
-            <Border Grid.Row="2" Background="White" Margin="4,0,8,2" BorderThickness="0" BorderBrush="{DynamicResource DividerLineGrayBrush}" Visibility="Visible">
-                <StackPanel Orientation="Horizontal" Margin="4,0,0,0" Visibility="{Binding IsSlave, Converter={StaticResource TrueToCollapsedConverter}}">
-                    <Button Command="{Binding OverrideCommand}" Style="{DynamicResource SecondaryButtonStyle}" Content="Override Limits" HorizontalAlignment="Center" Width="160" Height="52" Margin="0" FontSize="20">
-                        <!--                        <Button.Visibility>-->
-                        <!--                            <MultiBinding Converter="{StaticResource BooleanToCollapsedMultiConverter}">-->
-                        <!--                                <Binding Path="BatchInProgress" />-->
-                        <!--                                <Binding Path="IsSlave" />-->
-                        <!--                            </MultiBinding>-->
-                        <!--                        </Button.Visibility>-->
-                    </Button>
-                    <Button Command="{Binding BreakCommand}" Style="{DynamicResource SecondaryButtonStyle}" Visibility="{Binding BatchInProgress, Converter={StaticResource TrueToVisibilityConverter}}" Content="Break Mode" HorizontalAlignment="Center" Width="160" Height="52" Margin="30,0,0,0" FontSize="20"/>
-                </StackPanel>
+                    </Border>
+                </Grid>
             </Border>
         </Grid>
     </Grid>

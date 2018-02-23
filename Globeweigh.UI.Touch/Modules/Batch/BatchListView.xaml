@@ -35,11 +35,11 @@
                 </Style.Triggers>
             </Style>-->
 
-            <Style TargetType="{x:Type dxg:GridColumnHeader}">
-                <Setter Property="Height" Value="40"></Setter>
-                <Setter Property="Foreground" Value="Black" />
-                <Setter Property="FontSize" Value="16" />
-            </Style>
+<!--            <Style TargetType="{x:Type dxg:GridColumnHeader}">-->
+<!--                <Setter Property="Height" Value="40"></Setter>-->
+<!--                <Setter Property="Foreground" Value="Black" />-->
+<!--                <Setter Property="FontSize" Value="16" />-->
+<!--            </Style>-->
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -79,7 +79,7 @@
                                     AllowSorting="False" ShowIndicator="False"  AutoWidth="True"  NavigationStyle="Row"  VerticalScrollbarVisibility="Auto" ShowFilterPanelMode="Never"/>
                             </dxg:GridControl.View>
                             <dxg:GridColumn FieldName="id"  Header="Batch ID" Width="40"/>
-                            <dxg:GridColumn FieldName="ProductName"  Header="Product "/>
+                            <dxg:GridColumn FieldName="ProductName"  Header="Product"/>
                             <dxg:GridColumn FieldName="LowerLimit"  Header="Lower"  Width="80" FixedWidth="True">
                                 <dxg:GridColumn.EditSettings>
                                     <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
@@ -126,4 +126,6 @@
         </Grid>
     </Grid>
 </UserControl>
+
+
 

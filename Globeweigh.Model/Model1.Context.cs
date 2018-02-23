@@ -35,13 +35,13 @@ namespace Globeweigh.Model
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<Operator> Operators { get; set; }
         public virtual DbSet<Portion> Portions { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ReferenceData> ReferenceDatas { get; set; }
         public virtual DbSet<Scale> Scales { get; set; }
         public virtual DbSet<vwBatchView> vwBatchViews { get; set; }
         public virtual DbSet<vwOperatorBatch> vwOperatorBatches { get; set; }
         public virtual DbSet<vwOperatorRefData> vwOperatorRefDatas { get; set; }
         public virtual DbSet<vwPortionView> vwPortionViews { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
     
         public virtual ObjectResult<spGetDispatchPalletProductsGrouped_Result> spGetDispatchPalletProductsGrouped(Nullable<int> dispatchOrderId, Nullable<int> dispatchPalletId)
         {

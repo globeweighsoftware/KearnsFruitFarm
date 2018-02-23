@@ -132,32 +132,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private int _FiftyCount;
-        public int FiftyCount
-        {
-            get { return _FiftyCount; }
-            set
-            {
-                if (_FiftyCount != value)
-                {
-                    _FiftyCount = value;
-                    OnPropertyChanged("FiftyCount");
-                }
-            }
-        }
-        private bool _IsLive;
-        public bool IsLive
-        {
-            get { return _IsLive; }
-            set
-            {
-                if (_IsLive != value)
-                {
-                    _IsLive = value;
-                    OnPropertyChanged("IsLive");
-                }
-            }
-        }
         private bool _Deleted;
         public bool Deleted
         {

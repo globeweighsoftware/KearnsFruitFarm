@@ -4,12 +4,10 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Globeweigh.UI.Shared;
 using Globeweigh.UI.Shared.Services;
-using Globeweigh.UI.Touch.Model;
 using MvvmDialogs;
 using System.Windows;
 using System.Windows.Input;
@@ -19,9 +17,6 @@ using GalaSoft.MvvmLight.Ioc;
 using Globeweigh.Model;
 using Globeweigh.UI.Shared.Helpers;
 using System.Threading.Tasks;
-using DevExpress.Mvvm.POCO;
-using Globeweigh.Model.Custom;
-using Globeweigh.Model.Helpers;
 
 namespace Globeweigh.UI.Touch
 {
@@ -104,8 +99,8 @@ namespace Globeweigh.UI.Touch
             set { Set(ref _CurrentDate, value); }
         }
 
-        private List<Operator> _OperatorList;
-        public List<Operator> OperatorList
+        private List<vwOperatorBatch> _OperatorList;
+        public List<vwOperatorBatch> OperatorList
         {
             get { return _OperatorList; }
             set { Set(ref _OperatorList, value); }
@@ -274,51 +269,23 @@ namespace Globeweigh.UI.Touch
 //            }
         }
 
-        private async Task AddOperatorToScale(Scale selectedScale, Operator selectedOperator)
+        private async Task AddOperatorToScale(Scale selectedScale, vwOperatorBatch selectedOperator)
         {
             selectedScale.OperatorId = selectedOperator.id;
-            selectedScale.OperatorName = selectedOperator.DisplayName;
-            if (selectedOperator.TimeElapsed == null)
+            selectedScale.OperatorName = selectedOperator.FullName;
+            if (selectedOperator.TimeElapsedTicks == null)
             {
                 await _batchRepo.AddBatchOperatorTimeAsync(SelectedBatchView.id, selectedOperator.id);
             }
             else
             {
-                if (selectedOperator.TimeElapsed == null)
+                if (selectedOperator.TimeElapsedTicks == null)
                     selectedScale.TimeElapsedTicks = 0;
                 else
-                    selectedScale.TimeElapsedTicks = (long)selectedOperator.TimeElapsed;
+                    selectedScale.TimeElapsedTicks = (long)selectedOperator.TimeElapsedTicks;
             }
             selectedScale.UserPackCount = PortionList.Count(a => a.OperatorId == selectedScale.OperatorId);
             await _scaleRepo.AddOperatorIdToScale(selectedOperator.id, selectedScale.id);
-        }
-
-        private async void slaveScaleTimer_tick(object sender, EventArgs e)
-        {
-            try
-            {
-                var changes = await _scaleRepo.RefreshSlaveOperators(ScaleList);
-                if (!changes) return;
-
-                foreach (var scale in ScaleList.Where(a => a.OperatorChanged))
-                {
-                    if (scale.OperatorId == null)
-                    {
-                        OnOperatorLogOff(scale);
-                    }
-                    else
-                    {
-                        var operatorRefData = _OperatorList.FirstOrDefault(a => a.id == scale.OperatorId);
-                        if (operatorRefData == null) continue;
-                        await AddOperatorToScale(scale, operatorRefData);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "slaveScaleTimer_tick");
-            }
-
         }
 
         private async void OnOperatorLogOff(Scale scale)
@@ -330,7 +297,7 @@ namespace Globeweigh.UI.Touch
                 scale.UserPackCount = 0;
                 scale.OperatorId = null;
                 scale.TimeElapsedTicks = 0;
-                OperatorList = new List<Operator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+                OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
 
                 if (ScaleList.All(a => a.OperatorId == null))
                 {
@@ -397,9 +364,6 @@ namespace Globeweigh.UI.Touch
                 decimal percentageGiveaway = (averageGiveaway / (int)SelectedBatchView.NominalWeight) * 100;
                 GiveawayDisplay = averageGiveaway.ToString("N0") + "g" + " (" + percentageGiveaway.ToString("N1") + "%)";
             }
-
-
-            //            if (IsSlave) return;
 
             if (TotalPacksCount == 100)
                 SendLimitCommands();
@@ -550,7 +514,7 @@ namespace Globeweigh.UI.Touch
                 if (message.Length < 29) return;
 
                 IPEndPoint remoteIpEndPoint = connection.RemoteEndPoint as IPEndPoint;
-                var scale = ScaleList.FirstOrDefault(a => a.NetConnectionIpAddress == remoteIpEndPoint.Address.ToString());
+                var scale = ScaleList.FirstOrDefault(a => a.ScaleIpAddress == remoteIpEndPoint.Address.ToString());
                 if (scale != null)
                 {
                     if (scale.OperatorId == null) return;
@@ -591,10 +555,10 @@ namespace Globeweigh.UI.Touch
             _connectionStatusTimer.Tick += conectionStatusTimer_tick;
 
             CurrentDate = DateTime.Now;
-            OperatorList = new List<Operator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+            OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
             ScaleList = new List<Scale>(await _scaleRepo.GetScales());
             SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
-            _50Countdown = SelectedBatchView.FiftyCount;
+            //_50Countdown = SelectedBatchView.FiftyCount;
             await RefreshPortionList();
             OpenAndSetTcpConnections(0);
         }

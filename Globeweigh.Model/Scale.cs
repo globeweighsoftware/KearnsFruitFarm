@@ -54,19 +54,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private string _NetConnectionIpAddress;
-        public string NetConnectionIpAddress
-        {
-            get { return _NetConnectionIpAddress; }
-            set
-            {
-                if (_NetConnectionIpAddress != value)
-                {
-                    _NetConnectionIpAddress = value;
-                    OnPropertyChanged("NetConnectionIpAddress");
-                }
-            }
-        }
         private string _ScaleIpAddress;
         public string ScaleIpAddress
         {
@@ -77,32 +64,6 @@ namespace Globeweigh.Model
                 {
                     _ScaleIpAddress = value;
                     OnPropertyChanged("ScaleIpAddress");
-                }
-            }
-        }
-        private bool _Slave;
-        public bool Slave
-        {
-            get { return _Slave; }
-            set
-            {
-                if (_Slave != value)
-                {
-                    _Slave = value;
-                    OnPropertyChanged("Slave");
-                }
-            }
-        }
-        private Nullable<int> _SlaveOrder;
-        public Nullable<int> SlaveOrder
-        {
-            get { return _SlaveOrder; }
-            set
-            {
-                if (_SlaveOrder != value)
-                {
-                    _SlaveOrder = value;
-                    OnPropertyChanged("SlaveOrder");
                 }
             }
         }

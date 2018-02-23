@@ -67,19 +67,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private string _ProductName;
-        public string ProductName
-        {
-            get { return _ProductName; }
-            set
-            {
-                if (_ProductName != value)
-                {
-                    _ProductName = value;
-                    OnPropertyChanged("ProductName");
-                }
-            }
-        }
         private bool _Deleted;
         public bool Deleted
         {
@@ -93,58 +80,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private Nullable<int> _LowerLimit;
-        public Nullable<int> LowerLimit
-        {
-            get { return _LowerLimit; }
-            set
-            {
-                if (_LowerLimit != value)
-                {
-                    _LowerLimit = value;
-                    OnPropertyChanged("LowerLimit");
-                }
-            }
-        }
-        private Nullable<int> _UpperLimit;
-        public Nullable<int> UpperLimit
-        {
-            get { return _UpperLimit; }
-            set
-            {
-                if (_UpperLimit != value)
-                {
-                    _UpperLimit = value;
-                    OnPropertyChanged("UpperLimit");
-                }
-            }
-        }
-        private Nullable<int> _NominalWeight;
-        public Nullable<int> NominalWeight
-        {
-            get { return _NominalWeight; }
-            set
-            {
-                if (_NominalWeight != value)
-                {
-                    _NominalWeight = value;
-                    OnPropertyChanged("NominalWeight");
-                }
-            }
-        }
-        private Nullable<int> _AveragePacksPerminute;
-        public Nullable<int> AveragePacksPerminute
-        {
-            get { return _AveragePacksPerminute; }
-            set
-            {
-                if (_AveragePacksPerminute != value)
-                {
-                    _AveragePacksPerminute = value;
-                    OnPropertyChanged("AveragePacksPerminute");
-                }
-            }
-        }
         private Nullable<int> _PortionCount;
         public Nullable<int> PortionCount
         {
@@ -155,19 +90,6 @@ namespace Globeweigh.Model
                 {
                     _PortionCount = value;
                     OnPropertyChanged("PortionCount");
-                }
-            }
-        }
-        private Nullable<int> _Tare;
-        public Nullable<int> Tare
-        {
-            get { return _Tare; }
-            set
-            {
-                if (_Tare != value)
-                {
-                    _Tare = value;
-                    OnPropertyChanged("Tare");
                 }
             }
         }
@@ -194,19 +116,6 @@ namespace Globeweigh.Model
                 {
                     _TimeElapsedTicks = value;
                     OnPropertyChanged("TimeElapsedTicks");
-                }
-            }
-        }
-        private string _Code;
-        public string Code
-        {
-            get { return _Code; }
-            set
-            {
-                if (_Code != value)
-                {
-                    _Code = value;
-                    OnPropertyChanged("Code");
                 }
             }
         }
@@ -275,29 +184,81 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private int _FiftyCount;
-        public int FiftyCount
+        private string _ProductName;
+        public string ProductName
         {
-            get { return _FiftyCount; }
+            get { return _ProductName; }
             set
             {
-                if (_FiftyCount != value)
+                if (_ProductName != value)
                 {
-                    _FiftyCount = value;
-                    OnPropertyChanged("FiftyCount");
+                    _ProductName = value;
+                    OnPropertyChanged("ProductName");
                 }
             }
         }
-        private bool _IsLive;
-        public bool IsLive
+        private Nullable<int> _LowerLimit;
+        public Nullable<int> LowerLimit
         {
-            get { return _IsLive; }
+            get { return _LowerLimit; }
             set
             {
-                if (_IsLive != value)
+                if (_LowerLimit != value)
                 {
-                    _IsLive = value;
-                    OnPropertyChanged("IsLive");
+                    _LowerLimit = value;
+                    OnPropertyChanged("LowerLimit");
+                }
+            }
+        }
+        private Nullable<int> _UpperLimit;
+        public Nullable<int> UpperLimit
+        {
+            get { return _UpperLimit; }
+            set
+            {
+                if (_UpperLimit != value)
+                {
+                    _UpperLimit = value;
+                    OnPropertyChanged("UpperLimit");
+                }
+            }
+        }
+        private Nullable<int> _Tare;
+        public Nullable<int> Tare
+        {
+            get { return _Tare; }
+            set
+            {
+                if (_Tare != value)
+                {
+                    _Tare = value;
+                    OnPropertyChanged("Tare");
+                }
+            }
+        }
+        private Nullable<int> _NominalWeight;
+        public Nullable<int> NominalWeight
+        {
+            get { return _NominalWeight; }
+            set
+            {
+                if (_NominalWeight != value)
+                {
+                    _NominalWeight = value;
+                    OnPropertyChanged("NominalWeight");
+                }
+            }
+        }
+        private Nullable<int> _AveragePacksPerminute;
+        public Nullable<int> AveragePacksPerminute
+        {
+            get { return _AveragePacksPerminute; }
+            set
+            {
+                if (_AveragePacksPerminute != value)
+                {
+                    _AveragePacksPerminute = value;
+                    OnPropertyChanged("AveragePacksPerminute");
                 }
             }
         }

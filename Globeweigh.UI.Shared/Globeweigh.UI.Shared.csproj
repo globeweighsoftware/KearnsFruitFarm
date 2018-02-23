@@ -96,10 +96,10 @@
   <ItemGroup>
     <Compile Include="BaseClasses\DialogViewModelBase.cs" />
     <Compile Include="BaseClasses\ViewModelBase.cs" />
-    <Compile Include="BaseClasses\WindowBase.cs" />
     <Compile Include="Behaviours\ElementBehaviours.cs" />
     <Compile Include="Behaviours\IViewModel.cs" />
     <Compile Include="Behaviours\ViewModelBehavior.cs" />
+    <Compile Include="Controls\UniformGridWithOrientation.cs" />
     <Compile Include="Controls\TextBlockContentControl.cs" />
     <Compile Include="Controls\ImageButtonWithText.cs" />
     <Compile Include="Controls\NavigationButton.cs" />
@@ -202,10 +202,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Resource Include="ResourceDictionaries\SharedApplicationDefaults.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Resource>
-    <Resource Include="ResourceDictionaries\SharedElementStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>

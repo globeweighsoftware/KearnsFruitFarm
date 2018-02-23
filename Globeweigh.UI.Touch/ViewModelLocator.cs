@@ -29,11 +29,13 @@ namespace Globeweigh.UI.Touch
             SimpleIoc.Default.Register<BatchListViewModel>();
             SimpleIoc.Default.Register<AddBatchViewModel>();
             SimpleIoc.Default.Register<SelectProductViewModel>();
+            SimpleIoc.Default.Register<BatchDetailsViewModel>();
         }
 
         public MainWindowViewModel MainWindow => SimpleIoc.Default.GetInstance<MainWindowViewModel>();
         public HomeViewModel HomeView => SimpleIoc.Default.GetInstance<HomeViewModel>();
         public CleanScreenViewModel CleanScreenView => SimpleIoc.Default.GetInstance<CleanScreenViewModel>();
         public BatchListViewModel BatchListView => SimpleIoc.Default.GetInstance<BatchListViewModel>();
+        public BatchDetailsViewModel BatchDetailsView => SimpleIoc.Default.GetInstance<BatchDetailsViewModel>();
     }
 }

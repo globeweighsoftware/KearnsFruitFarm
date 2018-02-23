@@ -12,8 +12,6 @@ namespace Globeweigh.UI.Shared.Services
     public interface IScaleRepository
     {
         Task AddOperatorIdToScale(int? operatorId, int scaleId);
-        Task<bool> RefreshSlaveOperators(List<Scale> scaleList);
-        Task<bool> RefreshMasterOperators(List<Scale> scaleList);
         Task<List<Scale>> GetScales();
     }
 
@@ -46,48 +44,5 @@ namespace Globeweigh.UI.Shared.Services
             }
         }
 
-        public async Task<bool> RefreshSlaveOperators(List<Scale> scaleList)
-        {
-            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
-            {
-                var slaveScales = await context.Scales.Where(a => a.Slave).ToListAsync();
-                bool changes = false;
-                foreach (var scale in slaveScales)
-                {
-                    var matchedScale = scaleList.FirstOrDefault(a => a.id == scale.id);
-                    if (matchedScale == null) continue;
-                    matchedScale.OperatorChanged = false;
-                    if (scale.OperatorId != matchedScale.OperatorId)
-                    {
-                        matchedScale.OperatorId = scale.OperatorId;
-                        matchedScale.OperatorChanged = true;
-                        changes = true;
-                    }
-                }
-                return changes;
-            }
-        }
-
-        public async Task<bool> RefreshMasterOperators(List<Scale> scaleList)
-        {
-            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
-            {
-                var masterScales = await context.Scales.Where(a => !a.Slave).ToListAsync();
-                bool changes = false;
-                foreach (var scale in masterScales)
-                {
-                    var matchedScale = scaleList.FirstOrDefault(a => a.id == scale.id);
-                    if (matchedScale == null) continue;
-                    matchedScale.OperatorChanged = false;
-                    if (scale.OperatorId != matchedScale.OperatorId)
-                    {
-                        matchedScale.OperatorId = scale.OperatorId;
-                        matchedScale.OperatorChanged = true;
-                        changes = true;
-                    }
-                }
-                return changes;
-            }
-        }
     }
 }

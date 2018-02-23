@@ -28,19 +28,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private string _ProductName;
-        public string ProductName
-        {
-            get { return _ProductName; }
-            set
-            {
-                if (_ProductName != value)
-                {
-                    _ProductName = value;
-                    OnPropertyChanged("ProductName");
-                }
-            }
-        }
         private System.DateTime _DateCreated;
         public System.DateTime DateCreated
         {
@@ -119,19 +106,6 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private Nullable<int> _Giveaway;
-        public Nullable<int> Giveaway
-        {
-            get { return _Giveaway; }
-            set
-            {
-                if (_Giveaway != value)
-                {
-                    _Giveaway = value;
-                    OnPropertyChanged("Giveaway");
-                }
-            }
-        }
         private string _OperatorName;
         public string OperatorName
         {
@@ -145,16 +119,29 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private Nullable<int> _Tare;
-        public Nullable<int> Tare
+        private string _ProductName;
+        public string ProductName
         {
-            get { return _Tare; }
+            get { return _ProductName; }
             set
             {
-                if (_Tare != value)
+                if (_ProductName != value)
                 {
-                    _Tare = value;
-                    OnPropertyChanged("Tare");
+                    _ProductName = value;
+                    OnPropertyChanged("ProductName");
+                }
+            }
+        }
+        private Nullable<int> _Giveaway;
+        public Nullable<int> Giveaway
+        {
+            get { return _Giveaway; }
+            set
+            {
+                if (_Giveaway != value)
+                {
+                    _Giveaway = value;
+                    OnPropertyChanged("Giveaway");
                 }
             }
         }

@@ -29,6 +29,10 @@
             <touch:BatchListView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type touch:BatchDetailsViewModel}">
+            <touch:BatchDetailsView/>
+        </DataTemplate>
+
 
 
     </controls:MetroWindow.Resources>

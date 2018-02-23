@@ -80,7 +80,7 @@ namespace Globeweigh.UI.Touch
             if (!string.IsNullOrEmpty(KeypadDisplayValue)) searchCharCount = KeypadDisplayValue.Length;
             try
             {
-                DistinctLetterList = new ObservableCollection<string>(ProductList.Where(a => a.Code != null).Select(s => s.Code.Substring(searchCharCount, 1)).Distinct().ToList());
+                DistinctLetterList = new ObservableCollection<string>(ProductList.Where(a => a.Description != null).Select(s => s.Description.Substring(searchCharCount, 1)).Distinct().ToList());
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace Globeweigh.UI.Touch
 
         private void FilterProductList()
         {
-            ProductList = new List<Product>(AllProductList.Where(a => a.Code != null && a.Code.StartsWith(KeypadDisplayValue)));
+            ProductList = new List<Product>(AllProductList.Where(a => a.Description != null && a.Description.StartsWith(KeypadDisplayValue)));
             GetDistinctCodeCharacterList();
         }
 
@@ -123,11 +123,6 @@ namespace Globeweigh.UI.Touch
         private async void OnSelect()
         {
             DialogResult = true;
-        }
-
-        private void OnCancel()
-        {
-            DialogResult = false;
         }
 
         public void Unload(FrameworkElement element)

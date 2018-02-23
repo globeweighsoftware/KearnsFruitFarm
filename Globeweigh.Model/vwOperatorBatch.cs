@@ -15,32 +15,6 @@ namespace Globeweigh.Model
     
     public partial class vwOperatorBatch : INotifyPropertyChanged
     {
-        private int _BatchId;
-        public int BatchId
-        {
-            get { return _BatchId; }
-            set
-            {
-                if (_BatchId != value)
-                {
-                    _BatchId = value;
-                    OnPropertyChanged("BatchId");
-                }
-            }
-        }
-        private int _OperatorId;
-        public int OperatorId
-        {
-            get { return _OperatorId; }
-            set
-            {
-                if (_OperatorId != value)
-                {
-                    _OperatorId = value;
-                    OnPropertyChanged("OperatorId");
-                }
-            }
-        }
         private string _FullName;
         public string FullName
         {
@@ -54,34 +28,8 @@ namespace Globeweigh.Model
                 }
             }
         }
-        private Nullable<int> _PortionCount;
-        public Nullable<int> PortionCount
-        {
-            get { return _PortionCount; }
-            set
-            {
-                if (_PortionCount != value)
-                {
-                    _PortionCount = value;
-                    OnPropertyChanged("PortionCount");
-                }
-            }
-        }
-        private Nullable<int> _TotalWeightGrams;
-        public Nullable<int> TotalWeightGrams
-        {
-            get { return _TotalWeightGrams; }
-            set
-            {
-                if (_TotalWeightGrams != value)
-                {
-                    _TotalWeightGrams = value;
-                    OnPropertyChanged("TotalWeightGrams");
-                }
-            }
-        }
-        private long _TimeElapsedTicks;
-        public long TimeElapsedTicks
+        private Nullable<long> _TimeElapsedTicks;
+        public Nullable<long> TimeElapsedTicks
         {
             get { return _TimeElapsedTicks; }
             set
@@ -90,6 +38,19 @@ namespace Globeweigh.Model
                 {
                     _TimeElapsedTicks = value;
                     OnPropertyChanged("TimeElapsedTicks");
+                }
+            }
+        }
+        private Nullable<int> _TimeElapsedId;
+        public Nullable<int> TimeElapsedId
+        {
+            get { return _TimeElapsedId; }
+            set
+            {
+                if (_TimeElapsedId != value)
+                {
+                    _TimeElapsedId = value;
+                    OnPropertyChanged("TimeElapsedId");
                 }
             }
         }
@@ -103,6 +64,19 @@ namespace Globeweigh.Model
                 {
                     _id = value;
                     OnPropertyChanged("id");
+                }
+            }
+        }
+        private Nullable<int> _BatchId;
+        public Nullable<int> BatchId
+        {
+            get { return _BatchId; }
+            set
+            {
+                if (_BatchId != value)
+                {
+                    _BatchId = value;
+                    OnPropertyChanged("BatchId");
                 }
             }
         }
