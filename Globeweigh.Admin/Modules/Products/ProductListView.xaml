@@ -1,0 +1,111 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
+             xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
+             xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
+             md:DialogServiceViews.IsRegistered="True"
+             x:Class="Globeweigh.Admin.ProductListView"
+             mc:Ignorable="d"  dx:ThemeManager.ThemeName="MetropolisLight"
+             d:DesignHeight="500" d:DesignWidth="1200"
+             shared:ViewModelBehavior.LoadUnload="True"
+             DataContext="{Binding ProductListView, Source={StaticResource Locator}}" Background="White">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Globeweigh.UI.Shared;component/ResourceDictionaries/SharedElementStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanAndConverter x:Key="booleanAndConverter"/>
+            <converters:TrueToFalseConverter x:Key="TrueToFalseConverter"/>
+
+
+            <!--<Style x:Key="rowStyle" TargetType="{x:Type dxg:RowControl}" BasedOn="{StaticResource rowStyleDefault}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Row.IsBaseProduct}" Value="True">
+                        --><!--<Setter Property="Foreground" Value="{DynamicResource GlobeweighLightBlueBrush}" />--><!--
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>-->
+
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Grid.Row="1" >
+            <Grid Margin="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="453*"/>
+                </Grid.RowDefinitions>
+                <Border Background="{DynamicResource LightGreyBrush}" BorderBrush="{DynamicResource MainBorderBrush}" BorderThickness="0,0,0,1">
+                    <Grid Margin="4,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Right" Grid.Column="1" >
+                            <controls:ImageButton Content="Add" ImageSource="/Images\Add-Square-32.png" Command="{Binding AddCommand}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Delete" ImageSource="/Images\Delete-32.png" Command="{Binding DeleteCommand}"  Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center">
+                                <controls:ImageButton.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource booleanAndConverter}">
+                                        <Binding ElementName="grdProducts" Path="SelectedItems.Count"/>
+                                        <Binding ElementName="chkGroupedCodes" Path="IsChecked"/>
+                                    </MultiBinding>
+                                </controls:ImageButton.IsEnabled>
+                            </controls:ImageButton>
+                            <controls:ImageButton Content="Edit" ImageSource="/Images\Edit-32.png" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdProducts}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Print / Export" Margin="0" ImageSource="/Images\Print-32.png" Command="{Binding GlobalPrintExportCommand}" CommandParameter="{Binding ElementName=tvProducts}" IsEnabled="{Binding VisibleRowCount, ElementName=grdPallets}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Refresh" Margin="0" ImageSource="/Images\Refresh-32.png" Command="{Binding RefreshCommand}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Background="White" BorderThickness="1" Grid.Row="1">
+                    <Grid>
+                        <dxg:GridControl x:Name="grdProducts" ItemsSource="{Binding ProductList}" ShowLoadingPanel="{Binding IsBusy}" SelectedItem="{Binding SelectedProduct}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                            <dxg:GridControl.View>
+                                <dxg:TableView x:Name="tvProducts" AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowFixedTotalSummary="True" ShowIndicator="True" AutoWidth="True"
+                                               NavigationStyle="Row" VerticalScrollbarVisibility="Auto" ShowAutoFilterRow="True"/>
+                            </dxg:GridControl.View>
+                            <!--<dxg:GridColumn FieldName="Code" Header="Clon Code" Width="60"/>-->
+                            <dxg:GridColumn FieldName="Description" Header="Description" Width="300" FixedWidth="True" AutoFilterCondition="Contains"/>
+                            <dxg:GridColumn FieldName="UpperLimit" Header="Upper Limit (g)" Width="100" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="LowerLimit" Header="Lower Limit (g)" Width="100" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="NominalWeight" Header="Nominal (g)" Width="100" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Tare" Header="Tare (g)" Width="100" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn Header=" "/>
+                            <!--<dxg:GridColumn FieldName="IsLinked" Width="90" Visible="{Binding ElementName=chkGroupCodes, Path=IsChecked, Converter={StaticResource TrueToFalseConverter}}" FixedWidth="True" AllowGrouping="False" AllowColumnFiltering="False" AllowResizing="False" Header="Opera Link" CellStyle="{StaticResource clearBackgroundCellStyle}" CellTemplate="{StaticResource linkCellTemplate}" />-->
+                            <dxg:GridControl.TotalSummary>
+                                <dxg:GridSummaryItem SummaryType="Count" Alignment="Right" />
+                            </dxg:GridControl.TotalSummary>
+                        </dxg:GridControl>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
