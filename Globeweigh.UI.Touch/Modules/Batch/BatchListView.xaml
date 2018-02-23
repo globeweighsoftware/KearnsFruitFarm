@@ -1,0 +1,129 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+	         xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
+	         xmlns:internal="http://schemas.devexpress.com/winfx/2008/xaml/windowsui/internal"
+	         xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+	         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:userControls="clr-namespace:Globeweigh.UI.Touch.UserControls"
+             md:DialogServiceViews.IsRegistered="True" 
+	         x:Class="Globeweigh.UI.Touch.BatchListView"
+             mc:Ignorable="d"
+             d:DesignHeight="1024" d:DesignWidth="1280"
+             shared:ViewModelBehavior.LoadUnload="True"
+             DataContext="{Binding BatchListView, Source={StaticResource Locator}}" Background="White"
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
+            <converters:ZeroToVisibleConverter x:Key="ZeroToVisibleConverter"/>
+
+            <!--<Style x:Key="rowStyle" TargetType="{x:Type dxg:RowControl}">
+                <Setter Property="Height" Value="40"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                        <Setter Property="Background" Value="{StaticResource GlobeweighLightBlueBrush}" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>-->
+
+            <Style TargetType="{x:Type dxg:GridColumnHeader}">
+                <Setter Property="Height" Value="40"></Setter>
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="899*"/>
+        </Grid.RowDefinitions>
+        <Border Style="{DynamicResource BorderBlurStyle}" Background="{DynamicResource LightGreyBrush}">
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                    <internal:BackButton Margin="0,0,10,0" VerticalAlignment="Center" Command="{Binding HomeCommand}" StrokeThickness="4" Width="66" Height="66"  />
+                    <TextBlock Text="Batch List" Margin="10,0,0,0" VerticalAlignment="Center" FontSize="36" Foreground="{DynamicResource GlobeweighBlueBrush}"/>
+                </StackPanel>
+                <userControls:DateFilter Grid.Column="1" FilterDate="{Binding FilterDate}" FilterDateBackCommand="{Binding FilterDateBackCommand}" FilterDateForwardCommand="{Binding FilterDateForwardCommand}"  HorizontalAlignment="Right" FontSize="30" Width="400" />
+            </Grid>
+        </Border>
+        <Grid Margin="4" Grid.Row="1">
+            <Border BorderThickness="2" BorderBrush="{DynamicResource ItemBorderBrush}" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <dxg:GridControl x:Name="grdBatchs" ItemsSource="{Binding BatchList}" SelectedItem="{Binding SelectedBatch}" dx:ThemeManager.ThemeName="MetropolisLight" ShowLoadingPanel="{Binding IsBatchListBusy}" ShowBorder="False" FontSize="16" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontFamily="Segoe UI Semibold"  >
+                            <dxg:GridControl.View>
+                                <dxg:TableView AllowPerPixelScrolling="True" AllowFilterEditor="False" ShowVerticalLines="True" ShowHorizontalLines="True" ShowGroupPanel="False" Margin="4"
+                                    AllowSorting="False" ShowIndicator="False"  AutoWidth="True"  NavigationStyle="Row"  VerticalScrollbarVisibility="Auto" ShowFilterPanelMode="Never"/>
+                            </dxg:GridControl.View>
+                            <dxg:GridColumn FieldName="id"  Header="Batch ID" Width="40"/>
+                            <dxg:GridColumn FieldName="ProductName"  Header="Product "/>
+                            <dxg:GridColumn FieldName="LowerLimit"  Header="Lower"  Width="80" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="UpperLimit"  Header="Upper"  Width="80" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="Tare"  Header="Tare"  Width="80" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="PortionCount"  Header="Portions"  Width="80" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="DateCreated" Width="60" Header="Date Created" >
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings MaskType="DateTime" Mask="dd/MM/yyyy" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+
+                        </dxg:GridControl>
+
+
+                        <Border x:Name="BoxesBorder" BorderThickness="2,0,0,0" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Column="1" Grid.Row="1" Background="{DynamicResource LightGreyBrush}">
+                            <StackPanel>
+                                <Button Command="{Binding AddNewBatchCommand}" Style="{DynamicResource PrimaryButtonStyle}" Content="NEW BATCH" Visibility="{Binding ElementName=tabOpen, Path=IsSelected, Converter={StaticResource TrueToVisibilityConverter}}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Height="60" Width="180"/>
+                                <Button Command="{Binding BatchDetailsCommand}" Style="{DynamicResource PrimaryButtonStyle}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdBatchs}" Content="BATCH DETAILS" Visibility="{Binding ElementName=tabOpen, Path=IsSelected, Converter={StaticResource TrueToVisibilityConverter}}" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,30,0,0" Height="60" Width="180"/>
+                                <Button Command="{Binding EditBatchCommand}" Style="{DynamicResource PrimaryButtonStyle}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdBatchs}"  Content="EDIT" Visibility="{Binding ElementName=tabOpen, Path=IsSelected, Converter={StaticResource TrueToVisibilityConverter}}" Width="180"  Margin="0,30,0,0" HorizontalAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="60" HorizontalContentAlignment="Center" Grid.Column="1"/>
+                                <Button Command="{Binding DeleteBatchCommand}" Style="{DynamicResource PrimaryButtonStyle}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdBatchs}" Content="DELETE" Visibility="{Binding ElementName=tabOpen, Path=IsSelected, Converter={StaticResource TrueToVisibilityConverter}}" Width="180"  Margin="0,30,0,0" HorizontalAlignment="Center" Grid.Column="2" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="60" HorizontalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+
+                    </Grid>
+
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
+

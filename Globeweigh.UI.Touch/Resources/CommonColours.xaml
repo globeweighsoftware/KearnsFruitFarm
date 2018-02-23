@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <SolidColorBrush x:Key="DarkGreyBrush" Color="#FF424F5A"/>
+    <SolidColorBrush x:Key="IsSelectedGreyBrush" Color="#FF343F48"/>
+    <SolidColorBrush x:Key="LightGreyBrush" Color="#FFF2F2F2"/>
+    <SolidColorBrush x:Key="MainNavyBrush" Color="#FF343E51"/>
+    <SolidColorBrush x:Key="GlobeweighBlueBrush" Color="#FF0063B1"/>
+    <SolidColorBrush x:Key="GlobeweighLightBlueBrush" Color="#FF3FA4F3"/>
+    <SolidColorBrush x:Key="ItemBorderBrush" Color="#FFC2C4CB"/>
+    <SolidColorBrush x:Key="PinkBrush" Color="#FFED74A6" />
+    <SolidColorBrush x:Key="DividerLineGrayBrush" Color="#FFC2C4CB"/>
+    <SolidColorBrush x:Key="MainOrangeBrush" Color="#FFF78A09" />
+    <SolidColorBrush x:Key="TransactionHeaderFooterBorderBrush" Color="#FFF4F4F4"/>
+
+
+</ResourceDictionary>

@@ -1,0 +1,126 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
+	         xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
+	         xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
+	         xmlns:converters="clr-namespace:Globeweigh.UI.Shared.Converters;assembly=Globeweigh.UI.Shared"
+	         md:DialogServiceViews.IsRegistered="True"
+	         x:Class="Globeweigh.UI.Touch.HomeView"
+             mc:Ignorable="d" 
+             d:DesignHeight="1024" d:DesignWidth="1280" 
+             shared:ViewModelBehavior.LoadUnload="True"
+             DataContext="{Binding HomeView, Source={StaticResource Locator}}" Background="White"
+    
+             >
+    <UserControl.Resources>
+        <ResourceDictionary>
+
+            <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
+            <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
+
+            <Style x:Key="ImageButtonStyle" TargetType="controls:ImageButton">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Focusable" Value="False"/>
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="Height" Value="200"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="controls:ImageButton">
+                            <Border Name="border" BorderThickness="{TemplateBinding BorderThickness}" Padding="4,2" BorderBrush="{TemplateBinding Foreground}" Background="{TemplateBinding Background}">
+                                <Grid Margin="20" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding Path=ImageSource, RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="Left" />
+                                    <Grid Grid.Row="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding FontSize}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        <TextBlock x:Name="secondContent" Text="{TemplateBinding SecondaryContent}" Visibility="{Binding ElementName=secondContent, Path=Text, Converter={StaticResource NullToCollapsedConverter}}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" FontSize="16" Margin="0,0,0,14"/>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="BorderThickness" Value="2"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="LightGray"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="220"/>
+            <RowDefinition Height="471*"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Border Background="{DynamicResource GlobeweighBlueBrush}" BorderThickness="0,0,1,0">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="32*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="/Images/Globe-96.png"/>
+                <Grid Grid.Column="1" VerticalAlignment="Center" Margin="8,0,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Globeweigh Factory " Foreground="White" FontSize="20" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding CurrentVersion, FallbackValue=v1.0.0}" Foreground="White" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="20" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+        </Border>
+        <Grid Background="{DynamicResource LightGreyBrush}" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="118*"/>
+                <ColumnDefinition Width="37*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="40,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Kearns Fruit Farm Portion Control" VerticalAlignment="Center" FontSize="48" FontFamily="Segoe UI Light"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" >
+                    <TextBlock Text="{Binding CurrentDate, FallbackValue=Tuesday 4th September, StringFormat=D}" VerticalAlignment="Center" FontSize="26" FontFamily="Segoe UI Light" Grid.Row="2" Margin="0"/>
+
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="5" Margin="0,10,10,0"  Visibility="{Binding NewVersionAvailable, Converter={StaticResource TrueToVisibilityConverter}}" Height="100" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding NewVersionAvailableMessage, FallbackValue=New Version Available}" HorizontalAlignment="Right" FontFamily="Segoe UI Semibold" FontSize="16" Margin="0,0,8,0" VerticalAlignment="Bottom"/>
+                <controls:ImageButton Command="{Binding DownloadNewVersionCommand}" Grid.Row="1" ImageSource="/Images/download-32.png" Content="Download &amp; Install" Style="{DynamicResource ToolbarButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,0,0" FontSize="14"/>
+            </Grid>
+        </Grid>
+        <WrapPanel Orientation="Horizontal" Margin="0,20,0,0" Grid.Row="2">
+            <controls:ImageButton Command="{Binding BatchesCommand}" Style="{DynamicResource ImageButtonStyle}" ImageSource="/Images/Production-96.png"  Content="Batches" SecondaryContent="Create pallets for stock" Width="260" Height="220"/>
+            <controls:ImageButton Command="{Binding CleanScreenCommand}" Style="{DynamicResource ImageButtonStyle}" ImageSource="/Globeweigh.UI.Touch;component/Images/Screen Wiper-96.png"  Content="Screen Clean Mode" SecondaryContent="Screen disables for 25 secs" Width="260" Height="220"/>
+        </WrapPanel>
+        <Button Command="{Binding ExitCommand}" Style="{DynamicResource PrimaryButtonStyle}" Content="EXIT" HorizontalAlignment="Right" Width="120" Height="58" Margin="0" Grid.Row="3" VerticalAlignment="Bottom"/>
+
+
+    </Grid>
+</UserControl>

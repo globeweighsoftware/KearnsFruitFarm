@@ -1,0 +1,663 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using Globeweigh.UI.Shared;
+using Globeweigh.UI.Shared.Services;
+using Globeweigh.UI.Touch.Model;
+using MvvmDialogs;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using Globeweigh.Model;
+using Globeweigh.UI.Shared.Helpers;
+using System.Threading.Tasks;
+using DevExpress.Mvvm.POCO;
+using Globeweigh.Model.Custom;
+using Globeweigh.Model.Helpers;
+
+namespace Globeweigh.UI.Touch
+{
+    public class BatchDetailsViewModel : BindableBase, IViewModel
+    {
+        #region private fields
+
+        private readonly IOperatorRepository _operatorRepo = SimpleIoc.Default.GetInstance<IOperatorRepository>();
+        private readonly IReferenceDataRepository _refDataRepo = SimpleIoc.Default.GetInstance<IReferenceDataRepository>();
+        private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
+
+        private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
+        private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
+        private readonly IScaleRepository _scaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
+
+
+        
+        private DispatcherTimer _timer;
+        private DispatcherTimer _connectionStatusTimer;
+        private DispatcherTimer _slaveScalesRefreshTimer;
+        private bool _100LimitsAlreadySet = false;
+        private int _50Countdown = 0;
+
+        #endregion
+
+        #region Properties
+
+        private int _TotalPacksCount;
+        public int TotalPacksCount
+        {
+            get { return _TotalPacksCount; }
+            set
+            {
+                Set(ref _TotalPacksCount, value);
+                OnPropertyChanged("IsOver100");
+                OnPropertyChanged("BatchLowerLimit");
+                OnPropertyChanged("BatchUpperLimit");
+            }
+        }
+
+        private Decimal _PacksPerMin;
+        public Decimal PacksPerMin
+        {
+            get { return _PacksPerMin; }
+            set { Set(ref _PacksPerMin, value); }
+        }
+
+        private string _GiveawayDisplay;
+        public string GiveawayDisplay
+        {
+            get { return _GiveawayDisplay; }
+            set { Set(ref _GiveawayDisplay, value); }
+        }
+
+        private Decimal _TotalWeight;
+        public Decimal TotalWeight
+        {
+            get { return _TotalWeight; }
+            set { Set(ref _TotalWeight, value); }
+        }
+
+        private int _AverageWeight;
+        public int AverageWeight
+        {
+            get { return _AverageWeight; }
+            set { Set(ref _AverageWeight, value); }
+        }
+
+        private bool _BatchInProgress;
+        public bool BatchInProgress
+        {
+            get { return _BatchInProgress; }
+            set { Set(ref _BatchInProgress, value); }
+        }
+
+        private DateTime _CurrentDate;
+        public DateTime CurrentDate
+        {
+            get { return _CurrentDate; }
+            set { Set(ref _CurrentDate, value); }
+        }
+
+        private List<Operator> _OperatorList;
+        public List<Operator> OperatorList
+        {
+            get { return _OperatorList; }
+            set { Set(ref _OperatorList, value); }
+        }
+
+        private List<Scale> _ScaleList;
+        public List<Scale> ScaleList
+        {
+            get { return _ScaleList; }
+            set { Set(ref _ScaleList, value); }
+        }
+
+        private vwBatchView _SelectedBatchView;
+        public vwBatchView SelectedBatchView
+        {
+            get { return _SelectedBatchView; }
+            set { Set(ref _SelectedBatchView, value); }
+        }
+
+        private List<vwPortionView> _PortionList;
+        public List<vwPortionView> PortionList
+        {
+            get { return _PortionList; }
+            set { Set(ref _PortionList, value); }
+        }
+
+        public bool IsOver100
+        {
+            get { return TotalPacksCount >= 100; }
+        }
+
+
+        public int BatchUpperLimit
+        {
+            get
+            {
+                if (SelectedBatchView.Override) return SelectedBatchView.BatchUpperLimit;
+                if (IsOver100 && _50Countdown == 0)
+                    return (int)SelectedBatchView.BatchLowerLimit + SelectedBatchView.Band;
+                return (int)(SelectedBatchView.BatchUpperLimit);
+
+            }
+        }
+
+        public int BatchLowerLimit
+        {
+            get
+            {
+                if (SelectedBatchView.Override) return SelectedBatchView.BatchLowerLimit;
+                if (IsOver100 && _50Countdown == 0)
+                    return (int)SelectedBatchView.BatchLowerLimit;
+                return (int)SelectedBatchView.NominalWeight;
+
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public RelayCommand<KeyEventArgs> KeyPreviewDownCommand => new RelayCommand<KeyEventArgs>(OnKeyPreviewDown);
+        public RelayCommand NavigateBackCommand => new RelayCommand(OnExit, CanExit);
+        public RelayCommand<Scale> OperatorLogOffCommand => new RelayCommand<Scale>(OnOperatorLogOff);
+        public RelayCommand<Scale> SelectUserCommand => new RelayCommand<Scale>(OnSelectUser);
+        public RelayCommand<Scale> RetryConnectionCommand => new RelayCommand<Scale>(OnRetryConnectionCommand);
+        public RelayCommand OverrideCommand => new RelayCommand(OnOverrideCommand);
+        public RelayCommand BreakCommand => new RelayCommand(OnBreakCommand, CanOnBreak);
+
+
+
+        #endregion
+
+        private bool CanExit()
+        {
+            return !BatchInProgress;
+        }
+
+        private bool CanOnBreak()
+        {
+            return BatchInProgress;
+        }
+
+        private void OnBreakCommand()
+        {
+            try
+            {
+                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<OkCancelViewModel>();
+                dialogViewModel.HeaderText = "Break Mode";
+                dialogViewModel.MainText = "Break mode will pause all operators and scales. Continue?";
+                dialogViewModel.OkText = "Ok";
+                bool? success = _dialogService.ShowDialog<OkCancelView>(this, dialogViewModel);
+                if (success == true)
+                {
+                    _timer.Stop();
+                    dialogViewModel.HeaderText = null;
+                    dialogViewModel.MainText = "On Break";
+                    dialogViewModel.HideCancel = true;
+                    dialogViewModel.OkText = "Resume";
+                    dialogViewModel.DialogResult = null;
+                    bool? success1 = _dialogService.ShowDialog<OkCancelView>(this, dialogViewModel);
+                    if (success1 == true)
+                    {
+                        _timer.Start();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "OnBreakCommand");
+            }
+        }
+
+        private void OnOverrideCommand()
+        {
+            try
+            {
+//                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<OverrideBatchLimitsViewModel>();
+//                dialogViewModel.CurrentBatchView = SelectedBatchView;
+//                bool? success = _dialogService.ShowDialog<OverrideBatchLimitsView>(this, dialogViewModel);
+//                if (success == true)
+//                {
+//                    SelectedBatchView = dialogViewModel.CurrentBatchView;
+//                    SelectedBatchView.RaisePropertyChanged("Override");
+//                    SelectedBatchView.RaisePropertyChanged("BatchTare");
+//                    SelectedBatchView.RaisePropertyChanged("BatchNominal");
+//                    SendLimitCommands();
+//
+//                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "OnOverrideCommand");
+            }
+        }
+
+        public async void OnExit()
+        {
+            if (ScaleList.Any(a => a.OperatorId != null && a.Active)) return;
+            SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel = SimpleIoc.Default.GetInstance<BatchListViewModel>();
+        }
+
+        private void OnRetryConnectionCommand(Scale scale)
+        {
+            OpenAndSetTcpConnections(scale.ScaleNumber);
+        }
+
+        private async void OnSelectUser(Scale scale)
+        {
+//            try
+//            {
+//                if (scale == null) return;
+//                var selectedScale = scale;
+//                if (OperatorList == null) return;
+//                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<SelectOperatorViewModel>();
+//                var availableOperators = OperatorList.Where(oper => !ScaleList.Any(a => a.OperatorId == oper.id)).ToList();
+//                dialogViewModel.AvailableOperatorList = availableOperators;
+//                bool? success = _dialogService.ShowDialog<SelectOperatorView>(this, dialogViewModel);
+//                if (success == true)
+//                {
+//                    await AddOperatorToScale(selectedScale, dialogViewModel.SelectedRefData);
+//                }
+//            }
+//            catch (Exception ex)
+//            {
+//                ErrorLogging.LogError(ex, "OnSelectUser");
+//            }
+        }
+
+        private async Task AddOperatorToScale(Scale selectedScale, Operator selectedOperator)
+        {
+            selectedScale.OperatorId = selectedOperator.id;
+            selectedScale.OperatorName = selectedOperator.DisplayName;
+            if (selectedOperator.TimeElapsed == null)
+            {
+                await _batchRepo.AddBatchOperatorTimeAsync(SelectedBatchView.id, selectedOperator.id);
+            }
+            else
+            {
+                if (selectedOperator.TimeElapsed == null)
+                    selectedScale.TimeElapsedTicks = 0;
+                else
+                    selectedScale.TimeElapsedTicks = (long)selectedOperator.TimeElapsed;
+            }
+            selectedScale.UserPackCount = PortionList.Count(a => a.OperatorId == selectedScale.OperatorId);
+            await _scaleRepo.AddOperatorIdToScale(selectedOperator.id, selectedScale.id);
+        }
+
+        private async void slaveScaleTimer_tick(object sender, EventArgs e)
+        {
+            try
+            {
+                var changes = await _scaleRepo.RefreshSlaveOperators(ScaleList);
+                if (!changes) return;
+
+                foreach (var scale in ScaleList.Where(a => a.OperatorChanged))
+                {
+                    if (scale.OperatorId == null)
+                    {
+                        OnOperatorLogOff(scale);
+                    }
+                    else
+                    {
+                        var operatorRefData = _OperatorList.FirstOrDefault(a => a.id == scale.OperatorId);
+                        if (operatorRefData == null) continue;
+                        await AddOperatorToScale(scale, operatorRefData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "slaveScaleTimer_tick");
+            }
+
+        }
+
+        private async void OnOperatorLogOff(Scale scale)
+        {
+            try
+            {
+                await _batchRepo.UpdateTimeElapsedAsync(SelectedBatchView.id, (int)scale.OperatorId, scale.TimeElapsedTicks);
+                await _scaleRepo.AddOperatorIdToScale(null, scale.id);
+                scale.UserPackCount = 0;
+                scale.OperatorId = null;
+                scale.TimeElapsedTicks = 0;
+                OperatorList = new List<Operator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+
+                if (ScaleList.All(a => a.OperatorId == null))
+                {
+                    await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id, SelectedBatchView.TimeElapsedTicks, _50Countdown);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "OnOperatorLogOff");
+            }
+
+        }
+
+        private async void timer_tick(object sender, EventArgs e)
+        {
+            try
+            {
+                bool batchTimeupDated = false;
+                foreach (var scale in ScaleList.Where(scale => scale.Active))
+                {
+                    if (scale.OperatorId != null)
+                    {
+                        TimeSpan ts = TimeSpan.FromSeconds(1);
+                        scale.TimeElapsedTicks = scale.TimeElapsedTicks + ts.Ticks;
+                        if (!batchTimeupDated)
+                        {
+                            SelectedBatchView.TimeElapsedTicks = SelectedBatchView.TimeElapsedTicks + ts.Ticks;
+                            SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
+                            batchTimeupDated = true;
+                        }
+                    }
+                }
+                if (TotalPacksCount == 0 || TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalMinutes == 0)
+                    PacksPerMin = 0;
+                else
+                    PacksPerMin = ((Decimal)(TotalPacksCount / (TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalSeconds) * 60));
+
+                BatchInProgress = batchTimeupDated;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "timer_tick");
+            }
+
+        }
+
+        private async Task RefreshPortionList()
+        {
+            PortionList = new List<vwPortionView>(await _portionRepo.GetPortionsAsync(SelectedBatchView.id));
+            TotalPacksCount = PortionList.Count;
+            if (TotalPacksCount == 0) return;
+            foreach (var scale in ScaleList)
+            {
+                if (!scale.Active) continue;
+                if (scale.OperatorId == null) continue;
+                scale.UserPackCount = PortionList.Count(a => a.OperatorId == scale.OperatorId);
+            }
+
+            TotalWeight = decimal.Round((decimal)PortionList.Sum(a => a.Weight) / 1000, 2);
+            AverageWeight = Convert.ToInt32(PortionList.Average(a => a.Weight));
+            decimal averageGiveaway = Convert.ToDecimal(PortionList.Average(a => a.Giveaway));
+            if (SelectedBatchView.NominalWeight != null)
+            {
+                decimal percentageGiveaway = (averageGiveaway / (int)SelectedBatchView.NominalWeight) * 100;
+                GiveawayDisplay = averageGiveaway.ToString("N0") + "g" + " (" + percentageGiveaway.ToString("N1") + "%)";
+            }
+
+
+            //            if (IsSlave) return;
+
+            if (TotalPacksCount == 100)
+                SendLimitCommands();
+
+            if (_50Countdown != 0)
+            {
+                _50Countdown -= 1;
+
+                if (_50Countdown == 0)
+                {
+                    SendLimitCommands();
+                }
+                return;
+            }
+
+            if (TotalPacksCount > 100)
+            {
+                if (AverageWeight < SelectedBatchView.NominalWeight && _50Countdown == 0)
+                {
+                    _50Countdown = 50;
+                    SendLimitCommands();
+                }
+            }
+        }
+
+        private async void OnKeyPreviewDown(KeyEventArgs e)
+        {
+            int scaleNo = 0;
+            if (e.Key == Key.NumPad1 || e.Key == Key.D1) scaleNo = 1;
+            if (e.Key == Key.NumPad2 || e.Key == Key.D2) scaleNo = 2;
+            if (e.Key == Key.NumPad3 || e.Key == Key.D3) scaleNo = 3;
+            if (e.Key == Key.NumPad4 || e.Key == Key.D4) scaleNo = 4;
+            if (e.Key == Key.NumPad5 || e.Key == Key.D5) scaleNo = 5;
+            if (e.Key == Key.NumPad6 || e.Key == Key.D6) scaleNo = 6;
+            if (e.Key == Key.NumPad7 || e.Key == Key.D6) scaleNo = 7;
+            if (e.Key == Key.NumPad8 || e.Key == Key.D6) scaleNo = 8;
+            if (e.Key == Key.NumPad9 || e.Key == Key.D6) scaleNo = 9;
+            if (scaleNo == 0) return;
+
+            var firstOrDefault = ScaleList.FirstOrDefault(a => a.ScaleNumber == scaleNo);
+            if (firstOrDefault == null) return;
+            var operatorId = firstOrDefault.OperatorId;
+            if (operatorId == null) return;
+            await _portionRepo.AddDummyPortionAsync(scaleNo, (int)operatorId, SelectedBatchView.id, BatchLowerLimit, BatchUpperLimit);
+            await RefreshPortionList();
+        }
+
+        private void OpenAndSetTcpConnections(int scaleNumber)
+        {
+            //MY MACHINE DEMO MODE
+//            if (Utilities.IsMyMachine)
+//            {
+//                foreach (var scale in ScaleList)
+//                {
+//                    scale.IsConnected = true;
+//                }
+//                return;
+//            }
+
+
+            foreach (var scale in ScaleList)
+            {
+                try
+                {
+                    if (scaleNumber != 0 && scale.ScaleNumber != scaleNumber) continue;
+
+                    scale.OperatorId = null;
+                    if (scale.Active)
+                    {
+                        scale.TcpConnection = new NetConnection();
+                        byte[] lowerLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
+                        byte[] nominalBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
+                        byte[] upperLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
+                        byte[] tarebytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
+
+                        var success = scale.TcpConnection.Connect(IPAddress.Parse(scale.ScaleIpAddress), 23);
+                        if (!success)
+                        {
+                            scale.IsConnected = false;
+                            continue;
+                        }
+                        scale.IsConnected = true;
+
+                        if (scaleNumber == 0)
+                        {
+                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("#7 \n"));
+                            Thread.Sleep(500);
+                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q#\n"));
+                            Thread.Sleep(500);
+                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q!\n"));
+                            Thread.Sleep(500);
+                        }
+
+
+                        scale.TcpConnection.Send(lowerLimitBytesToSend);
+                        scale.TcpConnection.Send(nominalBytesToSend);
+                        scale.TcpConnection.Send(upperLimitBytesToSend);
+                        scale.TcpConnection.Send(tarebytesToSend);
+                        scale.TcpConnection.OnDataReceived += NetConnectionOnOnDataReceived;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    scale.IsConnected = false;
+                }
+
+            }
+            _connectionStatusTimer.Start();
+
+        }
+
+        private void SendLimitCommands()
+        {
+            OnPropertyChanged("BatchLowerLimit");
+            OnPropertyChanged("BatchUpperLimit");
+            foreach (var scale in ScaleList)
+            {
+                try
+                {
+                    if (scale.Active)
+                    {
+                        if (!scale.IsConnected) continue;
+                        byte[] lowerLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
+                        byte[] nominalBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
+                        byte[] upperLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
+
+                        scale.TcpConnection.Send(lowerLimitBytesToSend);
+                        scale.TcpConnection.Send(nominalBytesToSend);
+                        scale.TcpConnection.Send(upperLimitBytesToSend);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogging.LogError(ex, "SendOver100Commands - Scale:" + scale.ScaleNumber);
+                }
+
+            }
+        }
+
+        private void NetConnectionOnOnDataReceived(object sender, NetConnection connection, byte[] bytes)
+        {
+            try
+            {
+                var message = ASCIIEncoding.ASCII.GetString(bytes, 0, bytes.Length);
+                //                Console.WriteLine(message);
+                if (message.Length < 29) return;
+
+                IPEndPoint remoteIpEndPoint = connection.RemoteEndPoint as IPEndPoint;
+                var scale = ScaleList.FirstOrDefault(a => a.NetConnectionIpAddress == remoteIpEndPoint.Address.ToString());
+                if (scale != null)
+                {
+                    if (scale.OperatorId == null) return;
+                    var stringWeight = message.Substring(50, 5);
+                    int weight = int.Parse(stringWeight, NumberStyles.AllowThousands);
+                    AddPortion(scale, weight);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "NetConnectionOnOnDataReceived");
+            }
+        }
+
+        private async void AddPortion(Scale scale, int weight)
+        {
+            try
+            {
+                await _portionRepo.AddPortionAsync(scale.ScaleNumber, (int)scale.OperatorId, SelectedBatchView.id, weight);
+                await RefreshPortionList();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "AddPortion");
+            }
+
+        }
+
+        public async void Load(FrameworkElement element)
+        {
+            if (UtilitiesShared.InDesignMode) return;
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 0, 1);
+            _timer.Tick += timer_tick;
+            _timer.Start();
+            _connectionStatusTimer = new DispatcherTimer();
+            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
+            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
+
+            CurrentDate = DateTime.Now;
+            OperatorList = new List<Operator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+            ScaleList = new List<Scale>(await _scaleRepo.GetScales());
+            SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
+            _50Countdown = SelectedBatchView.FiftyCount;
+            await RefreshPortionList();
+            OpenAndSetTcpConnections(0);
+        }
+
+        private async void conectionStatusTimer_tick(object sender, EventArgs e)
+        {
+            foreach (var scale in ScaleList)
+            {
+                try
+                {
+                    if (!scale.Active) continue;
+                    var isPingable = await scale.TcpConnection.IsPingable(scale.ScaleIpAddress);
+                    if (scale.IsConnected == isPingable) continue;
+                    if (!isPingable)
+                    {
+                        scale.IsConnected = false;
+                        if (scale.OperatorId != null)
+                            OnOperatorLogOff(scale);
+                    }
+                    else
+                    {
+                        if (!scale.IsConnected)
+                            OpenAndSetTcpConnections(scale.ScaleNumber);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogging.LogError(ex, "ConnectionStatusTimer");
+                }
+            }
+        }
+
+        public void Unload(FrameworkElement element)
+        {
+            try
+            {
+                _timer.Stop();
+                _connectionStatusTimer.Stop();
+                foreach (var scale in ScaleList)
+                {
+                    if (!scale.Active) continue;
+                    if (scale.TcpConnection == null) continue;
+                    scale.TcpConnection.OnDataReceived -= NetConnectionOnOnDataReceived;
+                    scale.TcpConnection.Disconnect();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "BatchDetailsViewModel_Unload");
+            }
+            finally
+            {
+                ScaleList = null;
+                PacksPerMin = 0;
+                TotalPacksCount = 0;
+                TotalWeight = 0;
+                GiveawayDisplay = "";
+                AverageWeight = 0;
+                PortionList = null;
+                OperatorList = null;
+            }
+
+        }
+    }
+}

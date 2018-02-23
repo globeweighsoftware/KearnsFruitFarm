@@ -1,0 +1,88 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+                    xmlns:shared="clr-namespace:Globeweigh.UI.Shared;assembly=Globeweigh.UI.Shared"
+                    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                    xmlns:native="http://schemas.devexpress.com/winfx/2008/xaml/core/internal"
+                    xmlns:themes="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys">
+
+
+
+    <Style x:Key="ContentStyleBase" TargetType="{x:Type Controls:TransactionContentControl}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="TextBlockHorizontalAlignment" Value="Stretch"/>
+        <Setter Property="TextBlockVerticalAlignment" Value="Stretch"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LabelTextFontSize" Value="20"/>
+        <Setter Property="TextDataFontSize" Value="20"/>
+        <Setter Property="LabelTextForeground" Value="{DynamicResource MainNavyBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MainNavyBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}"/>
+        <Setter Property="FocusedBorderBrush" Value="{DynamicResource PinkBrush}"/>
+        <Setter Property="Focusable" Value="True"/>
+    </Style>
+
+    <Style x:Key="TextBlockPopupContentStyle" TargetType="{x:Type Controls:TransactionContentControl}" BasedOn="{StaticResource ContentStyleBase}">
+        <Setter Property="shared:ElementBehaviours.MouseUpCommandName" Value="MouseUpCommand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:TransactionContentControl}">
+                    <Grid Margin="10">
+                        <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" Margin="2"  Height="Auto">
+                            <TextBlock x:Name="textBlock" Text="{TemplateBinding Text}"  FontSize="{TemplateBinding FontSize}" TextWrapping="{TemplateBinding TextWrapping}" VerticalAlignment="Center" HorizontalAlignment="{TemplateBinding TextBlockHorizontalAlignment}" Margin="16,0,30,0" FontFamily="{TemplateBinding FontFamily}"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HideBorder" Value="True">
+                            <Setter TargetName="border" Property="BorderThickness" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PassFailPopupContentStyle" TargetType="{x:Type Controls:TransactionContentControl}" BasedOn="{StaticResource ContentStyleBase}">
+        <Setter Property="shared:ElementBehaviours.MouseUpCommandName" Value="MouseUpCommand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:TransactionContentControl}">
+                    <Grid Margin="10">
+                        <Border x:Name="border" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" Margin="2"  Height="Auto">
+                            <Grid>
+                                <Border x:Name="notCheckedBorder"  HorizontalAlignment="Stretch"   VerticalAlignment="Stretch" Margin="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" >
+                                </Border>
+                                <Border x:Name="passBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Visibility="Collapsed">
+                                    <Image Source="/Globeweigh.UI.Touch;component/Images/Ok-128.png" Width="90" Height="Auto"/>
+                                </Border>
+                                <Border x:Name="failBorder" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Visibility="Collapsed">
+                                    <Image Source="/Globeweigh.UI.Touch;component/Images/Cancel-128.png" Width="90" Height="Auto"/>
+                                </Border>
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Path=Tag,RelativeSource={RelativeSource Self}}" Value="True">
+                            <Setter TargetName="passBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="failBorder" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Path=Tag,RelativeSource={RelativeSource Self}}" Value="False">
+                            <Setter TargetName="failBorder" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="passBorder" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+</ResourceDictionary>

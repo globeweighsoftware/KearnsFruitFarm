@@ -1,0 +1,930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GlobeweighModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Closed" Type="bit" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
+          <Property Name="Override" Type="bit" Nullable="false" />
+          <Property Name="LowerLimitOverride" Type="int" />
+          <Property Name="UpperLimitOverride" Type="int" />
+          <Property Name="NominalOverride" Type="int" />
+          <Property Name="TareOverride" Type="int" />
+          <Property Name="FiftyCount" Type="int" Nullable="false" />
+          <Property Name="IsLive" Type="bit" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateClosed" Type="datetime" />
+          <Property Name="DateDeleted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Batch_OperatorTime">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="OperatorId" Type="int" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CurrentVersion" Type="nvarchar" MaxLength="50" />
+          <Property Name="VersionOnServer" Type="nvarchar" MaxLength="50" />
+          <Property Name="AutoStartConfigured" Type="bit" Nullable="false" />
+          <Property Name="RecycleRequested" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateOfLastPing" Type="datetime" />
+          <Property Name="DateOfLastRestart" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EntityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntityTypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="EntityTypeId" Type="int" Nullable="false" />
+          <Property Name="IsReferenceDataType" Type="bit" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntityTypeField">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntityTypeId" Type="int" Nullable="false" />
+          <Property Name="FieldName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsVisible" Type="bit" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar(max)" />
+          <Property Name="FormatMask" Type="nvarchar" MaxLength="50" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="IsUsed" Type="bit" Nullable="false" />
+          <Property Name="IsRequired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DeviceId" Type="int" />
+          <Property Name="ComputerName" Type="varchar" MaxLength="50" />
+          <Property Name="TimeOfError" Type="datetime" />
+          <Property Name="CustomMessage" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ShiftId" Type="int" Nullable="false" />
+          <Property Name="RefTypeId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" />
+          <Property Name="DateDeleted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Portion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="ScaleNo" Type="int" Nullable="false" />
+          <Property Name="OperatorId" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateDeleted" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="LowerLimit" Type="int" />
+          <Property Name="UpperLimit" Type="int" />
+          <Property Name="Tare" Type="int" />
+          <Property Name="NominalWeight" Type="int" />
+          <Property Name="AveragePacksPerminute" Type="int" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ReferenceData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RefTypeId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExtraData" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlternativeDisplayName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DecimalData" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LowerLimit" Type="int" />
+          <Property Name="UpperLimit" Type="int" />
+          <Property Name="Tare" Type="int" />
+          <Property Name="NominalWeight" Type="int" />
+          <Property Name="AveragePacksPerminute" Type="int" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="DateDeleted" Type="datetime" />
+          <Property Name="DateLastModified" Type="datetime" />
+          <Property Name="Customer" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Scale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScaleNumber" Type="int" Nullable="false" />
+          <Property Name="OperatorId" Type="int" />
+          <Property Name="NetConnectionIpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ScaleIpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Slave" Type="bit" Nullable="false" />
+          <Property Name="SlaveOrder" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwBatchView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwBatchView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Closed" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="Deleted" />
+            <PropertyRef Name="TimeElapsedTicks" />
+            <PropertyRef Name="Override" />
+            <PropertyRef Name="FiftyCount" />
+            <PropertyRef Name="IsLive" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Closed" Type="bit" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="LowerLimit" Type="int" />
+          <Property Name="UpperLimit" Type="int" />
+          <Property Name="NominalWeight" Type="int" />
+          <Property Name="AveragePacksPerminute" Type="int" />
+          <Property Name="PortionCount" Type="int" />
+          <Property Name="Tare" Type="int" />
+          <Property Name="DateClosed" Type="datetime" />
+          <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="NominalOverride" Type="int" />
+          <Property Name="UpperLimitOverride" Type="int" />
+          <Property Name="LowerLimitOverride" Type="int" />
+          <Property Name="Override" Type="bit" Nullable="false" />
+          <Property Name="TareOverride" Type="int" />
+          <Property Name="FiftyCount" Type="int" Nullable="false" />
+          <Property Name="IsLive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorBatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwOperatorBatch">
+          <Key>
+            <PropertyRef Name="BatchId" />
+            <PropertyRef Name="OperatorId" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="TimeElapsedTicks" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="OperatorId" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="101" Nullable="false" />
+          <Property Name="PortionCount" Type="int" />
+          <Property Name="TotalWeightGrams" Type="int" />
+          <Property Name="TimeElapsedTicks" Type="bigint" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorRefData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwOperatorRefData">
+          <Key>
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="RefTypeId" />
+            <PropertyRef Name="ShiftId" />
+          </Key>
+          <Property Name="FullName" Type="nvarchar" MaxLength="101" Nullable="false" />
+          <Property Name="ShiftName" Type="nvarchar" MaxLength="50" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="RefTypeId" Type="int" Nullable="false" />
+          <Property Name="ShiftId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwPortionView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="OperatorId" />
+            <PropertyRef Name="Deleted" />
+            <PropertyRef Name="BatchId" />
+            <PropertyRef Name="ScaleNo" />
+            <PropertyRef Name="Weight" />
+            <PropertyRef Name="OperatorName" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="OperatorId" Type="int" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="BatchId" Type="int" Nullable="false" />
+          <Property Name="ScaleNo" Type="int" Nullable="false" />
+          <Property Name="Weight" Type="int" Nullable="false" />
+          <Property Name="Giveaway" Type="int" />
+          <Property Name="OperatorName" Type="nvarchar" MaxLength="101" Nullable="false" />
+          <Property Name="Tare" Type="int" />
+        </EntityType>
+        <Function Name="spOperatorBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="batchId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="GlobeweighModelStoreContainer">
+          <EntitySet Name="Batch" EntityType="Self.Batch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Batch_OperatorTime" EntityType="Self.Batch_OperatorTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Device" EntityType="Self.Device" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntityType" EntityType="Self.EntityType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntityTypeField" EntityType="Self.EntityTypeField" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operator" EntityType="Self.Operator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Portion" EntityType="Self.Portion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReferenceData" EntityType="Self.ReferenceData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scale" EntityType="Self.Scale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwBatchView" EntityType="Self.vwBatchView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwBatchView].[id] AS [id], 
+    [vwBatchView].[ProductId] AS [ProductId], 
+    [vwBatchView].[Closed] AS [Closed], 
+    [vwBatchView].[DateCreated] AS [DateCreated], 
+    [vwBatchView].[ProductName] AS [ProductName], 
+    [vwBatchView].[Deleted] AS [Deleted], 
+    [vwBatchView].[LowerLimit] AS [LowerLimit], 
+    [vwBatchView].[UpperLimit] AS [UpperLimit], 
+    [vwBatchView].[NominalWeight] AS [NominalWeight], 
+    [vwBatchView].[AveragePacksPerminute] AS [AveragePacksPerminute], 
+    [vwBatchView].[PortionCount] AS [PortionCount], 
+    [vwBatchView].[Tare] AS [Tare], 
+    [vwBatchView].[DateClosed] AS [DateClosed], 
+    [vwBatchView].[TimeElapsedTicks] AS [TimeElapsedTicks], 
+    [vwBatchView].[Code] AS [Code], 
+    [vwBatchView].[NominalOverride] AS [NominalOverride], 
+    [vwBatchView].[UpperLimitOverride] AS [UpperLimitOverride], 
+    [vwBatchView].[LowerLimitOverride] AS [LowerLimitOverride], 
+    [vwBatchView].[Override] AS [Override], 
+    [vwBatchView].[TareOverride] AS [TareOverride], 
+    [vwBatchView].[FiftyCount] AS [FiftyCount], 
+    [vwBatchView].[IsLive] AS [IsLive]
+    FROM [dbo].[vwBatchView] AS [vwBatchView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwOperatorBatch" EntityType="Self.vwOperatorBatch" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwOperatorBatch].[BatchId] AS [BatchId], 
+    [vwOperatorBatch].[OperatorId] AS [OperatorId], 
+    [vwOperatorBatch].[FullName] AS [FullName], 
+    [vwOperatorBatch].[PortionCount] AS [PortionCount], 
+    [vwOperatorBatch].[TotalWeightGrams] AS [TotalWeightGrams], 
+    [vwOperatorBatch].[TimeElapsedTicks] AS [TimeElapsedTicks], 
+    [vwOperatorBatch].[id] AS [id]
+    FROM [dbo].[vwOperatorBatch] AS [vwOperatorBatch]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwOperatorRefData" EntityType="Self.vwOperatorRefData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwOperatorRefData].[FullName] AS [FullName], 
+    [vwOperatorRefData].[ShiftName] AS [ShiftName], 
+    [vwOperatorRefData].[id] AS [id], 
+    [vwOperatorRefData].[RefTypeId] AS [RefTypeId], 
+    [vwOperatorRefData].[ShiftId] AS [ShiftId]
+    FROM [dbo].[vwOperatorRefData] AS [vwOperatorRefData]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwPortionView" EntityType="Self.vwPortionView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwPortionView].[id] AS [id], 
+    [vwPortionView].[ProductName] AS [ProductName], 
+    [vwPortionView].[DateCreated] AS [DateCreated], 
+    [vwPortionView].[OperatorId] AS [OperatorId], 
+    [vwPortionView].[Deleted] AS [Deleted], 
+    [vwPortionView].[BatchId] AS [BatchId], 
+    [vwPortionView].[ScaleNo] AS [ScaleNo], 
+    [vwPortionView].[Weight] AS [Weight], 
+    [vwPortionView].[Giveaway] AS [Giveaway], 
+    [vwPortionView].[OperatorName] AS [OperatorName], 
+    [vwPortionView].[Tare] AS [Tare]
+    FROM [dbo].[vwPortionView] AS [vwPortionView]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GlobeweighModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GlobeweighEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="spGetDispatchPalletProductsGrouped" ReturnType="Collection(GlobeweighModel.spGetDispatchPalletProductsGrouped_Result)">
+            <Parameter Name="dispatchOrderId" Mode="In" Type="Int32" />
+            <Parameter Name="dispatchPalletId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spAllProductsForOperaLink" ReturnType="Collection(GlobeweighModel.spAllProductsForOperaLink_Result)" />
+          <FunctionImport Name="spOperatorBatch" ReturnType="Collection(GlobeweighModel.spOperatorBatch_Result)">
+          <Parameter Name="batchId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Batches" EntityType="GlobeweighModel.Batch" />
+          <EntitySet Name="Batch_OperatorTime" EntityType="GlobeweighModel.Batch_OperatorTime" />
+          <EntitySet Name="Devices" EntityType="GlobeweighModel.Device" />
+          <EntitySet Name="EntityTypes" EntityType="GlobeweighModel.EntityType" />
+          <EntitySet Name="EntityTypeFields" EntityType="GlobeweighModel.EntityTypeField" />
+          <EntitySet Name="ErrorLogs" EntityType="GlobeweighModel.ErrorLog" />
+          <EntitySet Name="Operators" EntityType="GlobeweighModel.Operator" />
+          <EntitySet Name="Portions" EntityType="GlobeweighModel.Portion" />
+          <EntitySet Name="ReferenceDatas" EntityType="GlobeweighModel.ReferenceData" />
+          <EntitySet Name="Scales" EntityType="GlobeweighModel.Scale" />
+          <EntitySet Name="vwBatchViews" EntityType="GlobeweighModel.vwBatchView" />
+          <EntitySet Name="vwOperatorBatches" EntityType="GlobeweighModel.vwOperatorBatch" />
+          <EntitySet Name="vwOperatorRefDatas" EntityType="GlobeweighModel.vwOperatorRefData" />
+          <EntitySet Name="vwPortionViews" EntityType="GlobeweighModel.vwPortionView" />
+          <EntitySet Name="Products" EntityType="GlobeweighModel.Product" />
+          </EntityContainer>
+        <ComplexType Name="spGetDispatchPalletProductsGrouped_Result">
+          <Property Type="Int32" Name="BoxCount" Nullable="true" />
+          <Property Type="String" Name="BatchNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="BestBeforeDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Int32" Name="QuantityPerBox" Nullable="true" />
+          <Property Type="Int32" Name="ItemWeight" Nullable="true" />
+          <Property Type="Boolean" Name="DisplayUnitKilos" Nullable="true" />
+          <Property Type="Int32" Name="BatchId" Nullable="false" />
+          <Property Type="Boolean" Name="IsManual" Nullable="true" />
+          <Property Type="Int32" Name="EntityId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spAllProductsForOperaLink_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="OperaLinkCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Description" Nullable="false" />
+          <Property Type="Int32" Name="ItemWeight" Nullable="false" />
+          <Property Type="Int32" Name="QuantityPerBox" Nullable="false" />
+          <Property Type="Boolean" Name="DisplayUnitKilos" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spOperatorBatch_Result">
+          <Property Type="Int32" Name="BatchId" Nullable="false" />
+          <Property Type="Int32" Name="OperatorId" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="false" MaxLength="101" />
+          <Property Type="Int32" Name="PortionCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalWeightGrams" Nullable="true" />
+          <Property Type="Int64" Name="TimeElapsedTicks" Nullable="false" />
+          <Property Type="Int32" Name="id" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Batch">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Closed" Type="Boolean" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
+          <Property Name="Override" Type="Boolean" Nullable="false" />
+          <Property Name="LowerLimitOverride" Type="Int32" />
+          <Property Name="UpperLimitOverride" Type="Int32" />
+          <Property Name="NominalOverride" Type="Int32" />
+          <Property Name="TareOverride" Type="Int32" />
+          <Property Name="FiftyCount" Type="Int32" Nullable="false" />
+          <Property Name="IsLive" Type="Boolean" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateClosed" Type="DateTime" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Batch_OperatorTime">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
+          <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentVersion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VersionOnServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AutoStartConfigured" Type="Boolean" Nullable="false" />
+          <Property Name="RecycleRequested" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateOfLastPing" Type="DateTime" Precision="3" />
+          <Property Name="DateOfLastRestart" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="EntityType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EntityTypeId" Type="Int32" Nullable="false" />
+          <Property Name="IsReferenceDataType" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EntityTypeField">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntityTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FieldName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVisible" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FormatMask" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+          <Property Name="IsRequired" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DeviceId" Type="Int32" />
+          <Property Name="ComputerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeOfError" Type="DateTime" Precision="3" />
+          <Property Name="CustomMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Operator">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShiftId" Type="Int32" Nullable="false" />
+          <Property Name="RefTypeId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Portion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="ScaleNo" Type="Int32" Nullable="false" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ReferenceData">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RefTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ExtraData" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlternativeDisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DecimalData" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LowerLimit" Type="Int32" />
+          <Property Name="UpperLimit" Type="Int32" />
+          <Property Name="Tare" Type="Int32" />
+          <Property Name="NominalWeight" Type="Int32" />
+          <Property Name="AveragePacksPerminute" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+          <Property Name="Customer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Scale">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScaleNumber" Type="Int32" Nullable="false" />
+          <Property Name="OperatorId" Type="Int32" />
+          <Property Name="NetConnectionIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ScaleIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Slave" Type="Boolean" Nullable="false" />
+          <Property Name="SlaveOrder" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwBatchView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="Closed" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="Deleted" />
+            <PropertyRef Name="TimeElapsedTicks" />
+            <PropertyRef Name="Override" />
+            <PropertyRef Name="FiftyCount" />
+            <PropertyRef Name="IsLive" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Closed" Type="Boolean" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="LowerLimit" Type="Int32" />
+          <Property Name="UpperLimit" Type="Int32" />
+          <Property Name="NominalWeight" Type="Int32" />
+          <Property Name="AveragePacksPerminute" Type="Int32" />
+          <Property Name="PortionCount" Type="Int32" />
+          <Property Name="Tare" Type="Int32" />
+          <Property Name="DateClosed" Type="DateTime" Precision="3" />
+          <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NominalOverride" Type="Int32" />
+          <Property Name="UpperLimitOverride" Type="Int32" />
+          <Property Name="LowerLimitOverride" Type="Int32" />
+          <Property Name="Override" Type="Boolean" Nullable="false" />
+          <Property Name="TareOverride" Type="Int32" />
+          <Property Name="FiftyCount" Type="Int32" Nullable="false" />
+          <Property Name="IsLive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwOperatorBatch">
+          <Key>
+            <PropertyRef Name="BatchId" />
+            <PropertyRef Name="OperatorId" />
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="TimeElapsedTicks" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="PortionCount" Type="Int32" />
+          <Property Name="TotalWeightGrams" Type="Int32" />
+          <Property Name="TimeElapsedTicks" Type="Int64" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwOperatorRefData">
+          <Key>
+            <PropertyRef Name="FullName" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="RefTypeId" />
+            <PropertyRef Name="ShiftId" />
+          </Key>
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="ShiftName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="RefTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ShiftId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwPortionView">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="OperatorId" />
+            <PropertyRef Name="Deleted" />
+            <PropertyRef Name="BatchId" />
+            <PropertyRef Name="ScaleNo" />
+            <PropertyRef Name="Weight" />
+            <PropertyRef Name="OperatorName" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OperatorId" Type="Int32" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="BatchId" Type="Int32" Nullable="false" />
+          <Property Name="ScaleNo" Type="Int32" Nullable="false" />
+          <Property Name="Weight" Type="Int32" Nullable="false" />
+          <Property Name="Giveaway" Type="Int32" />
+          <Property Name="OperatorName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
+          <Property Name="Tare" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LowerLimit" Type="Int32" />
+          <Property Name="UpperLimit" Type="Int32" />
+          <Property Name="Tare" Type="Int32" />
+          <Property Name="NominalWeight" Type="Int32" />
+          <Property Name="AveragePacksPerminute" Type="Int32" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="DateLastModified" Type="DateTime" Precision="3" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GlobeweighModelStoreContainer" CdmEntityContainer="GlobeweighEntities">
+          <FunctionImportMapping FunctionImportName="spOperatorBatch" FunctionName="GlobeweighModel.Store.spOperatorBatch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobeweighModel.spOperatorBatch_Result">
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
+                <ScalarProperty Name="TotalWeightGrams" ColumnName="TotalWeightGrams" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Batches">
+            <EntityTypeMapping TypeName="GlobeweighModel.Batch">
+              <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
+                <ScalarProperty Name="FiftyCount" ColumnName="FiftyCount" />
+                <ScalarProperty Name="TareOverride" ColumnName="TareOverride" />
+                <ScalarProperty Name="NominalOverride" ColumnName="NominalOverride" />
+                <ScalarProperty Name="UpperLimitOverride" ColumnName="UpperLimitOverride" />
+                <ScalarProperty Name="LowerLimitOverride" ColumnName="LowerLimitOverride" />
+                <ScalarProperty Name="Override" ColumnName="Override" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Batch_OperatorTime">
+            <EntityTypeMapping TypeName="GlobeweighModel.Batch_OperatorTime">
+              <MappingFragment StoreEntitySet="Batch_OperatorTime">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devices">
+            <EntityTypeMapping TypeName="GlobeweighModel.Device">
+              <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="DateOfLastRestart" ColumnName="DateOfLastRestart" />
+                <ScalarProperty Name="DateOfLastPing" ColumnName="DateOfLastPing" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="RecycleRequested" ColumnName="RecycleRequested" />
+                <ScalarProperty Name="AutoStartConfigured" ColumnName="AutoStartConfigured" />
+                <ScalarProperty Name="VersionOnServer" ColumnName="VersionOnServer" />
+                <ScalarProperty Name="CurrentVersion" ColumnName="CurrentVersion" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntityTypes">
+            <EntityTypeMapping TypeName="GlobeweighModel.EntityType">
+              <MappingFragment StoreEntitySet="EntityType">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsReferenceDataType" ColumnName="IsReferenceDataType" />
+                <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="EntityTypeName" ColumnName="EntityTypeName" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntityTypeFields">
+            <EntityTypeMapping TypeName="GlobeweighModel.EntityTypeField">
+              <MappingFragment StoreEntitySet="EntityTypeField">
+                <ScalarProperty Name="IsRequired" ColumnName="IsRequired" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="FormatMask" ColumnName="FormatMask" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FieldName" ColumnName="FieldName" />
+                <ScalarProperty Name="EntityTypeId" ColumnName="EntityTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="GlobeweighModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CustomMessage" ColumnName="CustomMessage" />
+                <ScalarProperty Name="TimeOfError" ColumnName="TimeOfError" />
+                <ScalarProperty Name="ComputerName" ColumnName="ComputerName" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operators">
+            <EntityTypeMapping TypeName="GlobeweighModel.Operator">
+              <MappingFragment StoreEntitySet="Operator">
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="RefTypeId" ColumnName="RefTypeId" />
+                <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Portions">
+            <EntityTypeMapping TypeName="GlobeweighModel.Portion">
+              <MappingFragment StoreEntitySet="Portion">
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="ScaleNo" ColumnName="ScaleNo" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReferenceDatas">
+            <EntityTypeMapping TypeName="GlobeweighModel.ReferenceData">
+              <MappingFragment StoreEntitySet="ReferenceData">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
+                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+                <ScalarProperty Name="DecimalData" ColumnName="DecimalData" />
+                <ScalarProperty Name="AlternativeDisplayName" ColumnName="AlternativeDisplayName" />
+                <ScalarProperty Name="ExtraData" ColumnName="ExtraData" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="RefTypeId" ColumnName="RefTypeId" />
+                <ScalarProperty Name="RefType" ColumnName="RefType" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scales">
+            <EntityTypeMapping TypeName="GlobeweighModel.Scale">
+              <MappingFragment StoreEntitySet="Scale">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="SlaveOrder" ColumnName="SlaveOrder" />
+                <ScalarProperty Name="Slave" ColumnName="Slave" />
+                <ScalarProperty Name="ScaleIpAddress" ColumnName="ScaleIpAddress" />
+                <ScalarProperty Name="NetConnectionIpAddress" ColumnName="NetConnectionIpAddress" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="ScaleNumber" ColumnName="ScaleNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwBatchViews">
+            <EntityTypeMapping TypeName="GlobeweighModel.vwBatchView">
+              <MappingFragment StoreEntitySet="vwBatchView">
+                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
+                <ScalarProperty Name="FiftyCount" ColumnName="FiftyCount" />
+                <ScalarProperty Name="TareOverride" ColumnName="TareOverride" />
+                <ScalarProperty Name="Override" ColumnName="Override" />
+                <ScalarProperty Name="LowerLimitOverride" ColumnName="LowerLimitOverride" />
+                <ScalarProperty Name="UpperLimitOverride" ColumnName="UpperLimitOverride" />
+                <ScalarProperty Name="NominalOverride" ColumnName="NominalOverride" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
+                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
+                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
+                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Closed" ColumnName="Closed" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOperatorBatches">
+            <EntityTypeMapping TypeName="GlobeweighModel.vwOperatorBatch">
+              <MappingFragment StoreEntitySet="vwOperatorBatch">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TimeElapsedTicks" ColumnName="TimeElapsedTicks" />
+                <ScalarProperty Name="TotalWeightGrams" ColumnName="TotalWeightGrams" />
+                <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOperatorRefDatas">
+            <EntityTypeMapping TypeName="GlobeweighModel.vwOperatorRefData">
+              <MappingFragment StoreEntitySet="vwOperatorRefData">
+                <ScalarProperty Name="ShiftId" ColumnName="ShiftId" />
+                <ScalarProperty Name="RefTypeId" ColumnName="RefTypeId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ShiftName" ColumnName="ShiftName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwPortionViews">
+            <EntityTypeMapping TypeName="GlobeweighModel.vwPortionView">
+              <MappingFragment StoreEntitySet="vwPortionView">
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="Giveaway" ColumnName="Giveaway" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="ScaleNo" ColumnName="ScaleNo" />
+                <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="GlobeweighModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+                <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
+                <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
+                <ScalarProperty Name="Tare" ColumnName="Tare" />
+                <ScalarProperty Name="UpperLimit" ColumnName="UpperLimit" />
+                <ScalarProperty Name="LowerLimit" ColumnName="LowerLimit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
