@@ -89,7 +89,7 @@
         <Setter Property="Foreground" Value="#FF2C7EDC"/>
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderThickness" Value="3"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ItemBorderBrush}"/>
         <Setter Property="Template">
             <Setter.Value>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -17,6 +18,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Globeweigh.Model;
 using Globeweigh.UI.Shared.Helpers;
 using System.Threading.Tasks;
+using System.Collections.Async;
 
 namespace Globeweigh.UI.Touch
 {
@@ -25,12 +27,8 @@ namespace Globeweigh.UI.Touch
         #region private fields
 
         private readonly IOperatorRepository _operatorRepo = SimpleIoc.Default.GetInstance<IOperatorRepository>();
-
-        private readonly IReferenceDataRepository _refDataRepo =
-            SimpleIoc.Default.GetInstance<IReferenceDataRepository>();
-
+        private readonly IReferenceDataRepository _refDataRepo = SimpleIoc.Default.GetInstance<IReferenceDataRepository>();
         private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
-
         private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
         private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
         private readonly IScaleRepository _scaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
@@ -38,10 +36,9 @@ namespace Globeweigh.UI.Touch
 
 
         private DispatcherTimer _timer;
-        private DispatcherTimer _connectionStatusTimer;
-        private DispatcherTimer _slaveScalesRefreshTimer;
-        private bool _100LimitsAlreadySet = false;
-        private int _50Countdown = 0;
+        //        private DispatcherTimer _connectionStatusTimer;
+        //        private bool _100LimitsAlreadySet = false;
+        //        private int _50Countdown = 0;
 
         #endregion
 
@@ -152,8 +149,8 @@ namespace Globeweigh.UI.Touch
             get
             {
                 if (SelectedBatchView.Override) return SelectedBatchView.BatchUpperLimit;
-                if (IsOver100 && _50Countdown == 0)
-                    return (int)SelectedBatchView.BatchLowerLimit + SelectedBatchView.Band;
+                //                if (IsOver100 && _50Countdown == 0)
+                //                    return (int)SelectedBatchView.BatchLowerLimit + SelectedBatchView.Band;
                 return (int)(SelectedBatchView.BatchUpperLimit);
 
             }
@@ -164,8 +161,8 @@ namespace Globeweigh.UI.Touch
             get
             {
                 if (SelectedBatchView.Override) return SelectedBatchView.BatchLowerLimit;
-                if (IsOver100 && _50Countdown == 0)
-                    return (int)SelectedBatchView.BatchLowerLimit;
+                //                if (IsOver100 && _50Countdown == 0)
+                //                    return (int)SelectedBatchView.BatchLowerLimit;
                 return (int)SelectedBatchView.NominalWeight;
 
             }
@@ -259,8 +256,8 @@ namespace Globeweigh.UI.Touch
 
         private async void OnRetryConnectionCommand(Scale scale)
         {
-            await Task.Run(() => OpenAndSetTcpConnections(scale.ScaleNumber));
-//            await OpenAndSetTcpConnections(scale.ScaleNumber);
+            await Task.Run(() => OpenAndSetTcpConnection(scale, true));
+            //            await OpenAndSetTcpConnections(scale.ScaleNumber);
         }
 
         private async void OnSelectUser(Scale scale)
@@ -319,8 +316,8 @@ namespace Globeweigh.UI.Touch
 
                 if (ScaleList.All(a => a.OperatorId == null))
                 {
-                    await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id,
-                        SelectedBatchView.TimeElapsedTicks, _50Countdown);
+                    await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id, SelectedBatchView.TimeElapsedTicks, 0);
+                    //                    await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id,SelectedBatchView.TimeElapsedTicks, _50Countdown);
                 }
             }
             catch (Exception ex)
@@ -388,28 +385,28 @@ namespace Globeweigh.UI.Touch
                                   "%)";
             }
 
-            if (TotalPacksCount == 100)
-                SendLimitCommands();
-
-            if (_50Countdown != 0)
-            {
-                _50Countdown -= 1;
-
-                if (_50Countdown == 0)
-                {
-                    SendLimitCommands();
-                }
-                return;
-            }
-
-            if (TotalPacksCount > 100)
-            {
-                if (AverageWeight < SelectedBatchView.NominalWeight && _50Countdown == 0)
-                {
-                    _50Countdown = 50;
-                    SendLimitCommands();
-                }
-            }
+            //            if (TotalPacksCount == 100)
+            //                SendLimitCommands();
+            //
+            //            if (_50Countdown != 0)
+            //            {
+            //                _50Countdown -= 1;
+            //
+            //                if (_50Countdown == 0)
+            //                {
+            //                    SendLimitCommands();
+            //                }
+            //                return;
+            //            }
+            //
+            //            if (TotalPacksCount > 100)
+            //            {
+            //                if (AverageWeight < SelectedBatchView.NominalWeight && _50Countdown == 0)
+            //                {
+            //                    _50Countdown = 50;
+            //                    SendLimitCommands();
+            //                }
+            //            }
         }
 
         private async void OnKeyPreviewDown(KeyEventArgs e)
@@ -435,7 +432,7 @@ namespace Globeweigh.UI.Touch
             await RefreshPortionList();
         }
 
-        private async Task OpenAndSetTcpConnections(int scaleNumber)
+        private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
             //            if (Utilities.IsMyMachine)
@@ -447,68 +444,79 @@ namespace Globeweigh.UI.Touch
             //                return;
             //            }
 
-
-            foreach (var scale in ScaleList)
+            var bag = new ConcurrentBag<object>();
+            await ScaleList.ParallelForEachAsync(async item =>
             {
-                try
+                // some pre stuff
+                var response = await Task.Run(() => OpenAndSetTcpConnection(item, true));
+                bag.Add(response);
+                // some post stuff
+            }, maxDegreeOfParalellism: 10);
+            var count = bag.Count;
+        }
+
+
+
+        private async Task<object> OpenAndSetTcpConnection(Scale scale, bool fromBatchStart)
+        {
+            try
+            {
+
+                scale.IsBusy = true;
+
+                scale.OperatorId = null;
+                if (scale.Active)
                 {
-                    if (scaleNumber != 0 && scale.ScaleNumber != scaleNumber) continue;
+                    scale.TcpConnection = new NetConnection();
+                    byte[] lowerLimitBytesToSend =
+                        ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
+                    byte[] nominalBytesToSend =
+                        ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
+                    byte[] upperLimitBytesToSend =
+                        ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
+                    byte[] tarebytesToSend =
+                        ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
 
-                    scale.IsBusy = true;
-
-                    scale.OperatorId = null;
-                    if (scale.Active)
+                    var success = scale.TcpConnection.Connect(IPAddress.Parse(scale.ScaleIpAddress), 23);
+                    if (!success)
                     {
-                        scale.TcpConnection = new NetConnection();
-                        byte[] lowerLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
-                        byte[] nominalBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
-                        byte[] upperLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
-                        byte[] tarebytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
+                        scale.IsConnected = false;
+                        return null;
+                    }
+                    scale.IsConnected = true;
 
-                        var success = scale.TcpConnection.Connect(IPAddress.Parse(scale.ScaleIpAddress), 23);
-                        if (!success)
-                        {
-                            scale.IsConnected = false;
-                            continue;
-                        }
-                        scale.IsConnected = true;
-
-                        if (scaleNumber == 0)
-                        {
-                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("#7 \n"));
-                            Thread.Sleep(500);
-                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q#\n"));
-                            Thread.Sleep(500);
-                            scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q!\n"));
-                            Thread.Sleep(500);
-                        }
-
-
-                        scale.TcpConnection.Send(lowerLimitBytesToSend);
-                        scale.TcpConnection.Send(nominalBytesToSend);
-                        scale.TcpConnection.Send(upperLimitBytesToSend);
-                        scale.TcpConnection.Send(tarebytesToSend);
-                        scale.TcpConnection.OnDataReceived += NetConnectionOnOnDataReceived;
+                    if (fromBatchStart)
+                    {
+                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("#7 \n"));
+                        Thread.Sleep(500);
+                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q#\n"));
+                        Thread.Sleep(500);
+                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q!\n"));
+                        Thread.Sleep(500);
                     }
 
+
+                    scale.TcpConnection.Send(lowerLimitBytesToSend);
+                    scale.TcpConnection.Send(nominalBytesToSend);
+                    scale.TcpConnection.Send(upperLimitBytesToSend);
+                    scale.TcpConnection.Send(tarebytesToSend);
+                    scale.TcpConnection.OnDataReceived += NetConnectionOnOnDataReceived;
+
                     //                    scale.IsBusy = false;
-
                 }
-                catch (Exception ex)
-                {
-                    scale.IsConnected = false;
-                }
-                finally
-                {
-                    scale.IsBusy = false;
-                }
-
             }
-            _connectionStatusTimer.Start();
+
+            catch (Exception ex)
+            {
+                scale.IsConnected = false;
+            }
+            finally
+            {
+                scale.IsBusy = false;
+            }
+            return null;
+
+            //            _connectionStatusTimer.Start();
 
         }
 
@@ -590,9 +598,9 @@ namespace Globeweigh.UI.Touch
             _timer.Interval = new TimeSpan(0, 0, 0, 1);
             _timer.Tick += timer_tick;
             _timer.Start();
-            _connectionStatusTimer = new DispatcherTimer();
-            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
-            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
+            //            _connectionStatusTimer = new DispatcherTimer();
+            //            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
+            //            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
 
             CurrentDate = DateTime.Now;
             OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
@@ -600,7 +608,7 @@ namespace Globeweigh.UI.Touch
             SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
             //_50Countdown = SelectedBatchView.FiftyCount;
             await RefreshPortionList();
-            await OpenAndSetTcpConnections(0);
+            OpenAndSetTcpConnections();
         }
 
         private async void conectionStatusTimer_tick(object sender, EventArgs e)
@@ -627,7 +635,7 @@ namespace Globeweigh.UI.Touch
                 else
                 {
                     if (!scale.IsConnected)
-                        await OpenAndSetTcpConnections(scale.ScaleNumber);
+                        await OpenAndSetTcpConnection(scale, false);
                 }
             }
             catch (Exception ex)
@@ -641,7 +649,7 @@ namespace Globeweigh.UI.Touch
             try
             {
                 _timer.Stop();
-                _connectionStatusTimer.Stop();
+                //                _connectionStatusTimer.Stop();
                 foreach (var scale in ScaleList)
                 {
                     if (!scale.Active) continue;

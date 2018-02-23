@@ -121,6 +121,7 @@
     <Compile Include="Converters\ImageConverter.cs" />
     <Compile Include="Converters\ValueConverters.cs" />
     <Compile Include="ErrorHandling\ExceptionHelper.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\NetworkConnection.cs" />
     <Compile Include="Helpers\ScaleCommandBuilder.cs" />
     <Compile Include="Helpers\StopwatchWithOffset.cs" />
