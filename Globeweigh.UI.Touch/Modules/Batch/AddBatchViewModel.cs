@@ -12,7 +12,7 @@ using Globeweigh.Model.Custom;
 
 namespace Globeweigh.UI.Touch
 {
-    public class AddBatchViewModel : BindableBase, IModalDialogViewModel, IViewModel
+    public class AddBatchViewModel : DialogViewModelBase, IModalDialogViewModel, IViewModel
     {
         #region private fields
 
