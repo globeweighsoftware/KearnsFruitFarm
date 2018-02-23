@@ -89,6 +89,20 @@ namespace Globeweigh.Model
             }
         }
 
+        private bool _IsBusy;
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                if (_IsBusy != value)
+                {
+                    _IsBusy = value;
+                    OnPropertyChanged("IsBusy");
+                }
+            }
+        }
+
         public bool IsVisible { get; set; }
         public bool OperatorChanged { get; set; }
 

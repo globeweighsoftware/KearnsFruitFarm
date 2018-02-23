@@ -1,7 +1,9 @@
 ﻿using System.Windows;
+using System.Windows.Interop;
+using Globeweigh.Admin.Helpers;
 using Globeweigh.UI.Shared.Helpers;
 
-namespace Globeweigh.UI.Shared
+namespace Globeweigh.Admin
 {
     public class WindowBase : Window
     {
@@ -12,11 +14,11 @@ namespace Globeweigh.UI.Shared
             set { SetValue(NoOpacityChangeProperty, value); }
         }
 
-        public static readonly DependencyProperty IsOwnerSizeProperty = DependencyProperty.Register("IsOwnerSize", typeof(bool), typeof(WindowBase), new UIPropertyMetadata(false));
-        public bool IsOwnerSize
+        public static readonly DependencyProperty IsMainWindowSizeProperty = DependencyProperty.Register("IsMainWindowSize", typeof(bool), typeof(WindowBase), new UIPropertyMetadata(false));
+        public bool IsMainWindowSize
         {
-            get { return (bool)GetValue(IsOwnerSizeProperty); }
-            set { SetValue(IsOwnerSizeProperty, value); }
+            get { return (bool)GetValue(IsMainWindowSizeProperty); }
+            set { SetValue(IsMainWindowSizeProperty, value); }
         }
 
         public WindowBase()
@@ -24,40 +26,32 @@ namespace Globeweigh.UI.Shared
             Style style = this.FindResource("WindowBaseStyle") as Style;
             this.Style = style;
 
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            WindowState = WindowState.Normal;
 
             SourceInitialized += (s, e) =>
             {
                 if (this.Owner == null) return;
                 if (!NoOpacityChange) this.Owner.Opacity = 0.4;
-                if (IsOwnerSize)
+                if (IsMainWindowSize)
                 {
                     if (UtilitiesShared.IsMyMachine)
                     {
-                        this.Width = this.Owner.Width;
-                        this.Height = this.Owner.Height;
-                        this.Left = this.Owner.Left;
-                        this.Top = this.Owner.Top;
+                        var mainWindowHandle = Utilities.GetMainWindow();
+                        this.Width = mainWindowHandle.Width;
+                        this.Height = mainWindowHandle.Height;
+                        this.Top = mainWindowHandle.Top;
+                        this.Left = mainWindowHandle.Left;
+                        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                     }
                     else
                     {
                         WindowState = WindowState.Maximized;
                     }
-
-
-
-
                 }
                 else
                 {
-                    //                    this.Width -= this.Margin.Left;
-                    //                    this.Height -= this.Margin.Top;
-                    //                    this.Left += this.Margin.Left/2;
-                    //                    this.Top += this.Margin.Top/2;
-                    //                    this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-
+                    this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 }
+
             };
             Closed += (s, e) =>
             {
