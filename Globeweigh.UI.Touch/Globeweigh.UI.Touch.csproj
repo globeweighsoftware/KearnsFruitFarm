@@ -228,6 +228,10 @@
       <DependentUpon>BatchListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Batch\BatchListViewModel.cs" />
+    <Compile Include="Modules\Operator\SelectOperatorView.xaml.cs">
+      <DependentUpon>SelectOperatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Operator\SelectOperatorViewModel.cs" />
     <Compile Include="Modules\Product\SelectProductView.xaml.cs">
       <DependentUpon>SelectProductView.xaml</DependentUpon>
     </Compile>
@@ -284,6 +288,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Batch\BatchListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Operator\SelectOperatorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

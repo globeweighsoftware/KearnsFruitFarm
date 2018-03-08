@@ -198,12 +198,16 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorBatch' does not ha
           <Key>
             <PropertyRef Name="FullName" />
             <PropertyRef Name="id" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
           </Key>
           <Property Name="FullName" Type="nvarchar" MaxLength="101" Nullable="false" />
           <Property Name="TimeElapsedTicks" Type="bigint" />
           <Property Name="TimeElapsedId" Type="int" />
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="BatchId" Type="int" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorRefData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -288,7 +292,9 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
     [vwOperatorBatch].[TimeElapsedTicks] AS [TimeElapsedTicks], 
     [vwOperatorBatch].[TimeElapsedId] AS [TimeElapsedId], 
     [vwOperatorBatch].[id] AS [id], 
-    [vwOperatorBatch].[BatchId] AS [BatchId]
+    [vwOperatorBatch].[BatchId] AS [BatchId], 
+    [vwOperatorBatch].[FirstName] AS [FirstName], 
+    [vwOperatorBatch].[LastName] AS [LastName]
     FROM [dbo].[vwOperatorBatch] AS [vwOperatorBatch]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwOperatorRefData" EntityType="Self.vwOperatorRefData" store:Type="Views" store:Schema="dbo">
@@ -563,12 +569,16 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Key>
             <PropertyRef Name="FullName" />
             <PropertyRef Name="id" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
           </Key>
           <Property Name="FullName" Type="String" Nullable="false" MaxLength="101" FixedLength="false" Unicode="true" />
           <Property Name="TimeElapsedTicks" Type="Int64" />
           <Property Name="TimeElapsedId" Type="Int32" />
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="BatchId" Type="Int32" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="vwOperatorRefData">
           <Key>
@@ -818,6 +828,8 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="vwOperatorBatches">
             <EntityTypeMapping TypeName="GlobeweighModel.vwOperatorBatch">
               <MappingFragment StoreEntitySet="vwOperatorBatch">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="BatchId" ColumnName="BatchId" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="TimeElapsedId" ColumnName="TimeElapsedId" />

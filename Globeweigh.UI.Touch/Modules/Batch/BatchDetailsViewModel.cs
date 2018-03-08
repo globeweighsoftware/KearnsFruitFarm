@@ -262,24 +262,24 @@ namespace Globeweigh.UI.Touch
 
         private async void OnSelectUser(Scale scale)
         {
-            //            try
-            //            {
-            //                if (scale == null) return;
-            //                var selectedScale = scale;
-            //                if (OperatorList == null) return;
-            //                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<SelectOperatorViewModel>();
-            //                var availableOperators = OperatorList.Where(oper => !ScaleList.Any(a => a.OperatorId == oper.id)).ToList();
-            //                dialogViewModel.AvailableOperatorList = availableOperators;
-            //                bool? success = _dialogService.ShowDialog<SelectOperatorView>(this, dialogViewModel);
-            //                if (success == true)
-            //                {
-            //                    await AddOperatorToScale(selectedScale, dialogViewModel.SelectedRefData);
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                ErrorLogging.LogError(ex, "OnSelectUser");
-            //            }
+            try
+            {
+                if (scale == null) return;
+                var selectedScale = scale;
+                if (OperatorList == null) return;
+                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<SelectOperatorViewModel>();
+                var availableOperators = OperatorList.Where(oper => !ScaleList.Any(a => a.OperatorId == oper.id)).ToList();
+                dialogViewModel.AllOperatorList = availableOperators;
+                bool? success = _dialogService.ShowDialog<SelectOperatorView>(this, dialogViewModel);
+                if (success == true)
+                {
+                    await AddOperatorToScale(selectedScale, dialogViewModel.SelectedOperator);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.LogError(ex, "OnSelectUser");
+            }
         }
 
         private async Task AddOperatorToScale(Scale selectedScale, vwOperatorBatch selectedOperator)
@@ -411,6 +411,7 @@ namespace Globeweigh.UI.Touch
 
         private async void OnKeyPreviewDown(KeyEventArgs e)
         {
+            if(!UtilitiesShared.IsMyMachine)return;
             int scaleNo = 0;
             if (e.Key == Key.NumPad1 || e.Key == Key.D1) scaleNo = 1;
             if (e.Key == Key.NumPad2 || e.Key == Key.D2) scaleNo = 2;
@@ -435,14 +436,14 @@ namespace Globeweigh.UI.Touch
         private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
-            //            if (Utilities.IsMyMachine)
-            //            {
-            //                foreach (var scale in ScaleList)
-            //                {
-            //                    scale.IsConnected = true;
-            //                }
-            //                return;
-            //            }
+            if (UtilitiesShared.IsMyMachine)
+            {
+                foreach (var scale in ScaleList)
+                {
+                    scale.IsConnected = true;
+                }
+                return;
+            }
 
             var bag = new ConcurrentBag<object>();
             await ScaleList.ParallelForEachAsync(async item =>
@@ -488,11 +489,11 @@ namespace Globeweigh.UI.Touch
                     if (fromBatchStart)
                     {
                         scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("#7 \n"));
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                         scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q#\n"));
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                         scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q!\n"));
-                        Thread.Sleep(500);
+                        Thread.Sleep(1000);
                     }
 
 

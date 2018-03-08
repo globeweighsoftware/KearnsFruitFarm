@@ -30,6 +30,7 @@ namespace Globeweigh.UI.Touch
             SimpleIoc.Default.Register<AddBatchViewModel>();
             SimpleIoc.Default.Register<SelectProductViewModel>();
             SimpleIoc.Default.Register<BatchDetailsViewModel>();
+            SimpleIoc.Default.Register<SelectOperatorViewModel>();
         }
 
         public MainWindowViewModel MainWindow => SimpleIoc.Default.GetInstance<MainWindowViewModel>();

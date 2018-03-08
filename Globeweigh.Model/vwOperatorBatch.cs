@@ -80,6 +80,32 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private string _FirstName;
+        public string FirstName
+        {
+            get { return _FirstName; }
+            set
+            {
+                if (_FirstName != value)
+                {
+                    _FirstName = value;
+                    OnPropertyChanged("FirstName");
+                }
+            }
+        }
+        private string _LastName;
+        public string LastName
+        {
+            get { return _LastName; }
+            set
+            {
+                if (_LastName != value)
+                {
+                    _LastName = value;
+                    OnPropertyChanged("LastName");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

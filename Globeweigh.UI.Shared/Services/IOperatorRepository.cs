@@ -24,7 +24,7 @@ namespace Globeweigh.UI.Shared.Services
         {
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {
-                return await context.vwOperatorBatches.Where(a => a.BatchId == batchId || a.BatchId != null).ToListAsync();
+                return await context.vwOperatorBatches.Where(a => a.BatchId == batchId || a.BatchId == null).ToListAsync();
             }
         }
 
