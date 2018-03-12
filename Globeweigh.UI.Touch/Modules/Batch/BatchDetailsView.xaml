@@ -17,7 +17,7 @@
              md:DialogServiceViews.IsRegistered="True" dx:ThemeManager.ThemeName="MetropolisLight"
 	         x:Class="Globeweigh.UI.Touch.BatchDetailsView"
              mc:Ignorable="d" 
-             d:DesignHeight="1024" d:DesignWidth="1280"
+             d:DesignHeight="748" d:DesignWidth="1346"
              shared:ViewModelBehavior.LoadUnload="True"
              DataContext="{Binding BatchDetailsView, Source={StaticResource Locator}}" >
     <UserControl.Resources>
@@ -48,7 +48,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border  d:DesignWidth="420" d:DesignHeight="170" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
+                            <Border  d:DesignWidth="442" d:DesignHeight="160" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
                                 <!--<Border.Effect>
                                     <DropShadowEffect ShadowDepth="1"/>
                                 </Border.Effect>-->
@@ -198,7 +198,7 @@
             <Border Margin="0" Grid.Row="2" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,2" >
                 <Grid >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="440"/>
                         <ColumnDefinition Width="1"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>

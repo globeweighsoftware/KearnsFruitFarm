@@ -350,7 +350,7 @@ namespace Globeweigh.UI.Touch
                 if (TotalPacksCount == 0 || TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalMinutes == 0)
                     PacksPerMin = 0;
                 else
-                    PacksPerMin = ((Decimal)(TotalPacksCount /
+                    PacksPerMin = ((Decimal) (TotalPacksCount /
                                               (TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalSeconds) *
                                               60));
 
@@ -359,6 +359,10 @@ namespace Globeweigh.UI.Touch
             catch (Exception ex)
             {
                 ErrorLogging.LogError(ex, "timer_tick");
+            }
+            finally
+            {
+                NavigateBackCommand.RaiseCanExecuteChanged();
             }
 
         }

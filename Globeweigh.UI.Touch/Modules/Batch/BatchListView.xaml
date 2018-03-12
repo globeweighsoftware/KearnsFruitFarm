@@ -78,7 +78,11 @@
                                 <dxg:TableView AllowPerPixelScrolling="True" AllowFilterEditor="False" ShowVerticalLines="True" ShowHorizontalLines="True" ShowGroupPanel="False" Margin="4"
                                     AllowSorting="False" ShowIndicator="False"  AutoWidth="True"  NavigationStyle="Row"  VerticalScrollbarVisibility="Auto" ShowFilterPanelMode="Never"/>
                             </dxg:GridControl.View>
-                            <dxg:GridColumn FieldName="id"  Header="Batch ID" Width="40"/>
+                            <dxg:GridColumn FieldName="id"  Header="Batch ID" Width="40">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
                             <dxg:GridColumn FieldName="ProductName"  Header="Product"/>
                             <dxg:GridColumn FieldName="LowerLimit"  Header="Lower"  Width="80" FixedWidth="True">
                                 <dxg:GridColumn.EditSettings>
