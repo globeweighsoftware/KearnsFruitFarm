@@ -116,7 +116,7 @@
             </Grid>
         </Grid>
         <WrapPanel Orientation="Horizontal" Margin="0,20,0,0" Grid.Row="2">
-            <controls:ImageButton Command="{Binding BatchesCommand}" Style="{DynamicResource ImageButtonStyle}" ImageSource="/Images/Production-96.png"  Content="Batches" SecondaryContent="Create pallets for stock" Width="260" Height="220"/>
+            <controls:ImageButton Command="{Binding BatchesCommand}" Style="{DynamicResource ImageButtonStyle}" ImageSource="/Images/Strawberry-96.png"  Content="Batches" SecondaryContent="Create pallets for stock" Width="260" Height="220"/>
             <controls:ImageButton Command="{Binding CleanScreenCommand}" Style="{DynamicResource ImageButtonStyle}" ImageSource="/Globeweigh.UI.Touch;component/Images/Screen Wiper-96.png"  Content="Screen Clean Mode" SecondaryContent="Screen disables for 25 secs" Width="260" Height="220"/>
         </WrapPanel>
         <Button Command="{Binding ExitCommand}" Style="{DynamicResource PrimaryButtonStyle}" Content="EXIT" HorizontalAlignment="Right" Width="120" Height="58" Margin="0" Grid.Row="3" VerticalAlignment="Bottom"/>

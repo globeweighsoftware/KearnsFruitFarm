@@ -14,11 +14,11 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:command="http://www.galasoft.ch/mvvmlight"
              md:DialogServiceViews.IsRegistered="True" dx:ThemeManager.ThemeName="MetropolisLight"
-	         x:Class="Globeweigh.UI.Touch.BatchDetailsView"
+	         x:Class="Globeweigh.UI.Touch.BatchDisplayView"
              mc:Ignorable="d" 
              d:DesignHeight="748" d:DesignWidth="1346"
              shared:ViewModelBehavior.LoadUnload="True"
-             DataContext="{Binding BatchDetailsView, Source={StaticResource Locator}}" >
+             DataContext="{Binding BatchDisplayView, Source={StaticResource Locator}}" >
     <UserControl.Resources>
         <ResourceDictionary>
 
@@ -109,7 +109,7 @@
                                                             </Grid>
                                                         </Grid>
                                                         <Grid Margin="10" Grid.Row="1" Visibility="{Binding OperatorId, Converter={StaticResource NullToCollapsedConverter}}" Grid.Column="1" VerticalAlignment="Center" Height="80">
-                                                            <Button Margin="0" Content="Logoff" BorderThickness="1" Style="{DynamicResource RoundedButtonStyle}" Command="{Binding OperatorLogOffCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}" Grid.Row="0" Background="#FFE2E2E2"/>
+                                                            <Button Margin="0" Content="Logoff" BorderThickness="1" Visibility="{Binding IsDisplayDevice, Converter={StaticResource TrueToCollapsedConverter}}"  Style="{DynamicResource RoundedButtonStyle}" Command="{Binding OperatorLogOffCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}" Grid.Row="0" Background="#FFE2E2E2"/>
                                                         </Grid>
                                                     </Grid>
                                                 </Border>

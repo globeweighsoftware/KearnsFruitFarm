@@ -23,17 +23,26 @@ using DevExpress.Mvvm.POCO;
 
 namespace Globeweigh.UI.Touch
 {
-    public class BatchDetailsViewModel : BindableBase, IViewModel
+    public class BatchDisplayViewModel : BindableBase, IViewModel
     {
         #region private fields
 
         private readonly IOperatorRepository _operatorRepo = SimpleIoc.Default.GetInstance<IOperatorRepository>();
+        private readonly IReferenceDataRepository _refDataRepo = SimpleIoc.Default.GetInstance<IReferenceDataRepository>();
         private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
         private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
         private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
         private readonly IScaleRepository _scaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
 
+        private DispatcherTimer _displayRefreshTimer;
+
+
+
         private DispatcherTimer _timer;
+        //        private DispatcherTimer _connectionStatusTimer;
+        //        private bool _100LimitsAlreadySet = false;
+        //        private int _50Countdown = 0;
+
         #endregion
 
         #region Properties
@@ -137,6 +146,7 @@ namespace Globeweigh.UI.Touch
             get { return TotalPacksCount >= 100; }
         }
 
+        public bool IsDisplayDevice => GlobalVariables.CurrentDevice.IsDisplayDevice;
 
 
         public int BatchUpperLimit
@@ -144,6 +154,8 @@ namespace Globeweigh.UI.Touch
             get
             {
                 if (SelectedBatchView.Override) return SelectedBatchView.BatchUpperLimit;
+                //                if (IsOver100 && _50Countdown == 0)
+                //                    return (int)SelectedBatchView.BatchLowerLimit + SelectedBatchView.Band;
                 return (int)(SelectedBatchView.BatchUpperLimit);
 
             }
@@ -154,6 +166,8 @@ namespace Globeweigh.UI.Touch
             get
             {
                 if (SelectedBatchView.Override) return SelectedBatchView.BatchLowerLimit;
+                //                if (IsOver100 && _50Countdown == 0)
+                //                    return (int)SelectedBatchView.BatchLowerLimit;
                 return (int)SelectedBatchView.NominalWeight;
 
             }
@@ -243,12 +257,13 @@ namespace Globeweigh.UI.Touch
         {
             if (ScaleList.Any(a => a.OperatorId != null && a.Active)) return;
             await _batchRepo.UpdateBatchLiveFlagAsync(SelectedBatchView.id, false);
-            SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel = SimpleIoc.Default.GetInstance<BatchListViewModel>();
+            SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel =SimpleIoc.Default.GetInstance<BatchListViewModel>();
         }
 
         private async void OnRetryConnectionCommand(Scale scale)
         {
             await Task.Run(() => OpenAndSetTcpConnection(scale, true));
+            //            await OpenAndSetTcpConnections(scale.ScaleNumber);
         }
 
         private async void OnSelectUser(Scale scale)
@@ -279,7 +294,7 @@ namespace Globeweigh.UI.Touch
             selectedScale.OperatorName = selectedOperator.FullName;
             if (selectedOperator.TimeElapsedTicks == null)
             {
-                await _batchRepo.AddBatchOperatorTimeAsync(SelectedBatchView.id, selectedOperator.id);
+                if (!IsDisplayDevice)await _batchRepo.AddBatchOperatorTimeAsync(SelectedBatchView.id, selectedOperator.id);
             }
             else
             {
@@ -289,24 +304,30 @@ namespace Globeweigh.UI.Touch
                     selectedScale.TimeElapsedTicks = (long)selectedOperator.TimeElapsedTicks;
             }
             selectedScale.UserPackCount = PortionList.Count(a => a.OperatorId == selectedScale.OperatorId);
-            await _scaleRepo.AddOperatorIdToScale(selectedOperator.id, selectedScale.id);
+            if (!IsDisplayDevice)await _scaleRepo.AddOperatorIdToScale(selectedOperator.id, selectedScale.id);
         }
 
         private async void OnOperatorLogOff(Scale scale)
         {
             try
             {
-                await _batchRepo.UpdateTimeElapsedAsync(SelectedBatchView.id, (int)scale.OperatorId, scale.TimeElapsedTicks);
-                await _scaleRepo.AddOperatorIdToScale(null, scale.id);
+                if (!IsDisplayDevice)
+                {
+                    await _batchRepo.UpdateTimeElapsedAsync(SelectedBatchView.id, (int)scale.OperatorId, scale.TimeElapsedTicks);
+                    await _scaleRepo.AddOperatorIdToScale(null, scale.id);
+                }
 
                 scale.UserPackCount = 0;
                 scale.OperatorId = null;
                 scale.TimeElapsedTicks = 0;
-                OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+                OperatorList =new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
 
-                if (ScaleList.All(a => a.OperatorId == null))
+                if (!IsDisplayDevice)
                 {
-                    await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id, SelectedBatchView.TimeElapsedTicks, 0);
+                    if (ScaleList.All(a => a.OperatorId == null))
+                    {
+                        await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id, SelectedBatchView.TimeElapsedTicks, 0);
+                    }
                 }
 
 
@@ -358,6 +379,11 @@ namespace Globeweigh.UI.Touch
         {
             try
             {
+                if (IsDisplayDevice)
+                {
+                    await RefreshPortionList();
+//                    var changes = await _scaleRepo.RefreshOperatorsForDisplayDevice(ScaleList);
+                }
                 bool batchTimeupDated = false;
                 foreach (var scale in ScaleList.Where(scale => scale.Active))
                 {
@@ -377,7 +403,7 @@ namespace Globeweigh.UI.Touch
                 if (TotalPacksCount == 0 || TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalMinutes == 0)
                     PacksPerMin = 0;
                 else
-                    PacksPerMin = ((Decimal)(TotalPacksCount /
+                    PacksPerMin = ((Decimal) (TotalPacksCount /
                                               (TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).TotalSeconds) *
                                               60));
 
@@ -415,11 +441,34 @@ namespace Globeweigh.UI.Touch
                 GiveawayDisplay = averageGiveaway.ToString("N0") + "g" + " (" + percentageGiveaway.ToString("N1") +
                                   "%)";
             }
+
+            //            if (TotalPacksCount == 100)
+            //                SendLimitCommands();
+            //
+            //            if (_50Countdown != 0)
+            //            {
+            //                _50Countdown -= 1;
+            //
+            //                if (_50Countdown == 0)
+            //                {
+            //                    SendLimitCommands();
+            //                }
+            //                return;
+            //            }
+            //
+            //            if (TotalPacksCount > 100)
+            //            {
+            //                if (AverageWeight < SelectedBatchView.NominalWeight && _50Countdown == 0)
+            //                {
+            //                    _50Countdown = 50;
+            //                    SendLimitCommands();
+            //                }
+            //            }
         }
 
         private async void OnKeyPreviewDown(KeyEventArgs e)
         {
-            if (!UtilitiesShared.IsMyMachine) return;
+            if(!UtilitiesShared.IsMyMachine)return;
             int scaleNo = 0;
             if (e.Key == Key.NumPad1 || e.Key == Key.D1) scaleNo = 1;
             if (e.Key == Key.NumPad2 || e.Key == Key.D2) scaleNo = 2;
@@ -444,14 +493,14 @@ namespace Globeweigh.UI.Touch
         private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
-//            if (UtilitiesShared.IsMyMachine)
-//            {
-//                foreach (var scale in ScaleList)
-//                {
-//                    scale.IsConnected = true;
-//                }
-//                return;
-//            }
+            if (UtilitiesShared.IsMyMachine)
+            {
+                foreach (var scale in ScaleList)
+                {
+                    scale.IsConnected = true;
+                }
+                return;
+            }
 
             var bag = new ConcurrentBag<object>();
             await ScaleList.ParallelForEachAsync(async item =>
@@ -477,10 +526,10 @@ namespace Globeweigh.UI.Touch
                 if (scale.Active)
                 {
                     scale.TcpConnection = new NetConnection();
-                    byte[] lowerLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
-                    byte[] nominalBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
-                    byte[] upperLimitBytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
-                    byte[] tarebytesToSend = ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
+                    byte[] lowerLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
+                    byte[] nominalBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
+                    byte[] upperLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
+                    byte[] tarebytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
 
                     var success = scale.TcpConnection.Connect(IPAddress.Parse(scale.ScaleIpAddress), 23);
                     if (!success)
@@ -489,6 +538,8 @@ namespace Globeweigh.UI.Touch
                         return null;
                     }
                     scale.IsConnected = true;
+
+                    if (IsDisplayDevice) return null;
 
                     if (fromBatchStart)
                     {
@@ -607,6 +658,14 @@ namespace Globeweigh.UI.Touch
             //            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
             //            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
 
+            if (IsDisplayDevice)
+            {
+                _displayRefreshTimer = new DispatcherTimer();
+                _displayRefreshTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _displayRefreshTimer.Tick += slaveScaleTimer_tick;
+                _displayRefreshTimer.Start();
+            }
+
             CurrentDate = DateTime.Now;
             OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
             ScaleList = new List<Scale>(await _scaleRepo.GetScales());
@@ -660,11 +719,19 @@ namespace Globeweigh.UI.Touch
                     _timer.Tick -= timer_tick;
                     _timer = null;
                 }
+                if (_displayRefreshTimer != null)
+                {
+                    _displayRefreshTimer.Stop();
+                    _displayRefreshTimer.Tick -= slaveScaleTimer_tick;
+                    _displayRefreshTimer = null;
+                }
+
+                //                _connectionStatusTimer.Stop();
                 foreach (var scale in ScaleList)
                 {
                     if (!scale.Active) continue;
                     if (scale.TcpConnection == null) continue;
-                    scale.TcpConnection.OnDataReceived -= NetConnectionOnOnDataReceived;
+                    if(!IsDisplayDevice)scale.TcpConnection.OnDataReceived -= NetConnectionOnOnDataReceived;
                     scale.TcpConnection.Disconnect();
                 }
 

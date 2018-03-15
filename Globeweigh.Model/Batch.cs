@@ -184,6 +184,19 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private bool _IsLive;
+        public bool IsLive
+        {
+            get { return _IsLive; }
+            set
+            {
+                if (_IsLive != value)
+                {
+                    _IsLive = value;
+                    OnPropertyChanged("IsLive");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

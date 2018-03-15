@@ -20,7 +20,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Globeweigh.UI.Shared;component/ResourceDictionaries/SharedElementStyles.xaml"/>
+<!--                <ResourceDictionary Source="/Globeweigh.UI.Shared;component/ResourceDictionaries/SharedElementStyles.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
             <converters:BooleanAndConverter x:Key="booleanAndConverter"/>
             <converters:TrueToFalseConverter x:Key="TrueToFalseConverter"/>
@@ -54,17 +54,9 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Right" Grid.Column="1" >
                             <controls:ImageButton Content="Add" ImageSource="/Images\Add-Square-32.png" Command="{Binding AddCommand}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
-                            <controls:ImageButton Content="Delete" ImageSource="/Images\Delete-32.png" Command="{Binding DeleteCommand}"  Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center">
-                                <controls:ImageButton.IsEnabled>
-                                    <MultiBinding Converter="{StaticResource booleanAndConverter}">
-                                        <Binding ElementName="grdProducts" Path="SelectedItems.Count"/>
-                                        <Binding ElementName="chkGroupedCodes" Path="IsChecked"/>
-                                    </MultiBinding>
-                                </controls:ImageButton.IsEnabled>
-                            </controls:ImageButton>
+                            <controls:ImageButton Content="Delete" ImageSource="/Images\Delete-32.png" Command="{Binding DeleteCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdProducts}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
                             <controls:ImageButton Content="Edit" ImageSource="/Images\Edit-32.png" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdProducts}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
                             <controls:ImageButton Content="Print / Export" Margin="0" ImageSource="/Images\Print-32.png" Command="{Binding GlobalPrintExportCommand}" CommandParameter="{Binding ElementName=tvProducts}" IsEnabled="{Binding VisibleRowCount, ElementName=grdPallets}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
-                            <controls:ImageButton Content="Refresh" Margin="0" ImageSource="/Images\Refresh-32.png" Command="{Binding RefreshCommand}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Border>

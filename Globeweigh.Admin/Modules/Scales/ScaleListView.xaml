@@ -12,11 +12,11 @@
              xmlns:controls="clr-namespace:Globeweigh.UI.Shared.Controls;assembly=Globeweigh.UI.Shared"
              xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
              md:DialogServiceViews.IsRegistered="True"
-             x:Class="Globeweigh.Admin.OperatorListView"
+             x:Class="Globeweigh.Admin.ScaleListView"
              mc:Ignorable="d"  dx:ThemeManager.ThemeName="MetropolisLight"
              d:DesignHeight="500" d:DesignWidth="1200"
              shared:ViewModelBehavior.LoadUnload="True"
-             DataContext="{Binding OperatorListView, Source={StaticResource Locator}}" Background="White">
+             DataContext="{Binding ScaleListView, Source={StaticResource Locator}}" Background="White">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -42,26 +42,31 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0" HorizontalAlignment="Right" Grid.Column="1" >
                             <controls:ImageButton Content="Add" ImageSource="/Images\Add-Square-32.png" Command="{Binding AddCommand}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
-                            <controls:ImageButton Content="Delete" ImageSource="/Images\Delete-32.png" Command="{Binding DeleteCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdOperators}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
-                            <controls:ImageButton Content="Edit" ImageSource="/Images\Edit-32.png" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdOperators}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
-                            <controls:ImageButton Content="Print / Export" Margin="0" ImageSource="/Images\Print-32.png" Command="{Binding GlobalPrintExportCommand}" CommandParameter="{Binding ElementName=tvOperators}" IsEnabled="{Binding VisibleRowCount, ElementName=grdPallets}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Delete" ImageSource="/Images\Delete-32.png" Command="{Binding DeleteCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdScales}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Edit" ImageSource="/Images\Edit-32.png" Command="{Binding EditCommand}" IsEnabled="{Binding SelectedItems.Count, ElementName=grdScales}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
+                            <controls:ImageButton Content="Print / Export" Margin="0" ImageSource="/Images\Print-32.png" Command="{Binding GlobalPrintExportCommand}" CommandParameter="{Binding ElementName=tvScales}" IsEnabled="{Binding VisibleRowCount, ElementName=grdPallets}" Style="{DynamicResource ToolbarButtonStyle}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
                 </Border>
                 <Border Background="White" BorderThickness="1" Grid.Row="1">
                     <Grid>
-                        <dxg:GridControl x:Name="grdOperators" ItemsSource="{Binding OperatorList}" ShowLoadingPanel="{Binding IsBusy}" SelectedItem="{Binding SelectedOperator}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
+                        <dxg:GridControl x:Name="grdScales" ItemsSource="{Binding ScaleList}" ShowLoadingPanel="{Binding IsBusy}" SelectedItem="{Binding SelectedScale}" FontSize="12" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="1">
                             <dxg:GridControl.View>
-                                <dxg:TableView x:Name="tvOperators" AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowFixedTotalSummary="True" ShowIndicator="True" AutoWidth="True"
+                                <dxg:TableView x:Name="tvScales" AllowPerPixelScrolling="True" ShowGroupPanel="False" ShowFixedTotalSummary="True" ShowIndicator="True" AutoWidth="True"
                                                NavigationStyle="Row" VerticalScrollbarVisibility="Auto" ShowAutoFilterRow="True"/>
                             </dxg:GridControl.View>
-                            <dxg:GridColumn FieldName="FirstName" Width="300" FixedWidth="True" AutoFilterCondition="Contains"/>
-                            <dxg:GridColumn FieldName="LastName" Width="300" FixedWidth="True" AutoFilterCondition="Contains"/>
+                            <dxg:GridColumn FieldName="ScaleNumber" Width="100" FixedWidth="True">
+                                <dxg:GridColumn.EditSettings>
+                                    <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
+                                </dxg:GridColumn.EditSettings>
+                            </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="ScaleIpAddress" Width="250" FixedWidth="True"/>
+                            <dxg:GridColumn FieldName="Active" Width="80" Header="Active" FixedWidth="True"/>
                             <dxg:GridColumn Header=" "/>
                             <!--<dxg:GridColumn FieldName="IsLinked" Width="90" Visible="{Binding ElementName=chkGroupCodes, Path=IsChecked, Converter={StaticResource TrueToFalseConverter}}" FixedWidth="True" AllowGrouping="False" AllowColumnFiltering="False" AllowResizing="False" Header="Opera Link" CellStyle="{StaticResource clearBackgroundCellStyle}" CellTemplate="{StaticResource linkCellTemplate}" />-->
-                            <dxg:GridControl.TotalSummary>
+                            <!--<dxg:GridControl.TotalSummary>
                                 <dxg:GridSummaryItem SummaryType="Count" Alignment="Right" />
-                            </dxg:GridControl.TotalSummary>
+                            </dxg:GridControl.TotalSummary>-->
                         </dxg:GridControl>
                     </Grid>
                 </Border>

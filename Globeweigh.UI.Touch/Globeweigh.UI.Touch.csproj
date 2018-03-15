@@ -220,14 +220,22 @@
       <DependentUpon>AddBatchView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Batch\AddBatchViewModel.cs" />
+    <Compile Include="Modules\Batch\BatchDisplayView.xaml.cs">
+      <DependentUpon>BatchDisplayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Modules\Batch\BatchDetailsView.xaml.cs">
       <DependentUpon>BatchDetailsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Batch\BatchDisplayViewModel.cs" />
     <Compile Include="Modules\Batch\BatchDetailsViewModel.cs" />
     <Compile Include="Modules\Batch\BatchListView.xaml.cs">
       <DependentUpon>BatchListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Batch\BatchListViewModel.cs" />
+    <Compile Include="Modules\Batch\BatchWaitView.xaml.cs">
+      <DependentUpon>BatchWaitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Batch\BatchWaitViewModel.cs" />
     <Compile Include="Modules\Operator\SelectOperatorView.xaml.cs">
       <DependentUpon>SelectOperatorView.xaml</DependentUpon>
     </Compile>
@@ -283,11 +291,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Modules\Batch\BatchDisplayView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Batch\BatchDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Batch\BatchListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Batch\BatchWaitView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -498,7 +514,9 @@
     <Resource Include="Images\Cancel-128.png" />
     <Resource Include="Images\Ok-128.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Strawberry-96.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

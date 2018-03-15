@@ -28,7 +28,7 @@
                 <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
             <Border Style="{DynamicResource TransactionBorderHeaderStyle}" Height="130" Visibility="{Binding HeaderText, Converter={StaticResource NullToCollapsedConverter}}">
-                <TextBlock Text="{Binding HeaderText}" VerticalAlignment="Center" FontSize="24" Margin="20,0" Foreground="{DynamicResource MainNavyBrush}"/>
+                <TextBlock Text="{Binding HeaderText}" VerticalAlignment="Center" FontSize="60" Margin="20,0" Foreground="{DynamicResource MainNavyBrush}"/>
             </Border>
             <TextBlock Text="{Binding MessageText}" TextWrapping="Wrap" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" TextAlignment="Center"/>
 

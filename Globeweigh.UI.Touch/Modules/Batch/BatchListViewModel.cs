@@ -133,13 +133,13 @@ namespace Globeweigh.UI.Touch
 
         private void OnFilterDateBack()
         {
-            FilterDate = FilterDate.AddMonths(-1);
+            FilterDate = FilterDate.AddDays(-1);
             RefreshBatchList();
         }
 
         private void OnFilterDateForward()
         {
-            FilterDate = FilterDate.AddMonths(1);
+            FilterDate = FilterDate.AddDays(1);
             RefreshBatchList();
         }
 

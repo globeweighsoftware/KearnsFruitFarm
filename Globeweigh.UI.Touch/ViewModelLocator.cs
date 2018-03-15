@@ -31,6 +31,11 @@ namespace Globeweigh.UI.Touch
             SimpleIoc.Default.Register<SelectProductViewModel>();
             SimpleIoc.Default.Register<BatchDetailsViewModel>();
             SimpleIoc.Default.Register<SelectOperatorViewModel>();
+            SimpleIoc.Default.Register<BatchWaitViewModel>();
+            SimpleIoc.Default.Register<BatchDisplayViewModel>();
+            
+
+
         }
 
         public MainWindowViewModel MainWindow => SimpleIoc.Default.GetInstance<MainWindowViewModel>();
@@ -38,5 +43,7 @@ namespace Globeweigh.UI.Touch
         public CleanScreenViewModel CleanScreenView => SimpleIoc.Default.GetInstance<CleanScreenViewModel>();
         public BatchListViewModel BatchListView => SimpleIoc.Default.GetInstance<BatchListViewModel>();
         public BatchDetailsViewModel BatchDetailsView => SimpleIoc.Default.GetInstance<BatchDetailsViewModel>();
+        public BatchWaitViewModel BatchWaitView => SimpleIoc.Default.GetInstance<BatchWaitViewModel>();
+        public BatchDisplayViewModel BatchDisplayView => SimpleIoc.Default.GetInstance<BatchDisplayViewModel>();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Input;
 using DevExpress.Xpf.Core;
 using GalaSoft.MvvmLight.Ioc;
 using MvvmDialogs;
@@ -20,10 +21,13 @@ namespace Globeweigh.UI.Touch
             ApplicationThemeHelper.UseLegacyDefaultTheme = true;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
         {
 
             if (UtilitiesShared.CheckForOtherInstanceOfApplication()) return;
+            SimpleIoc.Default.Register<IDeviceRepository>(() => new DeviceRepository());
+
+
             ExceptionHelper.Initialize();
 
             var success = Database.SetAndTestDbConnection();
@@ -32,18 +36,18 @@ namespace Globeweigh.UI.Touch
                 Application.Current.StartupUri = new Uri("/Globeweigh.UI.Shared;component/ErrorHandling/DbErrorWindow.xaml", UriKind.Relative);
                 return;
             }
+
             SimpleIocRegistration();
 
             DispatcherHelper.Initialize();
-            UtilitiesShared.RegisterDevice(SimpleIoc.Default.GetInstance<IDeviceRepository>(), false);
+
         }
 
 
-        private void SimpleIocRegistration()
+        private async void SimpleIocRegistration()
         {
             SimpleIoc.Default.Register<IDialogService>(() => new DialogService());
             SimpleIoc.Default.Register<IReferenceDataRepository>(() => new ReferenceDataRepository());
-            SimpleIoc.Default.Register<IDeviceRepository>(() => new DeviceRepository());
             SimpleIoc.Default.Register<IBatchRepository>(() => new BatchRepository());
             SimpleIoc.Default.Register<IOperatorRepository>(() => new OperatorRepository());
             SimpleIoc.Default.Register<IProductRepository>(() => new ProductRepository());

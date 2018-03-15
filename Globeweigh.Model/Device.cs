@@ -158,6 +158,19 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private bool _IsDisplayDevice;
+        public bool IsDisplayDevice
+        {
+            get { return _IsDisplayDevice; }
+            set
+            {
+                if (_IsDisplayDevice != value)
+                {
+                    _IsDisplayDevice = value;
+                    OnPropertyChanged("IsDisplayDevice");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

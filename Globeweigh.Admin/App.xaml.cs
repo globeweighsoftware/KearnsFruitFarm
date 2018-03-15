@@ -29,9 +29,7 @@ namespace Globeweigh.Admin
                 return;
             }
             SimpleIocRegistration();
-            //            var autoStartConfigured = AppShortcut.AutoStart(false);
             DispatcherHelper.Initialize();
-            //            DevExpress.Xpf.Core.ApplicationThemeHelper.ApplicationThemeName = DevExpress.Xpf.Core.Theme.HybridApp.Name;
             UtilitiesShared.RegisterDevice(SimpleIoc.Default.GetInstance<IDeviceRepository>(), false);
 
 //            var dialog = new LoginView();
@@ -57,6 +55,7 @@ namespace Globeweigh.Admin
             SimpleIoc.Default.Register<IReferenceDataRepository>(() => new ReferenceDataRepository());
             SimpleIoc.Default.Register<IProductRepository>(() => new ProductRepository());
             SimpleIoc.Default.Register<IOperatorRepository>(() => new OperatorRepository());
+            SimpleIoc.Default.Register<IScaleRepository>(() => new ScaleRepository());
         }
     }
 

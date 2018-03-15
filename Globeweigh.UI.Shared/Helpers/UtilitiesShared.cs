@@ -76,7 +76,7 @@ namespace Globeweigh.UI.Shared.Helpers
             modalWindow.Height = ownerWindow.ActualHeight - padding;
         }
 
-        public async static void RegisterDevice(IDeviceRepository deviceRepo, bool autoStartConfigured)
+        public async static Task RegisterDevice(IDeviceRepository deviceRepo, bool autoStartConfigured)
         {
             try
             {
@@ -198,7 +198,8 @@ namespace Globeweigh.UI.Shared.Helpers
             try
             {
                 newVersion = null;
-//                if (IsMyMachine) return null;
+                if (!Directory.Exists(GlobalVariables.ReleaseBuildDirectory)) return null;
+                //                if (IsMyMachine) return null;
                 string searchPattern = fileSetupStartsWith +"*.*";  // This would be for you to construct your prefix
 
                 DirectoryInfo di = new DirectoryInfo(GlobalVariables.ReleaseBuildDirectory);

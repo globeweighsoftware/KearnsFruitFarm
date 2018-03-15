@@ -19,16 +19,66 @@ namespace Globeweigh.UI.Shared.Services
         Task<Batch_OperatorTime> UpdateTimeElapsedAsync(int batchId, int operatorId, long ticks);
         Task<Batch> UpdateBatchTimeElapsedAsync(int batchId, long ticks, int fiftyCount);
         List<vwOperatorBatch> GetOperatorBatchSummary(int batchId);
+        Task<vwBatchView> GetLiveBatchAsync();
+        Task<Batch> UpdateBatchLiveFlagAsync(int batchId, bool isLive);
+        Task<bool> IsBatchLive(int batchId);
     }
+
+
 
     public class BatchRepository : IBatchRepository
     {
+        public async Task<Batch> UpdateBatchLiveFlagAsync(int batchId, bool isLive)
+        {
+
+            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+            {
+                //check to see if there are any batches left Live in error
+                if (isLive)
+                {
+                    var batchLive = await context.Batches.Where(a => a.IsLive).FirstOrDefaultAsync();
+                    if (batchLive != null)
+                    {
+                        batchLive.IsLive = false;
+                        context.Batches.Attach(batchLive);
+                        context.Entry(batchLive).State = EntityState.Modified;
+                        //                        await context.SaveChangesAsync();
+                    }
+                }
+
+                var batch = await context.Batches.Where(a => a.id == batchId).FirstOrDefaultAsync();
+                if (batch == null) return null;
+                batch.IsLive = isLive;
+                context.Batches.Attach(batch);
+                context.Entry(batch).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                return batch;
+            }
+        }
+
+        public async Task<vwBatchView> GetLiveBatchAsync()
+        {
+            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+            {
+                return await context.vwBatchViews.FirstOrDefaultAsync(c => c.IsLive);
+            }
+        }
+
+        public async Task<bool> IsBatchLive(int batchId)
+        {
+            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+            {
+                var batch = await context.vwBatchViews.FirstOrDefaultAsync(c => c.id == batchId);
+                if (batch == null) return false;
+                return batch.IsLive;
+            }
+        }
+
         public async Task<List<vwBatchView>> GetBatchesAsync(DateTime day)
         {
 
-            DateTime dateFrom = new DateTime(day.Year, day.Month, 1).AddSeconds(-1);
-            var dayOneMonthOn = day.AddMonths(1);
-            DateTime dateTo = new DateTime(dayOneMonthOn.Year, dayOneMonthOn.Month, 1).AddSeconds(-1);
+            DateTime dateFrom = day.Date;
+            DateTime dateTo = day.Date.AddDays(1);
 
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {

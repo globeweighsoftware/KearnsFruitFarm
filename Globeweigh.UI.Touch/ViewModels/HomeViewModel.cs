@@ -14,7 +14,7 @@ namespace Globeweigh.UI.Touch
     {
         private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
         Assembly _currentAssembly = Assembly.GetExecutingAssembly();
-        private bool _ignoreUpdate;
+
 
         #region Commands
 
@@ -73,22 +73,7 @@ namespace Globeweigh.UI.Touch
         {
             CurrentDate = DateTime.Now;
             if (UtilitiesShared.InDesignMode) return;
-            if(_ignoreUpdate)return;
 
-            CurrentVersion = UtilitiesShared.GetCurrentMsiVersion();
-            if(UtilitiesShared.IsMyMachine)return;
-            var newReleaseFullFileName = UtilitiesShared.CheckforUpdate(CurrentVersion, "TouchSetup", out string newReleaseVersion);
-            if (newReleaseFullFileName != null)
-            {
-                var dialogViewModel = SimpleIoc.Default.GetInstance<DownloadNewUpdateViewModel>();
-                dialogViewModel.NewReleaseFullFileName = newReleaseFullFileName;
-                bool? success = _dialogService.ShowDialog<DownloadNewUpdateView>(this, dialogViewModel);
-                if (success == true)
-                {
-                }
-            }
-
-            _ignoreUpdate = true;
 
 
 

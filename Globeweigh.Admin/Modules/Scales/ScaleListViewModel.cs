@@ -13,29 +13,29 @@ using System.Threading.Tasks;
 
 namespace Globeweigh.Admin
 {
-    public class ProductListViewModel : AdminViewModelBase, IViewModel
+    public class ScaleListViewModel : AdminViewModelBase, IViewModel
     {
         #region private fields
 
-        private readonly IProductRepository _productRepo = SimpleIoc.Default.GetInstance<IProductRepository>();
+        private readonly IScaleRepository _ScaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
         private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
 
         #endregion
 
         #region Properties
 
-        private List<Product> _ProductList;
-        public List<Product> ProductList
+        private List<Scale> _ScaleList;
+        public List<Scale> ScaleList
         {
-            get { return _ProductList; }
-            set { Set(ref _ProductList, value); }
+            get { return _ScaleList; }
+            set { Set(ref _ScaleList, value); }
         }
 
-        private Product _SelectedProduct;
-        public Product SelectedProduct
+        private Scale _SelectedScale;
+        public Scale SelectedScale
         {
-            get { return _SelectedProduct; }
-            set { Set(ref _SelectedProduct, value); }
+            get { return _SelectedScale; }
+            set { Set(ref _SelectedScale, value); }
         }
 
 
@@ -53,13 +53,14 @@ namespace Globeweigh.Admin
 
         #endregion
 
+
         private void OnAdd()
         {
             AddEditNewRefDataDialog(0);
         }
         private void OnEdit()
         {
-            AddEditNewRefDataDialog(SelectedProduct.id);
+            AddEditNewRefDataDialog(SelectedScale.id);
         }
 
         private async void OnRefresh()
@@ -71,26 +72,26 @@ namespace Globeweigh.Admin
         {
             var result = _dialogService.ShowMessageBox(this, "Delete Item?", "", MessageBoxButton.OKCancel);
             if (result == MessageBoxResult.Cancel) return;
-            await _productRepo.MarkProductAsDeletedAsync(SelectedProduct.id);
+            await _ScaleRepo.DeletedScaleAsync(SelectedScale.id);
             await RefreshList();
-            SelectedProduct = null;
+            SelectedScale = null;
         }
 
-        private async void AddEditNewRefDataDialog(int productId)
+        private async void AddEditNewRefDataDialog(int ScaleId)
         {
-            var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<AddEditProductViewModel>();
-            dialogViewModel.ProductId = productId;
-            bool? success = _dialogService.ShowDialog<AddEditProductView>(this, dialogViewModel);
+            var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<AddEditScaleViewModel>();
+            dialogViewModel.ScaleId = ScaleId;
+            bool? success = _dialogService.ShowDialog<AddEditScaleView>(this, dialogViewModel);
             if (success == true)
             {
-                SelectedProduct = null;
+                SelectedScale = null;
                 await RefreshList();
             }
         }
 
         private async Task RefreshList()
         {
-            ProductList = new List<Product>(await _productRepo.GetProducts());
+            ScaleList = new List<Scale>(await _ScaleRepo.GetAllScales());
         }
 
         public async void Load(FrameworkElement element)
@@ -101,8 +102,8 @@ namespace Globeweigh.Admin
 
         public void Unload(FrameworkElement element)
         {
-            ProductList = null;
-            SelectedProduct = null;
+            ScaleList = null;
+            SelectedScale = null;
             IsBusy = false;
         }
 

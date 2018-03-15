@@ -24,12 +24,11 @@ namespace Globeweigh.Model.Helpers
             if (!File.Exists(ConfigFilename))
             {
                 var newConfig = new GlobeweighConfig();
-                newConfig.server = @"172.20.10.23\SQLEXPRESS";
+                newConfig.server = @"(local)\SQLEXPRESS";
                 newConfig.database = "GbKearnsFruitFarm";
                 newConfig.user = "sa";
                 newConfig.password = "ButternutSquash09";
-                newConfig.OperaConnectionString = @"\\172.20.10.25\Server VFP Static and Dynamic\data";
-//                newConfig.RememberedUsername = "";
+                newConfig.ReleaseBuildDirectory = @"C:\Globeweigh\Releases";
                 CreateCommonApplicationDataConfigFile(newConfig);
 
                 return newConfig;

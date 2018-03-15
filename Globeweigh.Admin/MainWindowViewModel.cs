@@ -116,6 +116,10 @@ namespace Globeweigh.Admin
                     CurrentViewModel = SimpleIoc.Default.GetInstance<OperatorListViewModel>();
                     MainHeader = "Operators";
                     break;
+                case "scales":
+                    CurrentViewModel = SimpleIoc.Default.GetInstance<ScaleListViewModel>();
+                    MainHeader = "Scales";
+                    break;
                 case "devices":
                     CurrentViewModel = null;
                     MainHeader = "Devices";

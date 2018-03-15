@@ -43,21 +43,15 @@ namespace Globeweigh.Admin
 
         #region Commands
 
-        public RelayCommand AddCommand => new RelayCommand(OnAdd, CanAddEditDelete);
-        public RelayCommand EditCommand => new RelayCommand(OnEdit, CanAddEditDelete);
-        public RelayCommand DeleteCommand => new RelayCommand(OnDelete, CanAddEditDelete);
+        public RelayCommand AddCommand => new RelayCommand(OnAdd);
+        public RelayCommand EditCommand => new RelayCommand(OnEdit);
+        public RelayCommand DeleteCommand => new RelayCommand(OnDelete);
         public RelayCommand RefreshCommand => new RelayCommand(OnRefresh);
 
 
 
 
         #endregion
-
-        private bool CanAddEditDelete()
-        {
-            return UtilitiesShared.IsMyMachine;
-        }
-
 
         private void OnAdd()
         {

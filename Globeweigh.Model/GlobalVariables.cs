@@ -9,12 +9,10 @@ namespace Globeweigh.Model
         public static bool InTestMode { get; set; }
 //        public static GlobeweighUser CurrentGlobeweighUser { get; set; }
         public static string CurrentMsiVersion { get; set; }
-        public static string OperaConnectionString { get; set; }
         public static string ConnectionString { get; set; }
         public static Device CurrentDevice { get; set; }
         public static string ApplicationClickOnceProgramShortcut { get; set; }
-
-        public static string ReleaseBuildDirectory => @"\\172.20.10.23\Globeweigh\Releases\";
+        public static string ReleaseBuildDirectory { get; set; }
         public static readonly string CommonApplicationDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Globeweigh\\");
 
 

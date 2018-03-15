@@ -24,23 +24,6 @@
             <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
             <converters:ZeroToVisibleConverter x:Key="ZeroToVisibleConverter"/>
 
-            <!--<Style x:Key="rowStyle" TargetType="{x:Type dxg:RowControl}">
-                <Setter Property="Height" Value="40"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                        <Setter Property="Background" Value="{StaticResource GlobeweighLightBlueBrush}" />
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="FontWeight" Value="Bold" />
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>-->
-
-<!--            <Style TargetType="{x:Type dxg:GridColumnHeader}">-->
-<!--                <Setter Property="Height" Value="40"></Setter>-->
-<!--                <Setter Property="Foreground" Value="Black" />-->
-<!--                <Setter Property="FontSize" Value="16" />-->
-<!--            </Style>-->
-
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="White" Margin="0">
@@ -73,7 +56,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <dxg:GridControl x:Name="grdBatchs" ItemsSource="{Binding BatchList}" SelectedItem="{Binding SelectedBatch}" dx:ThemeManager.ThemeName="MetropolisLight" ShowLoadingPanel="{Binding IsBatchListBusy}" ShowBorder="False" FontSize="16" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontFamily="Segoe UI Semibold"  >
+                        <dxg:GridControl x:Name="grdBatchs" ItemsSource="{Binding BatchList}" SelectedItem="{Binding SelectedBatch}" dx:ThemeManager.ThemeName="MetropolisLight" ShowBorder="False" FontSize="16" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" FontFamily="Segoe UI Semibold"  >
                             <dxg:GridControl.View>
                                 <dxg:TableView AllowPerPixelScrolling="True" AllowFilterEditor="False" ShowVerticalLines="True" ShowHorizontalLines="True" ShowGroupPanel="False" Margin="4"
                                     AllowSorting="False" ShowIndicator="False"  AutoWidth="True"  NavigationStyle="Row"  VerticalScrollbarVisibility="Auto" ShowFilterPanelMode="Never"/>

@@ -36,6 +36,9 @@
                 <local:OperatorListView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type local:ScaleListViewModel}">
+                <local:ScaleListView/>
+            </DataTemplate>
 
             <Style x:Key="MainMenuItemStyle" TargetType="{x:Type controls:MenuListBoxItem}">
                 <Setter Property="Background" Value="Transparent"/>
@@ -131,7 +134,7 @@
 
                         <controls:MenuListBoxItem x:Name="products" Content="Products"   ImageSource="/Globeweigh.Admin;component/Images/Product-96.png"/>
                         <controls:MenuListBoxItem x:Name="operators" Content="Operators" ImageSource="/Globeweigh.Admin;component/Images/Product-96.png"/>
-
+                        <controls:MenuListBoxItem x:Name="scales" Content="Scales" ImageSource="/Globeweigh.Admin;component/Images/Weighbridge-96.png"/>
                     </ListBox>
                     <Grid Grid.Row="2" Visibility="{Binding IsGlobeweighAdmin, Converter={StaticResource TrueToVisibilityConverter}}">
                         <Grid.RowDefinitions>
@@ -142,6 +145,7 @@
                         <ListBox Background="{x:Null}" ItemContainerStyle="{DynamicResource MainMenuItemStyle}" SelectedItem="{Binding SelectedNavItem}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Grid.RowSpan="2" Grid.Row="1" >
                             <controls:MenuListBoxItem x:Name="entities" Content="Entities" ImageSource="/Globeweigh.Admin;component/Images/Dropbox-96.png"/>
                             <controls:MenuListBoxItem x:Name="devices" Content="Devices"  ImageSource="/Globeweigh.Admin;component/Images/Computer-96.png" />
+                            
                         </ListBox>
                     </Grid>
                 </Grid>

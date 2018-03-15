@@ -7,6 +7,7 @@ using DevExpress.Xpf.Core;
 using System.Threading;
 using Globeweigh.UI.Shared;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight.Ioc;
 using Globeweigh.Model;
 using Globeweigh.UI.Shared.Helpers;
@@ -62,6 +63,10 @@ namespace Globeweigh.UI.Touch
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+//            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+//            {
+//                GlobalVariables.CurrentDevice.IsDisplayDevice = true;
+//            }
             dispatcherTimer.Start();
         }
     }

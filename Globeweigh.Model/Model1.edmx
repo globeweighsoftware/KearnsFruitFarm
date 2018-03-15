@@ -19,6 +19,7 @@
           <Property Name="NominalOverride" Type="int" />
           <Property Name="TareOverride" Type="int" />
           <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="IsLive" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateClosed" Type="datetime" />
           <Property Name="DateDeleted" Type="datetime" />
@@ -45,6 +46,7 @@
           <Property Name="VersionOnServer" Type="nvarchar" MaxLength="50" />
           <Property Name="AutoStartConfigured" Type="bit" Nullable="false" />
           <Property Name="RecycleRequested" Type="bit" Nullable="false" />
+          <Property Name="IsDisplayDevice" Type="bit" Nullable="false" />
           <Property Name="DateCreated" Type="datetime" Nullable="false" />
           <Property Name="DateOfLastPing" Type="datetime" />
           <Property Name="DateOfLastRestart" Type="datetime" />
@@ -171,6 +173,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwBatchView' does not have a
             <PropertyRef Name="Deleted" />
             <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="Override" />
+            <PropertyRef Name="IsLive" />
           </Key>
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
@@ -191,6 +194,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwBatchView' does not have a
           <Property Name="Tare" Type="int" />
           <Property Name="NominalWeight" Type="int" />
           <Property Name="AveragePacksPerminute" Type="int" />
+          <Property Name="IsLive" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwOperatorBatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -283,7 +287,8 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
     [vwBatchView].[UpperLimit] AS [UpperLimit], 
     [vwBatchView].[Tare] AS [Tare], 
     [vwBatchView].[NominalWeight] AS [NominalWeight], 
-    [vwBatchView].[AveragePacksPerminute] AS [AveragePacksPerminute]
+    [vwBatchView].[AveragePacksPerminute] AS [AveragePacksPerminute], 
+    [vwBatchView].[IsLive] AS [IsLive]
     FROM [dbo].[vwBatchView] AS [vwBatchView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwOperatorBatch" EntityType="Self.vwOperatorBatch" store:Type="Views" store:Schema="dbo">
@@ -397,6 +402,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateClosed" Type="DateTime" Precision="3" />
           <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+          <Property Name="IsLive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Batch_OperatorTime">
           <Key>
@@ -423,6 +429,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfLastPing" Type="DateTime" Precision="3" />
           <Property Name="DateOfLastRestart" Type="DateTime" Precision="3" />
+          <Property Name="IsDisplayDevice" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="EntityType">
           <Key>
@@ -544,6 +551,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
             <PropertyRef Name="Deleted" />
             <PropertyRef Name="TimeElapsedTicks" />
             <PropertyRef Name="Override" />
+            <PropertyRef Name="IsLive" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
@@ -564,6 +572,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="Tare" Type="Int32" />
           <Property Name="NominalWeight" Type="Int32" />
           <Property Name="AveragePacksPerminute" Type="Int32" />
+          <Property Name="IsLive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="vwOperatorBatch">
           <Key>
@@ -637,6 +646,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="Batches">
             <EntityTypeMapping TypeName="GlobeweighModel.Batch">
               <MappingFragment StoreEntitySet="Batch">
+                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
                 <ScalarProperty Name="DateDeleted" ColumnName="DateDeleted" />
                 <ScalarProperty Name="DateClosed" ColumnName="DateClosed" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -667,6 +677,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="Devices">
             <EntityTypeMapping TypeName="GlobeweighModel.Device">
               <MappingFragment StoreEntitySet="Device">
+                <ScalarProperty Name="IsDisplayDevice" ColumnName="IsDisplayDevice" />
                 <ScalarProperty Name="DateOfLastRestart" ColumnName="DateOfLastRestart" />
                 <ScalarProperty Name="DateOfLastPing" ColumnName="DateOfLastPing" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
@@ -803,6 +814,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySetMapping Name="vwBatchViews">
             <EntityTypeMapping TypeName="GlobeweighModel.vwBatchView">
               <MappingFragment StoreEntitySet="vwBatchView">
+                <ScalarProperty Name="IsLive" ColumnName="IsLive" />
                 <ScalarProperty Name="AveragePacksPerminute" ColumnName="AveragePacksPerminute" />
                 <ScalarProperty Name="NominalWeight" ColumnName="NominalWeight" />
                 <ScalarProperty Name="Tare" ColumnName="Tare" />

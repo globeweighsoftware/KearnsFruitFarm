@@ -12,7 +12,7 @@ namespace Globeweigh.Model.Custom
         public string database;
         public string user;
         public string password;
-        public string OperaConnectionString;
+        public string ReleaseBuildDirectory;
     }
 
     public class UpdateConfig

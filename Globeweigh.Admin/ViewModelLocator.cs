@@ -30,11 +30,14 @@ namespace Globeweigh.Admin
             SimpleIoc.Default.Register<AddEditProductViewModel>();
             SimpleIoc.Default.Register<OperatorListViewModel>();
             SimpleIoc.Default.Register<AddEditOperatorViewModel>();
+            SimpleIoc.Default.Register<ScaleListViewModel>();
+            SimpleIoc.Default.Register<AddEditScaleViewModel>();
         }
 
         public MainWindowViewModel MainWindow => SimpleIoc.Default.GetInstance<MainWindowViewModel>();
         public EntitiesViewModel EntitiesView => SimpleIoc.Default.GetInstance<EntitiesViewModel>();
         public ProductListViewModel ProductListView => SimpleIoc.Default.GetInstance<ProductListViewModel>();
         public OperatorListViewModel OperatorListView => SimpleIoc.Default.GetInstance<OperatorListViewModel>();
+        public ScaleListViewModel ScaleListView => SimpleIoc.Default.GetInstance<ScaleListViewModel>();
     }
 }
