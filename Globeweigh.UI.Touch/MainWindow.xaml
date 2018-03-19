@@ -8,7 +8,7 @@
 	xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
 	x:Class="Globeweigh.UI.Touch.MainWindow"
     WindowStartupLocation="CenterScreen" IgnoreTaskbarOnMaximize="True"
-    Title="MainWindow" Width="1366" Height="768"
+    Title="MainWindow" Width="1366" Height="1024"
     dx:DXSplashScreen.SplashScreenType="{x:Type shared:SplashView}" 
     shared:ViewModelBehavior.LoadUnload="True" ResizeMode="NoResize" WindowStyle="None"
     DataContext="{Binding MainWindow, Source={StaticResource Locator}}" Icon="Globe-96.ico"

@@ -5202,7 +5202,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.Model, Version=1.0.6648.18315, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.Model, Version=1.0.6648.28009, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                 }
@@ -5462,7 +5462,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.UI.Shared, Version=1.0.6648.19760, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.UI.Shared, Version=1.0.6648.28011, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                 }
@@ -6039,7 +6039,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.Reports, Version=1.0.6648.19761, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.Reports, Version=1.0.6648.28013, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                 }
@@ -6492,15 +6492,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Globeweigh.UI.Touch"
-        "ProductCode" = "8:{BCFFBF84-F2DE-4719-8230-BD7A0898A830}"
-        "PackageCode" = "8:{412CF52D-BEC0-4A24-8C57-07809F2AB9CB}"
+        "ProductCode" = "8:{4EFA5623-17D1-4517-BE39-AA627DE78BB3}"
+        "PackageCode" = "8:{9F1F8828-913B-492F-898C-21CD0A3BAB03}"
         "UpgradeCode" = "8:{393BC3AF-D158-43B1-AA3F-B6EFF0F00DDC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.05"
+        "ProductVersion" = "8:1.0.07"
         "Manufacturer" = "8:Globeweigh"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

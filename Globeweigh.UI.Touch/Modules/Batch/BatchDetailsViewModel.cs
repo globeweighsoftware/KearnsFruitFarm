@@ -20,6 +20,7 @@ using Globeweigh.UI.Shared.Helpers;
 using System.Threading.Tasks;
 using System.Collections.Async;
 using DevExpress.Mvvm.POCO;
+using Globeweigh.Model.Custom;
 
 namespace Globeweigh.UI.Touch
 {
@@ -100,9 +101,8 @@ namespace Globeweigh.UI.Touch
             set { Set(ref _CurrentDate, value); }
         }
 
-        private List<vwOperatorBatch> _OperatorList;
-
-        public List<vwOperatorBatch> OperatorList
+        private List<BatchLoginOperator> _OperatorList;
+        public List<BatchLoginOperator> OperatorList
         {
             get { return _OperatorList; }
             set { Set(ref _OperatorList, value); }
@@ -273,7 +273,7 @@ namespace Globeweigh.UI.Touch
             }
         }
 
-        private async Task AddOperatorToScale(Scale selectedScale, vwOperatorBatch selectedOperator)
+        private async Task AddOperatorToScale(Scale selectedScale, BatchLoginOperator selectedOperator)
         {
             selectedScale.OperatorId = selectedOperator.id;
             selectedScale.OperatorName = selectedOperator.FullName;
@@ -302,7 +302,7 @@ namespace Globeweigh.UI.Touch
                 scale.UserPackCount = 0;
                 scale.OperatorId = null;
                 scale.TimeElapsedTicks = 0;
-                OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+                OperatorList = new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
 
                 if (ScaleList.All(a => a.OperatorId == null))
                 {
@@ -444,14 +444,14 @@ namespace Globeweigh.UI.Touch
         private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
-//            if (UtilitiesShared.IsMyMachine)
-//            {
-//                foreach (var scale in ScaleList)
-//                {
-//                    scale.IsConnected = true;
-//                }
-//                return;
-//            }
+            if (UtilitiesShared.IsMyMachine)
+            {
+                foreach (var scale in ScaleList)
+                {
+                    scale.IsConnected = true;
+                }
+                return;
+            }
 
             var bag = new ConcurrentBag<object>();
             await ScaleList.ParallelForEachAsync(async item =>
@@ -608,7 +608,7 @@ namespace Globeweigh.UI.Touch
             //            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
 
             CurrentDate = DateTime.Now;
-            OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+            OperatorList = new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
             ScaleList = new List<Scale>(await _scaleRepo.GetScales());
             SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
             await _batchRepo.UpdateBatchLiveFlagAsync(SelectedBatchView.id, true);

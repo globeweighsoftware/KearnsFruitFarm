@@ -24,22 +24,22 @@ namespace Globeweigh.UI.Touch
 
         #region Properties
 
-        private List<vwOperatorBatch> _AllOperatorList;
-        public List<vwOperatorBatch> AllOperatorList
+        private List<BatchLoginOperator> _AllOperatorList;
+        public List<BatchLoginOperator> AllOperatorList
         {
             get { return _AllOperatorList; }
             set { Set(ref _AllOperatorList, value); }
         }
 
-        private List<vwOperatorBatch> _OperatorList;
-        public List<vwOperatorBatch> OperatorList
+        private List<BatchLoginOperator> _OperatorList;
+        public List<BatchLoginOperator> OperatorList
         {
             get { return _OperatorList; }
             set { Set(ref _OperatorList, value); }
         }
 
-        private vwOperatorBatch _SelectedOperator;
-        public vwOperatorBatch SelectedOperator
+        private BatchLoginOperator _SelectedOperator;
+        public BatchLoginOperator SelectedOperator
         {
             get { return _SelectedOperator; }
             set { Set(ref _SelectedOperator, value); }
@@ -80,7 +80,7 @@ namespace Globeweigh.UI.Touch
             if (!string.IsNullOrEmpty(KeypadDisplayValue)) searchCharCount = KeypadDisplayValue.Length;
             try
             {
-                DistinctLetterList = new ObservableCollection<string>(OperatorList.Where(a => a.LastName != null).Select(s => s.LastName.Substring(searchCharCount, 1)).Distinct().ToList());
+                DistinctLetterList = new ObservableCollection<string>(OperatorList.Where(a => a.LastName != null).Select(s => s.LastName.Substring(searchCharCount, 1).ToUpper()).Distinct().ToList());
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace Globeweigh.UI.Touch
             if (param == "Clear")
             {
                 KeypadDisplayValue = string.Empty;
-                OperatorList = new List<vwOperatorBatch>(AllOperatorList);
+                OperatorList = new List<BatchLoginOperator>(AllOperatorList);
                 GetDistinctCodeCharacterList();
                 return;
             }
@@ -105,14 +105,14 @@ namespace Globeweigh.UI.Touch
 
         private void FilterOperatorList()
         {
-            OperatorList = new List<vwOperatorBatch>(AllOperatorList.Where(a => a.LastName != null && a.LastName.StartsWith(KeypadDisplayValue)));
+            OperatorList = new List<BatchLoginOperator>(AllOperatorList.Where(a => a.LastName != null && a.LastName.StartsWith(KeypadDisplayValue)));
             GetDistinctCodeCharacterList();
         }
 
         private async void RefreshOperators()
         {
 //            AllOperatorList = new List<vwOperatorBatch>(await _OperatorRepo.GetOperators());
-            OperatorList = new List<vwOperatorBatch>(AllOperatorList);
+            OperatorList = new List<BatchLoginOperator>(AllOperatorList);
             GetDistinctCodeCharacterList();
         }
 

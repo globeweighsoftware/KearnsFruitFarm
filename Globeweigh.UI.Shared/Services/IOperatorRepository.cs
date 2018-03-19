@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Globeweigh.Model;
+using Globeweigh.Model.Custom;
 using Globeweigh.UI.Shared.Helpers;
 
 namespace Globeweigh.UI.Shared.Services
@@ -15,16 +16,37 @@ namespace Globeweigh.UI.Shared.Services
         Task<Operator> MarkOperatorAsDeletedAsync(int OperatorId);
         Task<Operator> GetOperator(int operatorId);
         Task<Operator> AddUpdateOperatorAsync(Operator Operator);
-        Task<List<vwOperatorBatch>> GetOperatorsForBatch(int batchId);
+        Task<List<BatchLoginOperator>> GetOperatorsForBatch(int batchId);
     }
 
     public class OperatorRepository : IOperatorRepository
     {
-        public async Task<List<vwOperatorBatch>> GetOperatorsForBatch(int batchId)
+        //        public async Task<List<vwOperatorBatch>> GetOperatorsForBatch(int batchId)
+        //        {
+        //            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+        //            {
+        //                return await context.vwOperatorBatches.Where(a => a.BatchId == batchId || a.BatchId == null).ToListAsync();
+        //            }
+        //        }
+
+        public async Task<List<BatchLoginOperator>> GetOperatorsForBatch(int batchId)
         {
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {
-                return await context.vwOperatorBatches.Where(a => a.BatchId == batchId || a.BatchId == null).ToListAsync();
+                return await (from t1 in context.Operators
+                    from t2 in context.Batch_OperatorTime.Where(a => a.OperatorId == t1.id && a.BatchId == batchId).DefaultIfEmpty()
+                    where t1.DateDeleted == null
+
+                    select new BatchLoginOperator()
+                    {
+                        id = t1.id,
+                        BatchId = t2.BatchId,
+                        FullName = t1.FirstName + t1.LastName,
+                        FirstName = t1.FirstName,
+                        LastName = t1.LastName,
+                        TimeElapsedTicks = (long)t2.TimeElapsedTicks,
+                        TimeElapsedId = t2.id
+                    }).ToListAsync();
             }
         }
 

@@ -47,7 +47,7 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListViewItem}">
-                            <Border  d:DesignWidth="442" d:DesignHeight="130" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
+                            <Border  d:DesignWidth="1000" d:DesignHeight="100" Visibility="{Binding IsVisible, Converter={StaticResource TrueToVisibilityConverter}}">
                                 <!--<Border.Effect>
                                     <DropShadowEffect ShadowDepth="1"/>
                                 </Border.Effect>-->
@@ -69,83 +69,36 @@
                                             </Grid>
                                         </Border>
                                         <Grid Grid.Column="1">
-                                            <Grid x:Name="SelectLogonGrid" Grid.Column="0" Margin="0" Visibility="{Binding OperatorId, Converter={StaticResource NullToVisibleConverter}}" d:IsHidden="True">
-                                                <Button Template="{DynamicResource SelectUserButtonStyle}" Command="{Binding SelectUserCommand}" DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
-                                            </Grid>
                                             <Grid x:Name="LoggedOnGrid" Grid.Column="0" Margin="0" Visibility="{Binding OperatorId, Converter={StaticResource NullToCollapsedConverter}}" d:IsHidden="False">
                                                 <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,1,0" Grid.ColumnSpan="1">
                                                     <Grid Margin="0">
                                                         <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="500"/>
                                                             <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="100"/>
                                                         </Grid.ColumnDefinitions>
-                                                        <Grid Margin="14,0,0,0">
+                                                        <TextBlock x:Name="operatorName" Text="{Binding OperatorName, FallbackValue=Operator Name}" FontSize="48" Foreground="{TemplateBinding Foreground}" Height="Auto" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                                        <Grid Margin="0" VerticalAlignment="Center" Grid.ColumnSpan="1" Grid.RowSpan="1" Grid.Row="0" Grid.Column="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
                                                             <Grid.RowDefinitions>
-                                                                <RowDefinition Height="34"/>
-                                                                <RowDefinition Height="*"/>
+                                                                <RowDefinition Height="Auto"/>
+                                                                <RowDefinition Height="Auto"/>
                                                             </Grid.RowDefinitions>
-                                                            <Border VerticalAlignment="Stretch" BorderThickness="0,0,0,2" BorderBrush="{DynamicResource ItemBorderBrush}">
-                                                                <TextBlock x:Name="operatorName" Text="{Binding OperatorName, FallbackValue=Operator Name}" FontSize="22" Foreground="{TemplateBinding Foreground}" Height="31.923"/>
-                                                            </Border>
-                                                            <Grid Margin="0" VerticalAlignment="Center" Grid.ColumnSpan="1" Grid.RowSpan="2" Grid.Row="1">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="28"/>
-                                                                    <RowDefinition Height="28"/>
-                                                                    <RowDefinition Height="28"/>
-                                                                </Grid.RowDefinitions>
 
-                                                                <Grid Margin="0,0,0,4" Grid.Row="0">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition Width="130"/>
-                                                                        <ColumnDefinition Width="*"/>
-                                                                    </Grid.ColumnDefinitions>
-                                                                    <TextBlock Text="Time Logged On:" FontSize="16" Foreground="Black" Grid.Row="1" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
-                                                                    <TextBlock Text="{Binding TimeElapsedDisplay}" FontSize="16" Foreground="Black" Grid.Row="1" VerticalAlignment="Center" Grid.Column="1" FontFamily="Segoe UI Semibold"/>
+                                                            <TextBlock Text="Time Logged On:" FontSize="24" Foreground="Black" Grid.Row="0" VerticalAlignment="Center" FontFamily="Segoe UI Semibold"/>
+                                                            <TextBlock Text="{Binding TimeElapsedDisplay}" FontSize="24" Foreground="Black" Grid.Row="1" VerticalAlignment="Center" Grid.Column="0" FontFamily="Segoe UI Semibold"/>
 
-                                                                </Grid>
 
-                                                                    <TextBlock Text="{Binding UserPacksPerMin, FallbackValue=Packs/Min:, StringFormat=Packs/Min: \{0:0.0\}}" FontSize="16" Foreground="Black" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0" FontFamily="Segoe UI Semibold"/>
-                                                                    <TextBlock Text="{Binding UserPackCount, FallbackValue=Total:, StringFormat=Total Packs: \{0\}}" FontSize="16" Foreground="Black" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="1" Margin="0" Grid.Column="0" FontFamily="Segoe UI Semibold"/>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid Margin="10" Grid.Row="1" Visibility="{Binding OperatorId, Converter={StaticResource NullToCollapsedConverter}}" Grid.Column="1" VerticalAlignment="Center" Height="80">
-                                                            <Button Margin="0" Content="Logoff" BorderThickness="1" Visibility="{Binding IsDisplayDevice, Converter={StaticResource TrueToCollapsedConverter}}"  Style="{DynamicResource RoundedButtonStyle}" Command="{Binding OperatorLogOffCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}" Grid.Row="0" Background="#FFE2E2E2"/>
+                                                            <TextBlock Text="Packs / Min:" FontSize="24" Foreground="Black" Grid.Row="0" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" Grid.Column="1"/>
+                                                            <TextBlock Text="{Binding UserPacksPerMin, StringFormat=\{0:0.0\}}" FontSize="24" Foreground="Black" Grid.Row="1" VerticalAlignment="Center" Grid.ColumnSpan="1" Margin="0" FontFamily="Segoe UI Semibold" Grid.Column="1"/>
+
                                                         </Grid>
                                                     </Grid>
                                                 </Border>
                                             </Grid>
-                                            <Grid x:Name="DisconnectedGrid" Grid.Column="0" Margin="0" Visibility="{Binding IsConnected, Converter={StaticResource TrueToCollapsedConverter}}" d:IsHidden="True">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="2*"/>
-                                                    <RowDefinition Height="3*"/>
-                                                </Grid.RowDefinitions>
-                                                <!--<Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                </Grid.ColumnDefinitions>-->
-                                                <Border Margin="0" Background="White" Grid.Column="0" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0" Grid.ColumnSpan="1">
-                                                    <Grid Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                        <TextBlock Text="DISCONNECTED" FontSize="28" VerticalAlignment="Center" Foreground="#FFC70000" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                                    </Grid>
-                                                </Border>
-                                                <Border Margin="4,0" Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Column="0" HorizontalAlignment="Stretch" Width="Auto" Grid.RowSpan="1" Grid.Row="1" BorderThickness="0,1,0,0">
-                                                    <Grid Margin="0,10">
-                                                        <Button Margin="40,10" Content="Retry" BorderThickness="1" Style="{DynamicResource RoundedButtonStyle}" Command="{Binding RetryConnectionCommand}"  DataContext="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource Mode=TemplatedParent}}" FontSize="24"/>
-                                                    </Grid>
-                                                </Border>
-                                                <Grid Grid.RowSpan="2" Background="White" Visibility="{Binding IsBusy, Converter={StaticResource TrueToVisibilityConverter}}">
-                                                    <dx:WaitIndicator DeferedVisibility="{Binding IsBusy}" dx:ThemeManager.ThemeName="Office2013">
-                                                        <dx:WaitIndicator.ContentTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Orientation="Vertical">
-                                                                    <TextBlock Text="Connecting....." FontSize="20"/>
-                                                                    <!--<TextBlock Text="{Binding}"/>-->
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </dx:WaitIndicator.ContentTemplate>
-                                                    </dx:WaitIndicator>
-                                                </Grid>
-                                            </Grid>
+
                                         </Grid>
                                     </Grid>
                                 </Border>
@@ -193,7 +146,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
-                        <internal:BackButton dx:ThemeManager.ThemeName="MetropolisLight" Margin="0,0,10,0" VerticalAlignment="Center" Command="{Binding NavigateBackCommand}" StrokeThickness="4" Width="60" Height="60"  />
+                        <internal:BackButton dx:ThemeManager.ThemeName="MetropolisLight" Margin="0,0,10,0" VerticalAlignment="Center" Command="{Binding NavigateBackCommand}" StrokeThickness="4" Width="60" Height="60" Visibility="Collapsed"  />
                         <TextBlock Text="Batch ID: " Margin="0" VerticalAlignment="Center" FontSize="30" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
                         <TextBlock Text="{Binding SelectedBatchView.id}" Margin="0" VerticalAlignment="Center" FontSize="30" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
                     </StackPanel>
@@ -202,164 +155,17 @@
             </Border>
             <Border Margin="0" Grid.Row="2" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,2" >
                 <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="440"/>
-                        <ColumnDefinition Width="1"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
                     <Border BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1,0,0,0" Margin="0" Background="{DynamicResource LightGreyBrush}" Grid.Column="2">
-                        <ListView x:Name="lstScales" Width="Auto" Height="Auto" ItemsSource="{Binding ScaleList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource ScaleItemContainerStyle}" Grid.Row="1" Grid.Column="1" Background="{x:Null}">
+                        <ListView x:Name="lstScales" Width="Auto" Height="Auto" ItemsSource="{Binding ScaleDisplayList}" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{DynamicResource ScaleItemContainerStyle}" Grid.Row="1" Grid.Column="1" Background="{x:Null}">
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <!--                                    <UniformGrid Columns="1" Rows="8"/>-->
-                                    <controls:UniformGridWithOrientation Orientation="Vertical" Columns="2" Rows="5"/>
+                                    <controls:UniformGridWithOrientation Orientation="Vertical" Columns="1" Rows="10"/>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                         </ListView>
                     </Border>
-                    <Border BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1,0,0,0" Margin="0" Grid.Column="1"/>
-                    <Border  Background="White" Margin="0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="116"/>
-                                <RowDefinition Height="40"/>
-                                <RowDefinition Height="116"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="80"/>
 
-                            </Grid.RowDefinitions>
-                            <Border Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,1">
-                                <Grid Margin="14,3.312">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="160"/>
-                                        <ColumnDefinition Width="17*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Product Details"  VerticalAlignment="Center" FontSize="18" Margin="0" Foreground="{DynamicResource GlobeweighBlueBrush}" FontFamily="Segoe UI Semibold"/>
-                                    <TextBlock Text="(Overridden)" Foreground="Red" VerticalAlignment="Center" FontSize="20" Margin="0" Grid.Column="1" Visibility="{Binding SelectedBatchView.Override, Converter={StaticResource TrueToVisibilityConverter}}"/>
-                                </Grid>
-                            </Border>
-                            <Border BorderThickness="0,0,0,1" Background="{DynamicResource LightGreyBrush}" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Row="1">
-                                <Grid Margin="0">
-                                    <Grid Margin="10,4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="*"/>
-
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="Product:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.ProductName}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="1" Grid.ColumnSpan="3"/>
-                                        <TextBlock Text="Lower:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1"/>
-                                        <TextBlock Text="{Binding BatchLowerLimit, StringFormat=\{0\}g}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="1"/>
-                                        <TextBlock Text="Upper:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding BatchUpperLimit, StringFormat=\{0\}g}" Margin="6,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="1"/>
-                                        <TextBlock Text="Nominal:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.NominalWeight, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="3"/>
-                                        <TextBlock Text="Tare:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.Tare, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="3"/>
-
-                                    </Grid>
-
-
-                                </Grid>
-                            </Border>
-                            <Border Background="White" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="0,0,0,1" Grid.Row="2">
-                                <Grid Margin="14,3.312">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="160"/>
-                                        <ColumnDefinition Width="17*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="Batch Summary"  VerticalAlignment="Center" FontSize="18" Margin="0" Foreground="{DynamicResource GlobeweighBlueBrush}" FontFamily="Segoe UI Semibold"/>
-                                </Grid>
-                            </Border>
-                            <Border BorderThickness="0,0,0,1" Background="{DynamicResource LightGreyBrush}" BorderBrush="{DynamicResource ItemBorderBrush}" Grid.Row="3">
-                                <Grid Margin="0">
-                                    <Grid Margin="10,4">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="86"/>
-                                            <ColumnDefinition Width="100"/>
-                                            <ColumnDefinition Width="110"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="34"/>
-                                            <RowDefinition Height="*"/>
-
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="Time:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
-                                        <TextBlock Text="{Binding SelectedBatchView.TimeElapsedDisplay}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="1"/>
-                                        <TextBlock Text="Total Packs:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1"/>
-                                        <TextBlock Text="{Binding TotalPacksCount}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="1"/>
-                                        <TextBlock Text="Packs/Min:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2"/>
-                                        <TextBlock Text="{Binding PacksPerMin, StringFormat=N2}" Margin="10,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="1"/>
-
-                                        <TextBlock Text="Total Weight:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding TotalWeight, StringFormat=\{0\}Kg}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Column="3"/>
-                                        <TextBlock Text="Avg. Weight:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding AverageWeight, StringFormat=\{0\}g}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="1" Grid.Column="3"/>
-                                        <TextBlock Text="Avg. Giveaway:" Margin="0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="2"/>
-                                        <TextBlock Text="{Binding GiveawayDisplay}" Margin="12,0,0,0" VerticalAlignment="Center" FontSize="16" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold" Grid.Row="2" Grid.Column="3"/>
-
-                                    </Grid>
-
-
-                                </Grid>
-                            </Border>
-                            <dxg:GridControl x:Name="grdPalletProducts" ItemsSource="{Binding PortionList}" FontSize="14" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="4" FontFamily="Segoe UI Semibold" Margin="2" >
-                                <dxg:GridControl.View>
-                                    <dxg:TableView AllowPerPixelScrolling="True" AllowSorting="False" ShowColumnHeaders="True" RowStyle="{DynamicResource rowStyle}" ShowGroupPanel="False" ShowIndicator="True" AutoWidth="True" NavigationStyle="None" />
-                                </dxg:GridControl.View>
-                                <dxg:GridControl.Columns>
-                                    <dxg:GridColumn FieldName="OperatorName" Header="Operator">
-                                        <dxg:GridColumn.EditSettings>
-                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                        </dxg:GridColumn.EditSettings>
-                                    </dxg:GridColumn>
-                                    <dxg:GridColumn FieldName="ScaleNo" Header="Scale" Width="60" FixedWidth="True">
-                                        <dxg:GridColumn.EditSettings>
-                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                        </dxg:GridColumn.EditSettings>
-                                    </dxg:GridColumn>
-                                    <!--<dxg:GridColumn FieldName="Giveaway" Header="Giveaway" Width="70" FixedWidth="True">
-                                        <dxg:GridColumn.EditSettings>
-                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                        </dxg:GridColumn.EditSettings>
-                                    </dxg:GridColumn>-->
-                                    <dxg:GridColumn FieldName="Weight" Header="Weight" Width="60" FixedWidth="True">
-                                        <dxg:GridColumn.EditSettings>
-                                            <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
-                                        </dxg:GridColumn.EditSettings>
-                                    </dxg:GridColumn>
-                                    <dxg:GridColumn FieldName="DateCreated" Header="Date/Time" Width="120" FixedWidth="True">
-                                        <dxg:GridColumn.EditSettings>
-                                            <dxe:TextEditSettings MaskType="DateTime" Mask="dd/MM/yyyy HH:mm" MaskUseAsDisplayFormat="True" HorizontalContentAlignment="Left" />
-                                        </dxg:GridColumn.EditSettings>
-                                    </dxg:GridColumn>
-                                </dxg:GridControl.Columns>
-                            </dxg:GridControl>
-                            <Border Grid.Row="5" Margin="2" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1" >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Command="{Binding OverrideCommand}" Style="{DynamicResource PrimaryButtonStyle}" Content="Override Limits" Margin="10" FontSize="20" Visibility="Collapsed"/>
-                                    <Button Command="{Binding BreakCommand}" Style="{DynamicResource PrimaryButtonStyle}" Visibility="{Binding BatchInProgress, Converter={StaticResource TrueToVisibilityConverter}}" Content="Break Mode" Margin="10" FontSize="20" Grid.Column="1"/>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </Border>
                 </Grid>
             </Border>
         </Grid>

@@ -4,6 +4,15 @@ namespace Globeweigh.Model
 {
     public partial class vwOperatorBatch
     {
+//        public string FullName
+//        {
+//            get
+//            {
+//                return FirstName + " " + LastName;
+//            }
+//        }
+
+
         public decimal PacksPerMin
         {
             get

@@ -20,6 +20,7 @@ using Globeweigh.UI.Shared.Helpers;
 using System.Threading.Tasks;
 using System.Collections.Async;
 using DevExpress.Mvvm.POCO;
+using Globeweigh.Model.Custom;
 
 namespace Globeweigh.UI.Touch
 {
@@ -28,20 +29,13 @@ namespace Globeweigh.UI.Touch
         #region private fields
 
         private readonly IOperatorRepository _operatorRepo = SimpleIoc.Default.GetInstance<IOperatorRepository>();
-        private readonly IReferenceDataRepository _refDataRepo = SimpleIoc.Default.GetInstance<IReferenceDataRepository>();
-        private readonly IDialogService _dialogService = SimpleIoc.Default.GetInstance<IDialogService>();
         private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
         private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
         private readonly IScaleRepository _scaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
 
         private DispatcherTimer _displayRefreshTimer;
-
-
-
         private DispatcherTimer _timer;
-        //        private DispatcherTimer _connectionStatusTimer;
-        //        private bool _100LimitsAlreadySet = false;
-        //        private int _50Countdown = 0;
+
 
         #endregion
 
@@ -69,64 +63,60 @@ namespace Globeweigh.UI.Touch
             set { Set(ref _PacksPerMin, value); }
         }
 
-        private string _GiveawayDisplay;
-
-        public string GiveawayDisplay
-        {
-            get { return _GiveawayDisplay; }
-            set { Set(ref _GiveawayDisplay, value); }
-        }
-
-        private Decimal _TotalWeight;
-
-        public Decimal TotalWeight
-        {
-            get { return _TotalWeight; }
-            set { Set(ref _TotalWeight, value); }
-        }
-
-        private int _AverageWeight;
-
-        public int AverageWeight
-        {
-            get { return _AverageWeight; }
-            set { Set(ref _AverageWeight, value); }
-        }
+//        private string _GiveawayDisplay;
+//
+//        public string GiveawayDisplay
+//        {
+//            get { return _GiveawayDisplay; }
+//            set { Set(ref _GiveawayDisplay, value); }
+//        }
+//
+//        private Decimal _TotalWeight;
+//
+//        public Decimal TotalWeight
+//        {
+//            get { return _TotalWeight; }
+//            set { Set(ref _TotalWeight, value); }
+//        }
+//
+//        private int _AverageWeight;
+//
+//        public int AverageWeight
+//        {
+//            get { return _AverageWeight; }
+//            set { Set(ref _AverageWeight, value); }
+//        }
 
         private bool _BatchInProgress;
-
         public bool BatchInProgress
         {
             get { return _BatchInProgress; }
             set { Set(ref _BatchInProgress, value); }
         }
 
-        private DateTime _CurrentDate;
-
-        public DateTime CurrentDate
-        {
-            get { return _CurrentDate; }
-            set { Set(ref _CurrentDate, value); }
-        }
-
-        private List<vwOperatorBatch> _OperatorList;
-
-        public List<vwOperatorBatch> OperatorList
+        private List<BatchLoginOperator> _OperatorList;
+        public List<BatchLoginOperator> OperatorList
         {
             get { return _OperatorList; }
             set { Set(ref _OperatorList, value); }
         }
 
-        private List<Scale> _ScaleList;
-
-        public List<Scale> ScaleList
+        private List<Scale> _ScaleDisplayList;
+        public List<Scale> ScaleDisplayList
         {
-            get { return _ScaleList; }
-            set { Set(ref _ScaleList, value); }
+            get { return _ScaleDisplayList; }
+            set { Set(ref _ScaleDisplayList, value); }
+        }
+
+        private List<Scale> _MainScaleList;
+
+        public List<Scale> MainScaleList
+        {
+            get { return _MainScaleList; }
+            set { Set(ref _MainScaleList, value); }
         }
 
         private vwBatchView _SelectedBatchView;
-
         public vwBatchView SelectedBatchView
         {
             get { return _SelectedBatchView; }
@@ -177,124 +167,14 @@ namespace Globeweigh.UI.Touch
 
         #region Commands
 
-        public RelayCommand<KeyEventArgs> KeyPreviewDownCommand => new RelayCommand<KeyEventArgs>(OnKeyPreviewDown);
-        public RelayCommand NavigateBackCommand => new RelayCommand(OnExit, CanExit);
-        public RelayCommand<Scale> OperatorLogOffCommand => new RelayCommand<Scale>(OnOperatorLogOff);
-        public RelayCommand<Scale> SelectUserCommand => new RelayCommand<Scale>(OnSelectUser);
-        public RelayCommand<Scale> RetryConnectionCommand => new RelayCommand<Scale>(OnRetryConnectionCommand);
-        public RelayCommand OverrideCommand => new RelayCommand(OnOverrideCommand);
-        public RelayCommand BreakCommand => new RelayCommand(OnBreakCommand, CanOnBreak);
-
-
-
         #endregion
 
-        private bool CanExit()
-        {
-            return !BatchInProgress;
-        }
-
-        private bool CanOnBreak()
-        {
-            return BatchInProgress;
-        }
-
-        private void OnBreakCommand()
-        {
-            try
-            {
-                var dialogVm1 = SimpleIoc.Default.GetInstanceWithoutCaching<OkCancelViewModel>();
-                dialogVm1.HeaderText = "Break Mode";
-                dialogVm1.MessageText = "Break mode will pause all operators and scales. Continue?";
-                dialogVm1.OkText = "Ok";
-                bool? success = _dialogService.ShowDialog<OkCancelView>(this, dialogVm1);
-                if (success == true)
-                {
-                    _timer.Stop();
-                    var dialogVm2 = SimpleIoc.Default.GetInstanceWithoutCaching<OkCancelViewModel>();
-                    dialogVm2.HeaderText = null;
-                    dialogVm2.MessageText = "On Break";
-                    dialogVm2.HideCancel = true;
-                    dialogVm2.OkText = "Resume";
-                    dialogVm2.DialogResult = null;
-                    bool? success1 = _dialogService.ShowDialog<OkCancelView>(this, dialogVm2);
-                    if (success1 == true)
-                    {
-                        _timer.Start();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "OnBreakCommand");
-            }
-        }
-
-        private void OnOverrideCommand()
-        {
-            try
-            {
-                //                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<OverrideBatchLimitsViewModel>();
-                //                dialogViewModel.CurrentBatchView = SelectedBatchView;
-                //                bool? success = _dialogService.ShowDialog<OverrideBatchLimitsView>(this, dialogViewModel);
-                //                if (success == true)
-                //                {
-                //                    SelectedBatchView = dialogViewModel.CurrentBatchView;
-                //                    SelectedBatchView.RaisePropertyChanged("Override");
-                //                    SelectedBatchView.RaisePropertyChanged("BatchTare");
-                //                    SelectedBatchView.RaisePropertyChanged("BatchNominal");
-                //                    SendLimitCommands();
-                //
-                //                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "OnOverrideCommand");
-            }
-        }
-
-        public async void OnExit()
-        {
-            if (ScaleList.Any(a => a.OperatorId != null && a.Active)) return;
-            await _batchRepo.UpdateBatchLiveFlagAsync(SelectedBatchView.id, false);
-            SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel =SimpleIoc.Default.GetInstance<BatchListViewModel>();
-        }
-
-        private async void OnRetryConnectionCommand(Scale scale)
-        {
-            await Task.Run(() => OpenAndSetTcpConnection(scale, true));
-            //            await OpenAndSetTcpConnections(scale.ScaleNumber);
-        }
-
-        private async void OnSelectUser(Scale scale)
-        {
-            try
-            {
-                if (scale == null) return;
-                var selectedScale = scale;
-                if (OperatorList == null) return;
-                var dialogViewModel = SimpleIoc.Default.GetInstanceWithoutCaching<SelectOperatorViewModel>();
-                var availableOperators = OperatorList.Where(oper => !ScaleList.Any(a => a.OperatorId == oper.id)).ToList();
-                dialogViewModel.AllOperatorList = availableOperators;
-                bool? success = _dialogService.ShowDialog<SelectOperatorView>(this, dialogViewModel);
-                if (success == true)
-                {
-                    await AddOperatorToScale(selectedScale, dialogViewModel.SelectedOperator);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "OnSelectUser");
-            }
-        }
-
-        private async Task AddOperatorToScale(Scale selectedScale, vwOperatorBatch selectedOperator)
+        private async Task AddOperatorToScale(Scale selectedScale, BatchLoginOperator selectedOperator)
         {
             selectedScale.OperatorId = selectedOperator.id;
             selectedScale.OperatorName = selectedOperator.FullName;
             if (selectedOperator.TimeElapsedTicks == null)
             {
-                if (!IsDisplayDevice)await _batchRepo.AddBatchOperatorTimeAsync(SelectedBatchView.id, selectedOperator.id);
             }
             else
             {
@@ -304,27 +184,20 @@ namespace Globeweigh.UI.Touch
                     selectedScale.TimeElapsedTicks = (long)selectedOperator.TimeElapsedTicks;
             }
             selectedScale.UserPackCount = PortionList.Count(a => a.OperatorId == selectedScale.OperatorId);
-            if (!IsDisplayDevice)await _scaleRepo.AddOperatorIdToScale(selectedOperator.id, selectedScale.id);
         }
 
         private async void OnOperatorLogOff(Scale scale)
         {
             try
             {
-                if (!IsDisplayDevice)
-                {
-                    await _batchRepo.UpdateTimeElapsedAsync(SelectedBatchView.id, (int)scale.OperatorId, scale.TimeElapsedTicks);
-                    await _scaleRepo.AddOperatorIdToScale(null, scale.id);
-                }
-
                 scale.UserPackCount = 0;
                 scale.OperatorId = null;
                 scale.TimeElapsedTicks = 0;
-                OperatorList =new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+                OperatorList =new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
 
                 if (!IsDisplayDevice)
                 {
-                    if (ScaleList.All(a => a.OperatorId == null))
+                    if (MainScaleList.All(a => a.OperatorId == null))
                     {
                         await _batchRepo.UpdateBatchTimeElapsedAsync(SelectedBatchView.id, SelectedBatchView.TimeElapsedTicks, 0);
                     }
@@ -351,10 +224,10 @@ namespace Globeweigh.UI.Touch
                     return;
                 }
 
-                var changes = await _scaleRepo.RefreshOperatorsForDisplayDevice(ScaleList);
+                var changes = await _scaleRepo.RefreshOperatorsForDisplayDevice(MainScaleList);
                 if (!changes) return;
 
-                foreach (var scale in ScaleList.Where(a => a.OperatorChanged))
+                foreach (var scale in MainScaleList.Where(a => a.OperatorChanged))
                 {
                     if (scale.OperatorId == null)
                     {
@@ -385,7 +258,7 @@ namespace Globeweigh.UI.Touch
 //                    var changes = await _scaleRepo.RefreshOperatorsForDisplayDevice(ScaleList);
                 }
                 bool batchTimeupDated = false;
-                foreach (var scale in ScaleList.Where(scale => scale.Active))
+                foreach (var scale in MainScaleList.Where(scale => scale.Active))
                 {
                     if (scale.OperatorId != null)
                     {
@@ -415,7 +288,6 @@ namespace Globeweigh.UI.Touch
             }
             finally
             {
-                NavigateBackCommand.RaiseCanExecuteChanged();
             }
 
         }
@@ -425,69 +297,15 @@ namespace Globeweigh.UI.Touch
             PortionList = new List<vwPortionView>(await _portionRepo.GetPortionsAsync(SelectedBatchView.id));
             TotalPacksCount = PortionList.Count;
             if (TotalPacksCount == 0) return;
-            foreach (var scale in ScaleList)
+            foreach (var scale in MainScaleList)
             {
                 if (!scale.Active) continue;
                 if (scale.OperatorId == null) continue;
                 scale.UserPackCount = PortionList.Count(a => a.OperatorId == scale.OperatorId);
             }
 
-            TotalWeight = decimal.Round((decimal)PortionList.Sum(a => a.Weight) / 1000, 2);
-            AverageWeight = Convert.ToInt32(PortionList.Average(a => a.Weight));
-            decimal averageGiveaway = Convert.ToDecimal(PortionList.Average(a => a.Giveaway));
-            if (SelectedBatchView.NominalWeight != null)
-            {
-                decimal percentageGiveaway = (averageGiveaway / (int)SelectedBatchView.NominalWeight) * 100;
-                GiveawayDisplay = averageGiveaway.ToString("N0") + "g" + " (" + percentageGiveaway.ToString("N1") +
-                                  "%)";
-            }
+            ScaleDisplayList = new List<Scale>(MainScaleList.Where(a=>a.OperatorId !=null));
 
-            //            if (TotalPacksCount == 100)
-            //                SendLimitCommands();
-            //
-            //            if (_50Countdown != 0)
-            //            {
-            //                _50Countdown -= 1;
-            //
-            //                if (_50Countdown == 0)
-            //                {
-            //                    SendLimitCommands();
-            //                }
-            //                return;
-            //            }
-            //
-            //            if (TotalPacksCount > 100)
-            //            {
-            //                if (AverageWeight < SelectedBatchView.NominalWeight && _50Countdown == 0)
-            //                {
-            //                    _50Countdown = 50;
-            //                    SendLimitCommands();
-            //                }
-            //            }
-        }
-
-        private async void OnKeyPreviewDown(KeyEventArgs e)
-        {
-            if(!UtilitiesShared.IsMyMachine)return;
-            int scaleNo = 0;
-            if (e.Key == Key.NumPad1 || e.Key == Key.D1) scaleNo = 1;
-            if (e.Key == Key.NumPad2 || e.Key == Key.D2) scaleNo = 2;
-            if (e.Key == Key.NumPad3 || e.Key == Key.D3) scaleNo = 3;
-            if (e.Key == Key.NumPad4 || e.Key == Key.D4) scaleNo = 4;
-            if (e.Key == Key.NumPad5 || e.Key == Key.D5) scaleNo = 5;
-            if (e.Key == Key.NumPad6 || e.Key == Key.D6) scaleNo = 6;
-            if (e.Key == Key.NumPad7 || e.Key == Key.D6) scaleNo = 7;
-            if (e.Key == Key.NumPad8 || e.Key == Key.D6) scaleNo = 8;
-            if (e.Key == Key.NumPad9 || e.Key == Key.D6) scaleNo = 9;
-            if (scaleNo == 0) return;
-
-            var firstOrDefault = ScaleList.FirstOrDefault(a => a.ScaleNumber == scaleNo);
-            if (firstOrDefault == null) return;
-            var operatorId = firstOrDefault.OperatorId;
-            if (operatorId == null) return;
-            await _portionRepo.AddDummyPortionAsync(scaleNo, (int)operatorId, SelectedBatchView.id, BatchLowerLimit,
-                BatchUpperLimit);
-            await RefreshPortionList();
         }
 
         private async Task OpenAndSetTcpConnections()
@@ -495,7 +313,7 @@ namespace Globeweigh.UI.Touch
             //MY MACHINE DEMO MODE
             if (UtilitiesShared.IsMyMachine)
             {
-                foreach (var scale in ScaleList)
+                foreach (var scale in MainScaleList)
                 {
                     scale.IsConnected = true;
                 }
@@ -503,7 +321,7 @@ namespace Globeweigh.UI.Touch
             }
 
             var bag = new ConcurrentBag<object>();
-            await ScaleList.ParallelForEachAsync(async item =>
+            await MainScaleList.ParallelForEachAsync(async item =>
             {
                 // some pre stuff
                 var response = await Task.Run(() => OpenAndSetTcpConnection(item, true));
@@ -526,11 +344,6 @@ namespace Globeweigh.UI.Touch
                 if (scale.Active)
                 {
                     scale.TcpConnection = new NetConnection();
-                    byte[] lowerLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
-                    byte[] nominalBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
-                    byte[] upperLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
-                    byte[] tarebytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetTareCommand(SelectedBatchView.Tare));
-
                     var success = scale.TcpConnection.Connect(IPAddress.Parse(scale.ScaleIpAddress), 23);
                     if (!success)
                     {
@@ -538,27 +351,6 @@ namespace Globeweigh.UI.Touch
                         return null;
                     }
                     scale.IsConnected = true;
-
-                    if (IsDisplayDevice) return null;
-
-                    if (fromBatchStart)
-                    {
-                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("#7 \n"));
-                        Thread.Sleep(1000);
-                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q#\n"));
-                        Thread.Sleep(1000);
-                        scale.TcpConnection.Send(ASCIIEncoding.ASCII.GetBytes("q!\n"));
-                        Thread.Sleep(1000);
-                    }
-
-
-                    scale.TcpConnection.Send(lowerLimitBytesToSend);
-                    scale.TcpConnection.Send(nominalBytesToSend);
-                    scale.TcpConnection.Send(upperLimitBytesToSend);
-                    scale.TcpConnection.Send(tarebytesToSend);
-                    scale.TcpConnection.OnDataReceived += NetConnectionOnOnDataReceived;
-
-                    //                    scale.IsBusy = false;
                 }
             }
 
@@ -571,66 +363,8 @@ namespace Globeweigh.UI.Touch
                 scale.IsBusy = false;
             }
             return null;
-
-            //            _connectionStatusTimer.Start();
-
         }
 
-        private void SendLimitCommands()
-        {
-            OnPropertyChanged("BatchLowerLimit");
-            OnPropertyChanged("BatchUpperLimit");
-            foreach (var scale in ScaleList)
-            {
-                try
-                {
-                    if (scale.Active)
-                    {
-                        if (!scale.IsConnected) continue;
-                        byte[] lowerLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
-                        byte[] nominalBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
-                        byte[] upperLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
-
-                        scale.TcpConnection.Send(lowerLimitBytesToSend);
-                        scale.TcpConnection.Send(nominalBytesToSend);
-                        scale.TcpConnection.Send(upperLimitBytesToSend);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    ErrorLogging.LogError(ex, "SendOver100Commands - Scale:" + scale.ScaleNumber);
-                }
-
-            }
-        }
-
-        private void NetConnectionOnOnDataReceived(object sender, NetConnection connection, byte[] bytes)
-        {
-            try
-            {
-                var message = ASCIIEncoding.ASCII.GetString(bytes, 0, bytes.Length);
-                //                Console.WriteLine(message);
-                if (message.Length < 29) return;
-
-                IPEndPoint remoteIpEndPoint = connection.RemoteEndPoint as IPEndPoint;
-                var scale = ScaleList.FirstOrDefault(a => a.ScaleIpAddress == remoteIpEndPoint.Address.ToString());
-                if (scale != null)
-                {
-                    if (scale.OperatorId == null) return;
-                    var stringWeight = message.Substring(50, 5);
-                    int weight = int.Parse(stringWeight, NumberStyles.AllowThousands);
-                    AddPortion(scale, weight);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "NetConnectionOnOnDataReceived");
-            }
-        }
 
         private async void AddPortion(Scale scale, int weight)
         {
@@ -666,47 +400,12 @@ namespace Globeweigh.UI.Touch
                 _displayRefreshTimer.Start();
             }
 
-            CurrentDate = DateTime.Now;
-            OperatorList = new List<vwOperatorBatch>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
-            ScaleList = new List<Scale>(await _scaleRepo.GetScales());
+//            CurrentDate = DateTime.Now;
+            OperatorList = new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+            MainScaleList = new List<Scale>(await _scaleRepo.GetScales());
             SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
-            await _batchRepo.UpdateBatchLiveFlagAsync(SelectedBatchView.id, true);
-            //_50Countdown = SelectedBatchView.FiftyCount;
             await RefreshPortionList();
             OpenAndSetTcpConnections();
-        }
-
-        private async void conectionStatusTimer_tick(object sender, EventArgs e)
-        {
-            foreach (var scale in ScaleList)
-            {
-                if (!scale.Active) continue;
-                await CheckConnectionStatus(scale);
-            }
-        }
-
-        private async Task CheckConnectionStatus(Scale scale)
-        {
-            try
-            {
-                var isPingable = await scale.TcpConnection.IsPingable(scale.ScaleIpAddress);
-                if (scale.IsConnected == isPingable) return;
-                if (!isPingable)
-                {
-                    scale.IsConnected = false;
-                    if (scale.OperatorId != null)
-                        OnOperatorLogOff(scale);
-                }
-                else
-                {
-                    if (!scale.IsConnected)
-                        await OpenAndSetTcpConnection(scale, false);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "ConnectionStatusTimer");
-            }
         }
 
         public void Unload(FrameworkElement element)
@@ -727,11 +426,10 @@ namespace Globeweigh.UI.Touch
                 }
 
                 //                _connectionStatusTimer.Stop();
-                foreach (var scale in ScaleList)
+                foreach (var scale in MainScaleList)
                 {
                     if (!scale.Active) continue;
                     if (scale.TcpConnection == null) continue;
-                    if(!IsDisplayDevice)scale.TcpConnection.OnDataReceived -= NetConnectionOnOnDataReceived;
                     scale.TcpConnection.Disconnect();
                 }
 
@@ -742,12 +440,12 @@ namespace Globeweigh.UI.Touch
             }
             finally
             {
-                ScaleList = null;
+                MainScaleList = null;
                 PacksPerMin = 0;
                 TotalPacksCount = 0;
-                TotalWeight = 0;
-                GiveawayDisplay = "";
-                AverageWeight = 0;
+//                TotalWeight = 0;
+//                GiveawayDisplay = "";
+//                AverageWeight = 0;
                 PortionList = null;
                 OperatorList = null;
             }
