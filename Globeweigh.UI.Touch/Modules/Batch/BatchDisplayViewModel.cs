@@ -94,6 +94,15 @@ namespace Globeweigh.UI.Touch
             set { Set(ref _BatchInProgress, value); }
         }
 
+        private bool _EmptyOperatorsExist;
+        public bool EmptyOperatorsExist
+        {
+            get { return _EmptyOperatorsExist; }
+            set { Set(ref _EmptyOperatorsExist, value); }
+        }
+
+        
+
         private List<BatchLoginOperator> _OperatorList;
         public List<BatchLoginOperator> OperatorList
         {
@@ -243,7 +252,7 @@ namespace Globeweigh.UI.Touch
             }
             catch (Exception ex)
             {
-                ErrorLogging.LogError(ex, "slaveScaleTimer_tick");
+//                ErrorLogging.LogError(ex, "slaveScaleTimer_tick");
             }
 
         }
@@ -284,7 +293,7 @@ namespace Globeweigh.UI.Touch
             }
             catch (Exception ex)
             {
-                ErrorLogging.LogError(ex, "timer_tick");
+//                ErrorLogging.LogError(ex, "timer_tick");
             }
             finally
             {
@@ -294,6 +303,10 @@ namespace Globeweigh.UI.Touch
 
         private async Task RefreshPortionList()
         {
+            EmptyOperatorsExist = MainScaleList.Any(a => a.OperatorId != null && a.OperatorName == null);
+            if(EmptyOperatorsExist) return;
+
+
             PortionList = new List<vwPortionView>(await _portionRepo.GetPortionsAsync(SelectedBatchView.id));
             TotalPacksCount = PortionList.Count;
             if (TotalPacksCount == 0) return;
@@ -304,7 +317,7 @@ namespace Globeweigh.UI.Touch
                 scale.UserPackCount = PortionList.Count(a => a.OperatorId == scale.OperatorId);
             }
 
-            ScaleDisplayList = new List<Scale>(MainScaleList.Where(a=>a.OperatorId !=null));
+            ScaleDisplayList = new List<Scale>(MainScaleList.Where(a=>a.OperatorId !=null).OrderByDescending(a=>a.UserPacksPerMin));
 
         }
 
@@ -366,46 +379,39 @@ namespace Globeweigh.UI.Touch
         }
 
 
-        private async void AddPortion(Scale scale, int weight)
-        {
-            try
-            {
-                await _portionRepo.AddPortionAsync(scale.ScaleNumber, (int)scale.OperatorId, SelectedBatchView.id,
-                    weight);
-                await RefreshPortionList();
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "AddPortion");
-            }
-
-        }
 
         public async void Load(FrameworkElement element)
         {
-            if (UtilitiesShared.InDesignMode) return;
-            _timer = new DispatcherTimer();
-            _timer.Interval = new TimeSpan(0, 0, 0, 1);
-            _timer.Tick += timer_tick;
-            _timer.Start();
-            //            _connectionStatusTimer = new DispatcherTimer();
-            //            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
-            //            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
-
-            if (IsDisplayDevice)
+            try
             {
-                _displayRefreshTimer = new DispatcherTimer();
-                _displayRefreshTimer.Interval = new TimeSpan(0, 0, 0, 1);
-                _displayRefreshTimer.Tick += slaveScaleTimer_tick;
-                _displayRefreshTimer.Start();
+                if (UtilitiesShared.InDesignMode) return;
+                _timer = new DispatcherTimer();
+                _timer.Interval = new TimeSpan(0, 0, 0, 1);
+                _timer.Tick += timer_tick;
+                _timer.Start();
+                //            _connectionStatusTimer = new DispatcherTimer();
+                //            _connectionStatusTimer.Interval = new TimeSpan(0, 0, 0, 10);
+                //            _connectionStatusTimer.Tick += conectionStatusTimer_tick;
+
+                if (IsDisplayDevice)
+                {
+                    _displayRefreshTimer = new DispatcherTimer();
+                    _displayRefreshTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                    _displayRefreshTimer.Tick += slaveScaleTimer_tick;
+                    _displayRefreshTimer.Start();
+                }
+
+                //            CurrentDate = DateTime.Now;
+                OperatorList = new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
+                MainScaleList = new List<Scale>(await _scaleRepo.GetScales());
+                SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
+                await RefreshPortionList();
+                OpenAndSetTcpConnections();
+            }
+            catch (Exception e)
+            {
             }
 
-//            CurrentDate = DateTime.Now;
-            OperatorList = new List<BatchLoginOperator>(await _operatorRepo.GetOperatorsForBatch(SelectedBatchView.id));
-            MainScaleList = new List<Scale>(await _scaleRepo.GetScales());
-            SelectedBatchView.TimeElapsedDisplay = TimeSpan.FromTicks(SelectedBatchView.TimeElapsedTicks).ToString();
-            await RefreshPortionList();
-            OpenAndSetTcpConnections();
         }
 
         public void Unload(FrameworkElement element)

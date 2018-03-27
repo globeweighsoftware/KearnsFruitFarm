@@ -536,12 +536,9 @@ namespace Globeweigh.UI.Touch
                     if (scale.Active)
                     {
                         if (!scale.IsConnected) continue;
-                        byte[] lowerLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
-                        byte[] nominalBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
-                        byte[] upperLimitBytesToSend =
-                            ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
+                        byte[] lowerLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetLowerLimitCommand(BatchLowerLimit));
+                        byte[] nominalBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetNominalCommand(BatchLowerLimit));
+                        byte[] upperLimitBytesToSend =ASCIIEncoding.ASCII.GetBytes(ScaleCommandBuilder.GetUpperLimitCommand(BatchUpperLimit));
 
                         scale.TcpConnection.Send(lowerLimitBytesToSend);
                         scale.TcpConnection.Send(nominalBytesToSend);

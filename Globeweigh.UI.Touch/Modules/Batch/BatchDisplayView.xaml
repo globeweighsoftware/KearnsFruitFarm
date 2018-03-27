@@ -165,8 +165,14 @@
                             </ListView.ItemsPanel>
                         </ListView>
                     </Border>
-
+                    <Border Margin="50" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="3" CornerRadius="5" Visibility="{Binding EmptyOperatorsExist, Converter={StaticResource TrueToVisibilityConverter}}" >
+                        <StackPanel  Orientation="Vertical" VerticalAlignment="Center">
+                            <TextBlock Text="Display Software must be loaded before" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="#FF2C7EDC"/>
+                            <TextBlock Text="Batch is started" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="60" Foreground="#FF2C7EDC" Margin="0,30,0,0"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
+
             </Border>
         </Grid>
     </Grid>

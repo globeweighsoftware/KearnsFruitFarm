@@ -41,7 +41,7 @@ namespace Globeweigh.UI.Shared.Services
                     {
                         id = t1.id,
                         BatchId = t2.BatchId,
-                        FullName = t1.FirstName + t1.LastName,
+                        FullName = t1.FirstName + " " + t1.LastName,
                         FirstName = t1.FirstName,
                         LastName = t1.LastName,
                         TimeElapsedTicks = (long)t2.TimeElapsedTicks,

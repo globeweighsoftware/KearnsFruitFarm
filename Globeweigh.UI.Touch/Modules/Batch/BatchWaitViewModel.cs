@@ -27,20 +27,27 @@ namespace Globeweigh.UI.Touch
 
         private async void timer_tick(object sender, EventArgs e)
         {
-            var batch = await _batchRepo.GetLiveBatchAsync();
-            if (batch == null)
+            try
             {
-                if (SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel.GetType() ==typeof (BatchDetailsViewModel))
+                var batch = await _batchRepo.GetLiveBatchAsync();
+                if (batch == null)
                 {
-                    var vm = SimpleIoc.Default.GetInstance<BatchDetailsViewModel>();
-                    vm.OnExit();
+                    if (SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel.GetType() == typeof(BatchDetailsViewModel))
+                    {
+                        var vm = SimpleIoc.Default.GetInstance<BatchDetailsViewModel>();
+                        vm.OnExit();
+                    }
+                    return;
                 }
-                return;
+                //            _timer.Stop();
+                var batchDetailsViewModel = SimpleIoc.Default.GetInstance<BatchDisplayViewModel>();
+                batchDetailsViewModel.SelectedBatchView = batch;
+                SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel = batchDetailsViewModel;
             }
-//            _timer.Stop();
-            var batchDetailsViewModel = SimpleIoc.Default.GetInstance<BatchDisplayViewModel>();
-            batchDetailsViewModel.SelectedBatchView = batch;
-            SimpleIoc.Default.GetInstance<MainWindowViewModel>().CurrentViewModel = batchDetailsViewModel;
+            catch 
+            {
+            }
+
         }
 
         public async void Load(FrameworkElement element)
