@@ -10,7 +10,7 @@ namespace Globeweigh.UI.Shared.Services
 {
     public interface IBatchRepository
     {
-        Task<List<vwBatchView>> GetBatchesAsync(DateTime day);
+        Task<List<vwBatchView>> GetBatchesAsync(DateTime dateFrom, DateTime dateTo);
         Task<Batch> GetBatchAsync(int id);
         Task<Batch> AddUpdateBatchAsync(Batch Batch);
         Task<Batch> CloseOpenBatch(int id, bool closed);
@@ -18,7 +18,7 @@ namespace Globeweigh.UI.Shared.Services
         Task<Batch_OperatorTime> AddBatchOperatorTimeAsync(int batchId, int operatorId);
         Task<Batch_OperatorTime> UpdateTimeElapsedAsync(int batchId, int operatorId, long ticks);
         Task<Batch> UpdateBatchTimeElapsedAsync(int batchId, long ticks, int fiftyCount);
-        List<vwOperatorBatch> GetOperatorBatchSummary(int batchId);
+        List<spOperatorBatch_Result> GetOperatorBatchSummary(int batchId);
         Task<vwBatchView> GetLiveBatchAsync();
         Task<Batch> UpdateBatchLiveFlagAsync(int batchId, bool isLive);
         Task<bool> IsBatchLive(int batchId);
@@ -74,12 +74,8 @@ namespace Globeweigh.UI.Shared.Services
             }
         }
 
-        public async Task<List<vwBatchView>> GetBatchesAsync(DateTime day)
+        public async Task<List<vwBatchView>> GetBatchesAsync(DateTime dateFrom, DateTime dateTo)
         {
-
-            DateTime dateFrom = day.Date;
-            DateTime dateTo = day.Date.AddDays(1);
-
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {
                 return await context.vwBatchViews.Where(c => c.DateCreated >= dateFrom && c.DateCreated <= dateTo && !c.Deleted).OrderByDescending(a => a.DateCreated).ToListAsync();
@@ -200,12 +196,12 @@ namespace Globeweigh.UI.Shared.Services
             }
         }
 
-        public List<vwOperatorBatch> GetOperatorBatchSummary(int batchId)
+        public List<spOperatorBatch_Result> GetOperatorBatchSummary(int batchId)
         {
             using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
             {
-                var list = context.spOperatorBatch(batchId);
-//                return list;
+                var list = context.spOperatorBatch(batchId).ToList();
+                return list;
 
                 return null;
             }

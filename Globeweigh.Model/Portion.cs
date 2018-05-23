@@ -119,6 +119,19 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private int _ScaleTare;
+        public int ScaleTare
+        {
+            get { return _ScaleTare; }
+            set
+            {
+                if (_ScaleTare != value)
+                {
+                    _ScaleTare = value;
+                    OnPropertyChanged("ScaleTare");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

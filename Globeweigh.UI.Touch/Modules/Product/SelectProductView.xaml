@@ -95,7 +95,7 @@
                     </dxg:GridControl.View>
                     <!--<dxg:GridColumn FieldName="Code" Header="Product Code" Width="70"/>-->
                     <dxg:GridColumn FieldName="Description"  Header="Product Description"/>
-                    <dxg:GridColumn FieldName="LowerLimit"  Header="Upper" Width="100" FixedWidth="True">
+                    <dxg:GridColumn FieldName="LowerLimit"  Header="Lower" Width="100" FixedWidth="True">
                         <dxg:GridColumn.EditSettings>
                             <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
                         </dxg:GridColumn.EditSettings>

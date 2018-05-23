@@ -73,6 +73,26 @@ namespace Globeweigh.UI.Touch
                     SelectedProduct = dialogViewModel.SelectedProduct;
                 }
             }
+            else if (name == "BatchNo")
+            {
+                var dialogViewModel = SimpleIoc.Default.GetInstance<KeyboardViewModel>();
+                dialogViewModel.HeaderText = "Enter Batch No";
+                bool? success = _dialogService.ShowDialog<KeyboardView>(this, dialogViewModel);
+                if (success == true)
+                {
+                    CurrentBatch.BatchNo = dialogViewModel.KeyboardValue;
+                }
+            }
+            else if (name == "BatchNo2")
+            {
+                var dialogViewModel = SimpleIoc.Default.GetInstance<KeyboardViewModel>();
+                dialogViewModel.HeaderText = "Enter Batch No 2";
+                bool? success = _dialogService.ShowDialog<KeyboardView>(this, dialogViewModel);
+                if (success == true)
+                {
+                    CurrentBatch.BatchNo2 = dialogViewModel.KeyboardValue;
+                }
+            }
         }
 
         public async void Load(FrameworkElement element)

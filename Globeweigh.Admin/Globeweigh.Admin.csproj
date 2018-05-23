@@ -155,6 +155,10 @@
       <DependentUpon>Installer1.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Modules\Batch\BatchListView.xaml.cs">
+      <DependentUpon>BatchListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Batch\BatchListViewModel.cs" />
     <Compile Include="Modules\Operators\AddEditOperatorView.xaml.cs">
       <DependentUpon>AddEditOperatorView.xaml</DependentUpon>
     </Compile>
@@ -207,6 +211,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Modules\Batch\BatchListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Modules\Operators\AddEditOperatorView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -406,7 +414,9 @@
   <ItemGroup>
     <Resource Include="Images\Stock-96.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Strawberry-96.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

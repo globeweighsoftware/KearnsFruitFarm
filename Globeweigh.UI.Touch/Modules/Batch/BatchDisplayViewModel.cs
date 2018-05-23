@@ -414,10 +414,25 @@ namespace Globeweigh.UI.Touch
 
         }
 
+        private void DisconnectScales()
+        {
+            foreach (var scale in MainScaleList)
+            {
+                try
+                {
+                    if (!scale.Active) continue;
+                    if (scale.TcpConnection == null) continue;
+                    scale.TcpConnection.Disconnect();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogging.LogError(ex, "Disconnecting Scales");
+                }
+            }
+        }
+
         public void Unload(FrameworkElement element)
         {
-            try
-            {
                 if (_timer != null)
                 {
                     _timer.Stop();
@@ -431,21 +446,8 @@ namespace Globeweigh.UI.Touch
                     _displayRefreshTimer = null;
                 }
 
-                //                _connectionStatusTimer.Stop();
-                foreach (var scale in MainScaleList)
-                {
-                    if (!scale.Active) continue;
-                    if (scale.TcpConnection == null) continue;
-                    scale.TcpConnection.Disconnect();
-                }
+                DisconnectScales();
 
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "BatchDetailsViewModel_Unload");
-            }
-            finally
-            {
                 MainScaleList = null;
                 PacksPerMin = 0;
                 TotalPacksCount = 0;
@@ -454,7 +456,6 @@ namespace Globeweigh.UI.Touch
 //                AverageWeight = 0;
                 PortionList = null;
                 OperatorList = null;
-            }
 
         }
     }

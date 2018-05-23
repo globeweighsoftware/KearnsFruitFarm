@@ -66,6 +66,7 @@
                                     <dxe:TextEditSettings HorizontalContentAlignment="Left"/>
                                 </dxg:GridColumn.EditSettings>
                             </dxg:GridColumn>
+                            <dxg:GridColumn FieldName="BatchNo" Width="120" FixedWidth="True"/>
                             <dxg:GridColumn FieldName="ProductName"  Header="Product"/>
                             <dxg:GridColumn FieldName="LowerLimit"  Header="Lower"  Width="80" FixedWidth="True">
                                 <dxg:GridColumn.EditSettings>

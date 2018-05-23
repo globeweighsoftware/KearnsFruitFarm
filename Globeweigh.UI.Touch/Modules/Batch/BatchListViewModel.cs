@@ -162,7 +162,7 @@ namespace Globeweigh.UI.Touch
 
         public async void RefreshBatchList()
         {
-            BatchList = new List<vwBatchView>(await _batchRepo.GetBatchesAsync(FilterDate));
+            BatchList = new List<vwBatchView>(await _batchRepo.GetBatchesAsync(FilterDate.Date, FilterDate.Date.AddDays(1)));
         }
 
         public async void Load(FrameworkElement element)

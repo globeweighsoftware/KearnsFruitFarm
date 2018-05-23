@@ -154,7 +154,7 @@ namespace Globeweigh.UI.Touch
             get
             {
                 if (SelectedBatchView.Override) return SelectedBatchView.BatchLowerLimit;
-                return (int)SelectedBatchView.NominalWeight;
+                return (int)SelectedBatchView.LowerLimit;
 
             }
         }
@@ -444,14 +444,14 @@ namespace Globeweigh.UI.Touch
         private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
-            if (UtilitiesShared.IsMyMachine)
-            {
-                foreach (var scale in ScaleList)
-                {
-                    scale.IsConnected = true;
-                }
-                return;
-            }
+//            if (UtilitiesShared.IsMyMachine)
+//            {
+//                foreach (var scale in ScaleList)
+//                {
+//                    scale.IsConnected = true;
+//                }
+//                return;
+//            }
 
             var bag = new ConcurrentBag<object>();
             await ScaleList.ParallelForEachAsync(async item =>
@@ -488,7 +488,7 @@ namespace Globeweigh.UI.Touch
                         scale.IsConnected = false;
                         return null;
                     }
-                    scale.IsConnected = true;
+
 
                     if (fromBatchStart)
                     {
@@ -502,11 +502,15 @@ namespace Globeweigh.UI.Touch
 
 
                     scale.TcpConnection.Send(lowerLimitBytesToSend);
+                    Thread.Sleep(1000);
                     scale.TcpConnection.Send(nominalBytesToSend);
+                    Thread.Sleep(1000);
                     scale.TcpConnection.Send(upperLimitBytesToSend);
+                    Thread.Sleep(1000);
                     scale.TcpConnection.Send(tarebytesToSend);
                     scale.TcpConnection.OnDataReceived += NetConnectionOnOnDataReceived;
 
+                    scale.IsConnected = true;
                     //                    scale.IsBusy = false;
                 }
             }
@@ -568,8 +572,10 @@ namespace Globeweigh.UI.Touch
                 {
                     if (scale.OperatorId == null) return;
                     var stringWeight = message.Substring(50, 5);
+                    var stringTare = message.Substring(36, 5);
                     int weight = int.Parse(stringWeight, NumberStyles.AllowThousands);
-                    AddPortion(scale, weight);
+                    int tare = int.Parse(stringTare, NumberStyles.AllowThousands);
+                    AddPortion(scale, weight, tare);
                 }
             }
             catch (Exception ex)
@@ -578,12 +584,11 @@ namespace Globeweigh.UI.Touch
             }
         }
 
-        private async void AddPortion(Scale scale, int weight)
+        private async void AddPortion(Scale scale, int weight, int tare)
         {
             try
             {
-                await _portionRepo.AddPortionAsync(scale.ScaleNumber, (int)scale.OperatorId, SelectedBatchView.id,
-                    weight);
+                await _portionRepo.AddPortionAsync(scale.ScaleNumber, (int)scale.OperatorId, SelectedBatchView.id,weight, tare);
                 await RefreshPortionList();
             }
             catch (Exception ex)
@@ -647,31 +652,36 @@ namespace Globeweigh.UI.Touch
             }
         }
 
-        public void Unload(FrameworkElement element)
+        private void DisconnectScales()
         {
-            try
+            foreach (var scale in ScaleList)
             {
-                if (_timer != null)
-                {
-                    _timer.Stop();
-                    _timer.Tick -= timer_tick;
-                    _timer = null;
-                }
-                foreach (var scale in ScaleList)
+                try
                 {
                     if (!scale.Active) continue;
                     if (scale.TcpConnection == null) continue;
                     scale.TcpConnection.OnDataReceived -= NetConnectionOnOnDataReceived;
                     scale.TcpConnection.Disconnect();
                 }
+                catch (Exception ex)
+                {
+                    ErrorLogging.LogError(ex, "Disconnecting Scales");
+                }
+            }
+        }
 
-            }
-            catch (Exception ex)
-            {
-                ErrorLogging.LogError(ex, "BatchDetailsViewModel_Unload");
-            }
-            finally
-            {
+        public void Unload(FrameworkElement element)
+        {
+                if (_timer != null)
+                {
+                    _timer.Stop();
+                    _timer.Tick -= timer_tick;
+                    _timer = null;
+                }
+
+                DisconnectScales();
+
+
                 ScaleList = null;
                 PacksPerMin = 0;
                 TotalPacksCount = 0;
@@ -680,7 +690,6 @@ namespace Globeweigh.UI.Touch
                 AverageWeight = 0;
                 PortionList = null;
                 OperatorList = null;
-            }
 
         }
     }

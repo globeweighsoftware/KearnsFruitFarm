@@ -4,25 +4,33 @@ using Globeweigh.Model;
 using Globeweigh.Model.Custom;
 using Globeweigh.UI.Shared.Services;
 using System.Linq;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace Globeweigh.Reports
 {
     public partial class rptBatchReport2 : DevExpress.XtraReports.UI.XtraReport
     {
-        public rptBatchReport2(int batchId, vwBatchView batchView, IBatchRepository batchRepo, IPortionRepository portionRepo)
+        private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
+        private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
+
+        public rptBatchReport2(vwBatchView batchView)
         {
             InitializeComponent();
-            Load(batchId, batchView, batchRepo, portionRepo);
+            Load(batchView);
         }
 
-        private void Load(int batchId, vwBatchView batchView, IBatchRepository batchRepo, IPortionRepository portionRepo)
+        private void Load (vwBatchView batchView)
         {
-            var operatorBatchList = batchRepo.GetOperatorBatchSummary(batchId);
-            var portionList = portionRepo.GetPortions(batchId);
+            var operatorBatchList = _batchRepo.GetOperatorBatchSummary(batchView.id);
+            var portionList = _portionRepo.GetPortions(batchView.id);
+
+            if (operatorBatchList == null)return;
+            if(portionList.Count == 0)return;
 
 
-            objectDataSource1.DataSource = operatorBatchList;
+                objectDataSource1.DataSource = operatorBatchList;
             lblBatchId.Text = batchView.id.ToString();
+            lblBatchNo.Text = batchView.BatchNo;
             lblProduct.Text = batchView.ProductName;
             lblT1.Text = batchView.LowerLimit.ToString();
             lblUpper.Text = batchView.UpperLimit.ToString();
@@ -39,7 +47,7 @@ namespace Globeweigh.Reports
             if (batchView.NominalWeight != null)
             {
                 decimal percentageGiveaway = (averageGiveaway / (int)batchView.NominalWeight) * 100;
-                lblAvgGiveaway.Text = averageGiveaway.ToString("N0") + "g" + " (" + percentageGiveaway.ToString("N1") + "%)";
+                lblAvgGiveaway.Text = averageGiveaway.ToString("N1") + "g" + " (" + percentageGiveaway.ToString("N1") + "%)";
             }
 
             if (TimeSpan.FromTicks(batchView.TimeElapsedTicks).TotalMinutes == 0 || batchView.PortionCount == 0)

@@ -38,25 +38,48 @@ namespace Globeweigh.Model
             }
         }
 
-//        public int BatchTare
-//        {
-//            get
-//            {
-//                if (Override)
-//                    return (int)TareOverride;
-//                return (int)Tare;
-//            }
-//        }
-//
-//        public int BatchNominal
-//        {
-//            get
-//            {
-//                if (Override)
-//                    return (int)NominalOverride;
-//                return (int)NominalWeight;
-//            }
-//        }
+        public int TotalWeightKg
+        {
+            get
+            {
+                if (TotalWeight == null) return 0;
+                if (TotalWeight == 0) return 0;
+                else return (int) (TotalWeight / 1000);
+            }
+        }
+
+
+        public int AverageGiveaway
+        {
+            get
+            {
+                if (AverageWeight == null) return 0;
+                if (AverageWeight == 0) return 0;
+                if (NominalWeight == null) return 0;
+                if (NominalWeight == 0) return 0;
+                return (int) (AverageWeight - NominalWeight);
+            }
+        }
+
+        //        public int BatchTare
+        //        {
+        //            get
+        //            {
+        //                if (Override)
+        //                    return (int)TareOverride;
+        //                return (int)Tare;
+        //            }
+        //        }
+        //
+        //        public int BatchNominal
+        //        {
+        //            get
+        //            {
+        //                if (Override)
+        //                    return (int)NominalOverride;
+        //                return (int)NominalWeight;
+        //            }
+        //        }
 
         private string _TimeElapsedDisplay;
         public string TimeElapsedDisplay

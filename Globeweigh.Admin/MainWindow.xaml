@@ -26,7 +26,9 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
 
-
+            <DataTemplate DataType="{x:Type local:BatchListViewModel}">
+                <local:BatchListView/>
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type local:ProductListViewModel}">
                 <local:ProductListView/>
@@ -131,9 +133,9 @@
                     </Border>
 
                     <ListBox x:Name="list" Background="{x:Null}" ItemContainerStyle="{DynamicResource MainMenuItemStyle}" Loaded="FrameworkElement_OnLoaded" SelectedIndex="0" SelectedItem="{Binding SelectedNavItem}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2" >
-
-                        <controls:MenuListBoxItem x:Name="products" Content="Products"   ImageSource="/Globeweigh.Admin;component/Images/Product-96.png"/>
-                        <controls:MenuListBoxItem x:Name="operators" Content="Operators" ImageSource="/Globeweigh.Admin;component/Images/Product-96.png"/>
+                        <controls:MenuListBoxItem x:Name="batch" Content="Batches"   ImageSource="/Globeweigh.Admin;component/Images/Product-96.png"/>
+                        <controls:MenuListBoxItem x:Name="products" Content="Products"   ImageSource="/Globeweigh.Admin;component/Images/Strawberry-96.png"/>
+                        <controls:MenuListBoxItem x:Name="operators" Content="Operators" ImageSource="/Globeweigh.Admin;component/Images/Customers-96.png"/>
                         <controls:MenuListBoxItem x:Name="scales" Content="Scales" ImageSource="/Globeweigh.Admin;component/Images/Weighbridge-96.png"/>
                     </ListBox>
                     <Grid Grid.Row="2" Visibility="{Binding IsGlobeweighAdmin, Converter={StaticResource TrueToVisibilityConverter}}">

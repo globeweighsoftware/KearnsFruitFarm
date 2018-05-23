@@ -14,7 +14,7 @@ namespace Globeweigh.UI.Shared.Services
         List<vwPortionView> GetPortions(int batchId);
         Task<Portion> AddUpdatePortionAsync(Portion portion);
         Task<Portion> AddDummyPortionAsync(int scaleNo, int operatorId, int batchId, int? lowerLimit, int? upperLimit);
-        Task<Portion> AddPortionAsync(int scaleNo, int operatorId, int batchId, int weight);
+        Task<Portion> AddPortionAsync(int scaleNo, int operatorId, int batchId, int weight, int tare);
     }
 
     public class PortionRepository : IPortionRepository
@@ -49,13 +49,14 @@ namespace Globeweigh.UI.Shared.Services
             return await AddUpdatePortionAsync(portion);
         }
 
-        public async Task<Portion> AddPortionAsync(int scaleNo, int operatorId, int batchId, int weight)
+        public async Task<Portion> AddPortionAsync(int scaleNo, int operatorId, int batchId, int weight, int tare)
         {
             var portion = new Portion();
             portion.OperatorId = operatorId;
             portion.ScaleNo = scaleNo;
             portion.BatchId = batchId;
             portion.Weight = weight;
+            portion.ScaleTare = tare;
             return await AddUpdatePortionAsync(portion);
         }
 

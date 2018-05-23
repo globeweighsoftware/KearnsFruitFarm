@@ -197,6 +197,32 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private string _BatchNo;
+        public string BatchNo
+        {
+            get { return _BatchNo; }
+            set
+            {
+                if (_BatchNo != value)
+                {
+                    _BatchNo = value;
+                    OnPropertyChanged("BatchNo");
+                }
+            }
+        }
+        private string _BatchNo2;
+        public string BatchNo2
+        {
+            get { return _BatchNo2; }
+            set
+            {
+                if (_BatchNo2 != value)
+                {
+                    _BatchNo2 = value;
+                    OnPropertyChanged("BatchNo2");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

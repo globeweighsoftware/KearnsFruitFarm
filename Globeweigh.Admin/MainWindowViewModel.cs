@@ -108,6 +108,10 @@ namespace Globeweigh.Admin
         {
             switch (SelectedNavItem.Name)
             {
+                case "batch":
+                    CurrentViewModel = SimpleIoc.Default.GetInstance<BatchListViewModel>();
+                    MainHeader = "Batches";
+                    break;
                 case "products":
                     CurrentViewModel = SimpleIoc.Default.GetInstance<ProductListViewModel>();
                     MainHeader = "Products";
@@ -162,18 +166,18 @@ namespace Globeweigh.Admin
             //            LoggedInUserDisplay = GlobalVariables.CurrentGlobeweighUser.Email;
             LoggedInUserDisplay = "Administrator";
             CurrentVersion = _currentAssembly.GetName().Version.ToString();
-//            _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-//            _dispatcherTimer.Tick += dispatcherTimer_Tick;
-//            _dispatcherTimer.Interval = new TimeSpan(0, 1, 0);
-//            _dispatcherTimer.Start();
-//            await Task.Run(() => OnTick());
-            CheckForUpdate();
+            _dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            _dispatcherTimer.Tick += dispatcherTimer_Tick;
+            _dispatcherTimer.Interval = new TimeSpan(0, 1, 0);
+            _dispatcherTimer.Start();
+            await Task.Run(() => CheckForUpdate());
+//            CheckForUpdate();
         }
 
-//        private async void dispatcherTimer_Tick(object sender, EventArgs e)
-//        {
-//            await Task.Run(() => OnTick());
-//        }
+        private async void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            await Task.Run(() => CheckForUpdate());
+        }
 
         private async void CheckForUpdate()
         {

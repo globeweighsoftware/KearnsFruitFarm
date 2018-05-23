@@ -103,6 +103,7 @@
     <Compile Include="Partial\Operator.cs" />
     <Compile Include="Partial\Scale.cs" />
     <Compile Include="Partial\vwBatchView.cs" />
+    <Compile Include="Partial\spOperatorBatch_Result.cs" />
     <Compile Include="Partial\vwOperatorBatch.cs" />
     <Compile Include="Partial\vwOperatorRefData.cs" />
     <Compile Include="Partial\vwPortionView.cs" />

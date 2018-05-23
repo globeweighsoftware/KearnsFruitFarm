@@ -275,6 +275,71 @@ namespace Globeweigh.Model
                 }
             }
         }
+        private string _BatchNo2;
+        public string BatchNo2
+        {
+            get { return _BatchNo2; }
+            set
+            {
+                if (_BatchNo2 != value)
+                {
+                    _BatchNo2 = value;
+                    OnPropertyChanged("BatchNo2");
+                }
+            }
+        }
+        private string _BatchNo;
+        public string BatchNo
+        {
+            get { return _BatchNo; }
+            set
+            {
+                if (_BatchNo != value)
+                {
+                    _BatchNo = value;
+                    OnPropertyChanged("BatchNo");
+                }
+            }
+        }
+        private Nullable<int> _NoOfOperators;
+        public Nullable<int> NoOfOperators
+        {
+            get { return _NoOfOperators; }
+            set
+            {
+                if (_NoOfOperators != value)
+                {
+                    _NoOfOperators = value;
+                    OnPropertyChanged("NoOfOperators");
+                }
+            }
+        }
+        private Nullable<int> _TotalWeight;
+        public Nullable<int> TotalWeight
+        {
+            get { return _TotalWeight; }
+            set
+            {
+                if (_TotalWeight != value)
+                {
+                    _TotalWeight = value;
+                    OnPropertyChanged("TotalWeight");
+                }
+            }
+        }
+        private Nullable<int> _AverageWeight;
+        public Nullable<int> AverageWeight
+        {
+            get { return _AverageWeight; }
+            set
+            {
+                if (_AverageWeight != value)
+                {
+                    _AverageWeight = value;
+                    OnPropertyChanged("AverageWeight");
+                }
+            }
+        }
     
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;

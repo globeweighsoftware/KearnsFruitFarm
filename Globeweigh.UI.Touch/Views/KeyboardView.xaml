@@ -7,10 +7,10 @@
         xmlns:md="https://github.com/fantasticfiasco/mvvm-dialogs"
         xmlns:controls1="clr-namespace:WpfKb.Controls;assembly=Globeweigh.UI.Shared"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
-        xmlns:touch="clr-namespace:Globeweigh.UI.Touch"
-        x:Class="Globeweigh.UI.Touch.KeyboardView" WindowStyle="None"
+        xmlns:touch="clr-namespace:Globeweigh.UI.Touch" d:DesignWidth="1366" d:DesignHeight="768"
+        x:Class="Globeweigh.UI.Touch.KeyboardView" WindowStyle="None" 
         AllowsTransparency="True" mc:Ignorable="d"  ResizeMode="NoResize"  
-        Height="{DynamicResource ClienHeight}" Width="{DynamicResource ClientWidth}" WindowStartupLocation="CenterScreen" WindowState="Normal" Margin="50" IsMainWindowSize="False"
+        WindowStartupLocation="CenterScreen" WindowState="Normal" Margin="50" IsMainWindowSize="True"
         md:DialogServiceViews.IsRegistered ="True" Background="{DynamicResource MainNavyBrush}" FocusManager.FocusedElement="{Binding ElementName=textcontrol}" >
 
     <touch:WindowBase.Resources>
@@ -21,7 +21,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="80"/>
                 <RowDefinition Height="55*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource ItemBorderBrush}" Background="{DynamicResource TransactionHeaderFooterBorderBrush}">
                 <TextBlock Text="{Binding HeaderText, FallbackValue=Enter Data}" VerticalAlignment="Center" FontSize="30" Margin="20,0" Foreground="{DynamicResource MainNavyBrush}" FontFamily="Segoe UI Semibold"/>
@@ -33,7 +33,7 @@
                 </Grid.RowDefinitions>
                 <TextBox x:Name="textcontrol" Text="{Binding KeyboardValue}" CaretIndex="{x:Static System:Int32.MaxValue}"  CharacterCasing="Upper" Foreground="Black" FontSize="36" Margin="10" Height="100" VerticalContentAlignment="Center" TextAlignment="Center"/>
                 <Border Background="White" Padding="0" BorderThickness="1" Margin="5,5,5,0" Grid.Row="1">
-                    <controls1:OnScreenWebKeyboard Height="Auto" Background="#FF666666" Margin="0,50"/>
+                    <controls1:OnScreenWebKeyboard Height="Auto" Background="#FF666666" Margin="0"/>
                 </Border>
             </Grid>
             <Grid Grid.Row="2">

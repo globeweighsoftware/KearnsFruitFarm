@@ -198,6 +198,11 @@ namespace Globeweigh.UI.Shared.Helpers
             try
             {
                 newVersion = null;
+
+                if (string.IsNullOrEmpty(GlobalVariables.ReleaseBuildDirectory))
+                {
+                    GlobalVariables.ReleaseBuildDirectory = @"\\192.168.16.106\Releases";
+                }
                 if (!Directory.Exists(GlobalVariables.ReleaseBuildDirectory)) return null;
                 //                if (IsMyMachine) return null;
                 string searchPattern = fileSetupStartsWith +"*.*";  // This would be for you to construct your prefix
