@@ -26,7 +26,7 @@
             <converters:NullToCollapsedConverter x:Key="NullToCollapsedConverter"/>
             <converters:TrueToCollapsedConverter x:Key="TrueToCollapsedConverter"/>
             <converters:NullToVisibleConverter x:Key="NullToVisibleConverter"/>
-            <converters:GreaterThanOrEqualConverter x:Key="GreaterThanOrEqualConverter" Cutoff="6"/>
+            <converters:GreaterThanOrEqualConverter x:Key="GreaterThanOrEqualConverter" Cutoff="1.6"/>
 
             <Style x:Key="rowStyle" TargetType="{x:Type dxg:RowControl}">
                 <Setter Property="Height" Value="24"/>

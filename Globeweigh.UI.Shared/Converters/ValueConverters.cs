@@ -26,7 +26,7 @@ namespace Globeweigh.UI.Shared.Converters
             throw new NotImplementedException();
         }
 
-        public int Cutoff { get; set; }
+        public decimal Cutoff { get; set; }
     }
 
     public class PercentageConverter : IValueConverter

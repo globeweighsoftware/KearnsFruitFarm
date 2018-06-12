@@ -444,14 +444,14 @@ namespace Globeweigh.UI.Touch
         private async Task OpenAndSetTcpConnections()
         {
             //MY MACHINE DEMO MODE
-//            if (UtilitiesShared.IsMyMachine)
-//            {
-//                foreach (var scale in ScaleList)
-//                {
-//                    scale.IsConnected = true;
-//                }
-//                return;
-//            }
+            if (UtilitiesShared.IsMyMachine)
+            {
+                foreach (var scale in ScaleList)
+                {
+                    scale.IsConnected = true;
+                }
+                return;
+            }
 
             var bag = new ConcurrentBag<object>();
             await ScaleList.ParallelForEachAsync(async item =>
