@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    xmlns:xtraEditors="clr-namespace:DevExpress.XtraEditors;assembly=DevExpress.XtraEditors.v17.1"
+    xmlns:xtraEditors="clr-namespace:DevExpress.XtraEditors;assembly=DevExpress.XtraEditors.v18.1"
     mc:Ignorable="d"
     d:DataContext="{x:Static dx:SplashScreenViewModel.DesignTimeData}" Unloaded="UserControl_Unloaded"
     >
