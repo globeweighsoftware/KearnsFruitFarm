@@ -8,7 +8,7 @@ namespace Globeweigh.Model.Helpers
     public static class Utilities
     {
         public static readonly string ConfigFilename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Globeweigh\\globeweigh.config");
-        public static bool IsMyMachine => Environment.MachineName == "NEIL-DELLXPS";
+        public static bool IsMyMachine => Environment.MachineName == "NEIL-DELLXPS" || Environment.MachineName == "NEIL-XPS15";
 
 
         public static GlobeweighConfig GetConfigData()

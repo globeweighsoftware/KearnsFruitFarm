@@ -83,14 +83,15 @@ namespace Globeweigh.Admin
 
         private async Task RefreshList()
         {
-            DateFrom = DateTime.Today.AddMonths(-1);
-            DateTo = DateTime.Today.AddDays(1);
+
             BatchList = new List<vwBatchView>(await _BatchRepo.GetBatchesAsync(DateFrom.Date, DateTo.Date));
         }
 
         public async void Load(FrameworkElement element)
         {
             if (UtilitiesShared.InDesignMode) return;
+            DateFrom = DateTime.Today.AddMonths(-1);
+            DateTo = DateTime.Today.AddDays(1);
             await RefreshList();
         }
 
