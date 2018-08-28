@@ -76,10 +76,19 @@ namespace Globeweigh.UI.Shared.Services
 
         public async Task<List<vwBatchView>> GetBatchesAsync(DateTime dateFrom, DateTime dateTo)
         {
-            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+            try
             {
-                return await context.vwBatchViews.Where(c => c.DateCreated >= dateFrom && c.DateCreated <= dateTo && !c.Deleted).OrderByDescending(a => a.DateCreated).ToListAsync();
+                using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+                {
+                    return await context.vwBatchViews.Where(c => c.DateCreated >= dateFrom && c.DateCreated <= dateTo && !c.Deleted).OrderByDescending(a => a.DateCreated).ToListAsync();
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
 
         public async Task<Batch_OperatorTime> AddBatchOperatorTimeAsync(int batchId, int operatorId)

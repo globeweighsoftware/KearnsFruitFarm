@@ -83,8 +83,9 @@ namespace Globeweigh.Admin
 
         private async Task RefreshList()
         {
-
+            IsBusy = true;
             BatchList = new List<vwBatchView>(await _BatchRepo.GetBatchesAsync(DateFrom.Date, DateTo.Date));
+            IsBusy = false;
         }
 
         public async void Load(FrameworkElement element)
