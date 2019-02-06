@@ -15,6 +15,36 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "OwnerKey" = "8:_E0A7AF9BD27040A92A7AAE94ADB17BE7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "OwnerKey" = "8:_1983AFDD0FBE2A0855A8C7019754338E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "OwnerKey" = "8:_34EA2689C173A698181E146D0FCF0698"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_02E0FBFE1ED280C117C758C5726D58AF"
         "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
         "MsmSig" = "8:_UNDEFINED"
@@ -46,13 +76,13 @@
         "Entry"
         {
         "MsmKey" = "8:_056F9E5C4DE9B80FAB76E23E0B6A79DE"
-        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_056F9E5C4DE9B80FAB76E23E0B6A79DE"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -285,6 +315,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_213CE054A34DBFBB8B4629E8ADA9FACE"
+        "OwnerKey" = "8:_778D75C3258DE43C3CADB0E94D60287A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_213CE054A34DBFBB8B4629E8ADA9FACE"
+        "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_21DFBA0184DBF7397F41D748B778F739"
         "OwnerKey" = "8:_C65284589E4EE68BF06E22870E14EC0F"
         "MsmSig" = "8:_UNDEFINED"
@@ -310,7 +352,7 @@
         "Entry"
         {
         "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
-        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
+        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -406,6 +448,12 @@
         "Entry"
         {
         "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
         "OwnerKey" = "8:_656B68B04BC951DF23DEAC1C29A18B9F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -466,19 +514,13 @@
         "Entry"
         {
         "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
-        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
         "OwnerKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -681,36 +723,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "OwnerKey" = "8:_E0A7AF9BD27040A92A7AAE94ADB17BE7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "OwnerKey" = "8:_1983AFDD0FBE2A0855A8C7019754338E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "OwnerKey" = "8:_34EA2689C173A698181E146D0FCF0698"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_4D2AC54B4E07F879B29A0970401EACCF"
         "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
         "MsmSig" = "8:_UNDEFINED"
@@ -718,7 +730,7 @@
         "Entry"
         {
         "MsmKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -754,6 +766,12 @@
         "Entry"
         {
         "MsmKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
         "OwnerKey" = "8:_8D9C05D6F30ED6D360BF29AF1B7B1082"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -761,12 +779,6 @@
         {
         "MsmKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
         "OwnerKey" = "8:_B3672D3623D8F1BC006BD3682E1E9E81"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
-        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1108,7 +1120,7 @@
         "Entry"
         {
         "MsmKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1138,13 +1150,13 @@
         "Entry"
         {
         "MsmKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
-        "OwnerKey" = "8:_8D9C05D6F30ED6D360BF29AF1B7B1082"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
-        "OwnerKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
+        "OwnerKey" = "8:_8D9C05D6F30ED6D360BF29AF1B7B1082"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1343,12 +1355,6 @@
         {
         "MsmKey" = "8:_965BDE081D7F2EDF2E94525BBF062091"
         "OwnerKey" = "8:_6FD1BFD342634BE88050334AE97140FE"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9BBDFCF2D36B540CCAA2F0766C794759"
-        "OwnerKey" = "8:_778D75C3258DE43C3CADB0E94D60287A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1672,7 +1678,7 @@
         "Entry"
         {
         "MsmKey" = "8:_C29E4D76D88CE0C611F425E46A5D6816"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1984,6 +1990,18 @@
         "Entry"
         {
         "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
+        "OwnerKey" = "8:_C29E4D76D88CE0C611F425E46A5D6816"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
         "OwnerKey" = "8:_656B68B04BC951DF23DEAC1C29A18B9F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -2056,19 +2074,7 @@
         "Entry"
         {
         "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
-        "OwnerKey" = "8:_DAE463362D813A35A9A102F8F14F35B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
-        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
-        "OwnerKey" = "8:_C29E4D76D88CE0C611F425E46A5D6816"
+        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2098,13 +2104,13 @@
         "Entry"
         {
         "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
-        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
+        "OwnerKey" = "8:_DAE463362D813A35A9A102F8F14F35B7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D574EF4CC1813A42B6DED4E2E419D937"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
+        "OwnerKey" = "8:_76F7CDDF867E7BFB0287633DA4D6166A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2548,7 +2554,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9BBDFCF2D36B540CCAA2F0766C794759"
+        "OwnerKey" = "8:_213CE054A34DBFBB8B4629E8ADA9FACE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3046,6 +3052,18 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_00FD1B95529B61EE1FF25BD077CA870A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_C29E4D76D88CE0C611F425E46A5D6816"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_656B68B04BC951DF23DEAC1C29A18B9F"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -3118,37 +3136,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DAE463362D813A35A9A102F8F14F35B7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4CC578C47227A2B4C68EF07358A6D6FF"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_C29E4D76D88CE0C611F425E46A5D6816"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4DC8C2D68EB8C770F621FA9AA0668B4F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7EFF336477884BC2C6BAE3881012C176"
+        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6AADB4F7DE86A742C59B7838FF65A02E"
+        "OwnerKey" = "8:_7EFF336477884BC2C6BAE3881012C176"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3161,6 +3161,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_2FA02342727AFB01CD65DEA7276950A1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DAE463362D813A35A9A102F8F14F35B7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -3304,6 +3310,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_00FD1B95529B61EE1FF25BD077CA870A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DevExpress.DataAccess.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_00FD1B95529B61EE1FF25BD077CA870A"
+                    {
+                    "Name" = "8:DevExpress.DataAccess.v18.1.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DevExpress.DataAccess.v18.1.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_63E236CADD564587BAAFBF63F3B39483"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_02E0FBFE1ED280C117C758C5726D58AF"
             {
             "AssemblyRegister" = "3:1"
@@ -3370,7 +3407,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.CodeParser.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.CodeParser.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_056F9E5C4DE9B80FAB76E23E0B6A79DE"
@@ -3432,7 +3469,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraEditors.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_1442A19A105DAC7DD43E6A0BE71B05D7"
@@ -3494,7 +3531,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Core.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_174906EF0752CBEF8E4603F65927A270"
@@ -3556,7 +3593,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraReports.v18.1.Extensions, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraReports.v18.1.Extensions, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_1983AFDD0FBE2A0855A8C7019754338E"
@@ -3587,7 +3624,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraTreeList.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_1B297739305EA73987EDB2F21906DAB5"
@@ -3645,11 +3682,42 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_213CE054A34DBFBB8B4629E8ADA9FACE"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:InputSimulator, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_213CE054A34DBFBB8B4629E8ADA9FACE"
+                    {
+                    "Name" = "8:InputSimulator.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:InputSimulator.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_63E236CADD564587BAAFBF63F3B39483"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_21DFBA0184DBF7397F41D748B778F739"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1.Wizard, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1.Wizard, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_21DFBA0184DBF7397F41D748B778F739"
@@ -3711,7 +3779,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Printing.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Printing.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_241AD3DBFF19DDBB2FF69D1E5A59FF3E"
@@ -3804,7 +3872,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Controls.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Controls.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_27A0766C170376ABC7A03CF6E268ACA7"
@@ -3866,7 +3934,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGrid.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_2B805F39194C02C2A04F5753A8AAAEC4"
@@ -3959,7 +4027,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Pdf.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Pdf.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_2FA02342727AFB01CD65DEA7276950A1"
@@ -4021,7 +4089,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraReports.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraReports.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_34EA2689C173A698181E146D0FCF0698"
@@ -4052,7 +4120,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Docking.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_37E03F9AE7B43BEFBECB921D714BFC0B"
@@ -4083,7 +4151,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraVerticalGrid.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraVerticalGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_3F6BCCDA166588D641F29B0B5F2EF59C"
@@ -4234,37 +4302,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4CC578C47227A2B4C68EF07358A6D6FF"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.DataAccess.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_4CC578C47227A2B4C68EF07358A6D6FF"
-                    {
-                    "Name" = "8:DevExpress.DataAccess.v18.1.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:DevExpress.DataAccess.v18.1.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_63E236CADD564587BAAFBF63F3B39483"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4D2AC54B4E07F879B29A0970401EACCF"
             {
             "AssemblyRegister" = "3:1"
@@ -4300,7 +4337,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_4DC8C2D68EB8C770F621FA9AA0668B4F"
@@ -4393,7 +4430,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Ribbon.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Ribbon.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_51301013597B7A35CA474E8C8983DA9B"
@@ -4455,7 +4492,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_560945EE8D321904899C0AF8EBCB2FDF"
@@ -4486,7 +4523,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_56AD4AFB357BC1CEF72BD54FE1722DE7"
@@ -4579,7 +4616,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Grid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5C50E811755FF5DC55D0857C498C9395"
@@ -4641,7 +4678,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Mvvm.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Mvvm.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5ECB45512A93F9A3B1D35CC4BE41F87F"
@@ -4703,7 +4740,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraDiagram.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraDiagram.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_656B68B04BC951DF23DEAC1C29A18B9F"
@@ -4734,7 +4771,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Layout.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Layout.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_656F7B8F9764EF8FEEC37241FFFC4335"
@@ -4765,7 +4802,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_68A5CF078FDE75C6F03D6682D29FF09B"
@@ -4796,7 +4833,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Office.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Office.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_6AADB4F7DE86A742C59B7838FF65A02E"
@@ -4920,7 +4957,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.DataAccess.v18.1.UI, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.DataAccess.v18.1.UI, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_76F7CDDF867E7BFB0287633DA4D6166A"
@@ -4951,7 +4988,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.UI.Shared, Version=1.0.6744.14627, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.UI.Shared, Version=1.0.6976.18673, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_778D75C3258DE43C3CADB0E94D60287A"
@@ -5044,7 +5081,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGauges.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraGauges.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_7EF0CEEA78B5E75DB20A51FAB7C61A81"
@@ -5075,7 +5112,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Images.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Images.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_7EFF336477884BC2C6BAE3881012C176"
@@ -5261,7 +5298,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraRichEdit.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_8D9C05D6F30ED6D360BF29AF1B7B1082"
@@ -5364,37 +5401,6 @@
                     }
                 }
             "SourcePath" = "8:System.Runtime.Numerics.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_63E236CADD564587BAAFBF63F3B39483"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9BBDFCF2D36B540CCAA2F0766C794759"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:InputSimulator, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_9BBDFCF2D36B540CCAA2F0766C794759"
-                    {
-                    "Name" = "8:InputSimulator.DLL"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:InputSimulator.DLL"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_63E236CADD564587BAAFBF63F3B39483"
@@ -5591,7 +5597,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Charts.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Charts.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B16877BEACD0A9C3D438CC5EDE333946"
@@ -5653,7 +5659,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v18.1.UI, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Utils.v18.1.UI, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B2C6DE26186532348FC9366E209B2E9C"
@@ -5684,7 +5690,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPrinting.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPrinting.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B3672D3623D8F1BC006BD3682E1E9E81"
@@ -5808,7 +5814,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraNavBar.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraNavBar.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B4F77E35E7D79AE8644F847CCD33E07F"
@@ -5839,7 +5845,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Gauges.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Gauges.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B5E8A9B493F84A8B5AC6FA46E95F2F08"
@@ -5932,7 +5938,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.DocumentViewer.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.DocumentViewer.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B8E98B2E10E23C08676822E2A7696BE7"
@@ -6025,7 +6031,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.MetropolisLight.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.MetropolisLight.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BE1FD8EDB2E5E6AEA1AD2268322D8512"
@@ -6056,7 +6062,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Sparkline.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Sparkline.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BE4786611027CF94A21E2786EEA0B7E5"
@@ -6087,7 +6093,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpo.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpo.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C29E4D76D88CE0C611F425E46A5D6816"
@@ -6118,7 +6124,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.Office2013.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.Office2013.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C2BC697D945D0FB74E84F5AF667CCCE7"
@@ -6273,7 +6279,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1.Extensions, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraCharts.v18.1.Extensions, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C65284589E4EE68BF06E22870E14EC0F"
@@ -6490,7 +6496,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Printing.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_D0A32016C55A252598DC08F7B5A6A9E8"
@@ -6552,7 +6558,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Data.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Data.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_D574EF4CC1813A42B6DED4E2E419D937"
@@ -6676,7 +6682,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Diagram.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Diagram.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_DAE463362D813A35A9A102F8F14F35B7"
@@ -6707,7 +6713,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraBars.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_DDBF9B095C620C53ACFE8B90D36AF314"
@@ -6769,7 +6775,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.Model, Version=1.0.6744.14626, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.Model, Version=1.0.6976.18388, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E01C7F7B549D5B880E1C6EE0CC1196D2"
@@ -6800,7 +6806,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Globeweigh.Reports, Version=1.0.6744.14628, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Globeweigh.Reports, Version=1.0.6976.18674, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E0A7AF9BD27040A92A7AAE94ADB17BE7"
@@ -6831,7 +6837,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.PivotGrid.v18.1.Core, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.PivotGrid.v18.1.Core, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E1E0341E43760A2E43EFD882971D35C1"
@@ -6893,7 +6899,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.CodeView.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.CodeView.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E9BBF13BA0FA830FF0988BDAA1312E56"
@@ -6955,7 +6961,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraLayout.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EE820BB26D3A3194A79FAB508AD61032"
@@ -6986,7 +6992,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.Office2007Black.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.Themes.Office2007Black.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EEF1E7ECF2BEF4FFD850A405341B6E3C"
@@ -7017,7 +7023,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPivotGrid.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.XtraPivotGrid.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EF79013FE50871C70362E3E79F24E90E"
@@ -7110,7 +7116,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.LayoutControl.v18.1, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.Xpf.LayoutControl.v18.1, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F76BD37618B52C192B7D6F7D52177630"
@@ -7141,7 +7147,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v18.1.Export, Version=18.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:DevExpress.RichEdit.v18.1.Export, Version=18.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F86F2749028034C59C6A01710F7A1107"
@@ -7266,15 +7272,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Globeweigh.UI.Touch"
-        "ProductCode" = "8:{C194A3A3-A630-42F5-A041-F010DEE072E1}"
-        "PackageCode" = "8:{3C3AAAF0-C4F7-4AEC-9205-DF15014D68DE}"
+        "ProductCode" = "8:{791F1D25-97C9-44FA-99A9-20303EE303AF}"
+        "PackageCode" = "8:{89DBC081-A57A-4C01-8F33-D9432BCB4B92}"
         "UpgradeCode" = "8:{393BC3AF-D158-43B1-AA3F-B6EFF0F00DDC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:FALSE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.16"
+        "ProductVersion" = "8:1.0.17"
         "Manufacturer" = "8:Globeweigh"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

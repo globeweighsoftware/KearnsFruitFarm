@@ -11,7 +11,6 @@
     WindowStartupLocation="CenterScreen" IgnoreTaskbarOnMaximize="True"
     Title="MainWindow" Width="1366" Height="768"
                       md:DialogServiceViews.IsRegistered="True"
-    dx:DXSplashScreen.SplashScreenType="{x:Type shared:SplashView}" 
     shared:ViewModelBehavior.LoadUnload="True" ResizeMode="NoResize" WindowStyle="None"
     DataContext="{Binding MainWindow, Source={StaticResource Locator}}" Icon="Globe-96.ico"
     Loaded="MainWindow_OnLoaded" Background="{DynamicResource MainNavyBrush}"
@@ -38,8 +37,8 @@
         <DataTemplate DataType="{x:Type touch:BatchWaitViewModel}">
             <touch:BatchWaitView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type touch:BatchDisplayViewModel}">
-            <touch:BatchDisplayView/>
+        <DataTemplate DataType="{x:Type touch:BatchDisplay2ViewModel}">
+            <touch:BatchDisplay2View/>
         </DataTemplate>
 
 

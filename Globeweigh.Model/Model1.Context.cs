@@ -42,6 +42,7 @@ namespace Globeweigh.Model
         public virtual DbSet<vwOperatorBatch> vwOperatorBatches { get; set; }
         public virtual DbSet<vwOperatorRefData> vwOperatorRefDatas { get; set; }
         public virtual DbSet<vwPortionView> vwPortionViews { get; set; }
+        public virtual DbSet<UserDisplay> UserDisplays { get; set; }
     
         public virtual ObjectResult<spGetDispatchPalletProductsGrouped_Result> spGetDispatchPalletProductsGrouped(Nullable<int> dispatchOrderId, Nullable<int> dispatchPalletId)
         {

@@ -165,6 +165,17 @@
           <Property Name="ScaleIpAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserDisplay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ScaleNo" Type="int" Nullable="false" />
+          <Property Name="OperatorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TimeLoggedOn" Type="nvarchar" MaxLength="50" />
+          <Property Name="PacksPerMin" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="NoOfPacks" Type="int" Nullable="false" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwBatchView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwBatchView">
@@ -275,6 +286,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReferenceData" EntityType="Self.ReferenceData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Scale" EntityType="Self.Scale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDisplay" EntityType="Self.UserDisplay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vwBatchView" EntityType="Self.vwBatchView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwBatchView].[id] AS [id], 
@@ -367,6 +379,7 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySet Name="vwOperatorBatches" EntityType="GlobeweighModel.vwOperatorBatch" />
           <EntitySet Name="vwOperatorRefDatas" EntityType="GlobeweighModel.vwOperatorRefData" />
           <EntitySet Name="vwPortionViews" EntityType="GlobeweighModel.vwPortionView" />
+          <EntitySet Name="UserDisplays" EntityType="GlobeweighModel.UserDisplay" />
           </EntityContainer>
         <ComplexType Name="spGetDispatchPalletProductsGrouped_Result">
           <Property Type="Int32" Name="BoxCount" Nullable="true" />
@@ -645,6 +658,17 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Giveaway" Type="Int32" />
         </EntityType>
+        <EntityType Name="UserDisplay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ScaleNo" Type="Int32" Nullable="false" />
+          <Property Name="OperatorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TimeLoggedOn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PacksPerMin" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="NoOfPacks" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -902,6 +926,18 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
                 <ScalarProperty Name="Deleted" ColumnName="Deleted" />
                 <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDisplays">
+            <EntityTypeMapping TypeName="GlobeweighModel.UserDisplay">
+              <MappingFragment StoreEntitySet="UserDisplay">
+                <ScalarProperty Name="NoOfPacks" ColumnName="NoOfPacks" />
+                <ScalarProperty Name="PacksPerMin" ColumnName="PacksPerMin" />
+                <ScalarProperty Name="TimeLoggedOn" ColumnName="TimeLoggedOn" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+                <ScalarProperty Name="ScaleNo" ColumnName="ScaleNo" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

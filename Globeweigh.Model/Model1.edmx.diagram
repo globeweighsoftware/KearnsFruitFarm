@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="GlobeweighModel.vwOperatorBatch" Width="1.5" PointX="10.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobeweighModel.vwOperatorRefData" Width="1.5" PointX="10.75" PointY="3.75" />
         <EntityTypeShape EntityType="GlobeweighModel.vwPortionView" Width="1.5" PointX="10.75" PointY="6.75" />
+        <EntityTypeShape EntityType="GlobeweighModel.UserDisplay" Width="1.5" PointX="0.75" PointY="11.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -63,10 +63,13 @@ namespace Globeweigh.UI.Touch
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-//            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
-//            {
-//                GlobalVariables.CurrentDevice.IsDisplayDevice = true;
-//            }
+            if ((Keyboard.Modifiers & ModifierKeys.Control) > 0)
+            {
+                GlobalVariables.CurrentDevice.IsDisplayDevice = true;
+                this.Width = 1920;
+                this.Height = 1080;
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
             dispatcherTimer.Start();
         }
     }

@@ -17,16 +17,11 @@ namespace Globeweigh.UI.Shared
     /// <summary>
     /// Interaction logic for SplashView.xaml
     /// </summary>
-    public partial class SplashView : UserControl
+    public partial class SplashView : Window
     {
         public SplashView()
         {
             InitializeComponent();
-        }
-
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

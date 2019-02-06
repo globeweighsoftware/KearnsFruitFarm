@@ -33,6 +33,7 @@ namespace Globeweigh.UI.Touch
         private readonly IPortionRepository _portionRepo = SimpleIoc.Default.GetInstance<IPortionRepository>();
         private readonly IBatchRepository _batchRepo = SimpleIoc.Default.GetInstance<IBatchRepository>();
         private readonly IScaleRepository _scaleRepo = SimpleIoc.Default.GetInstance<IScaleRepository>();
+        private readonly IPortionDisplayRepository _portionDisplayRepo = SimpleIoc.Default.GetInstance<IPortionDisplayRepository>();
 
         private DispatcherTimer _timer;
         #endregion
@@ -382,6 +383,10 @@ namespace Globeweigh.UI.Touch
                                               60));
 
                 BatchInProgress = batchTimeupDated;
+
+
+                var activeScales = ScaleList.Where(scale => scale.OperatorId != null).OrderByDescending(a => a.UserPacksPerMin).ToList();
+                await _portionDisplayRepo.UpdateDisplayUserList(activeScales);
             }
             catch (Exception ex)
             {

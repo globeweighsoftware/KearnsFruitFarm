@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using DevExpress.Xpf.Core;
@@ -25,27 +26,40 @@ namespace Globeweigh.UI.Touch
         {
 
             if (UtilitiesShared.CheckForOtherInstanceOfApplication()) return;
-            SimpleIoc.Default.Register<IDeviceRepository>(() => new DeviceRepository());
-
-
-            ExceptionHelper.Initialize();
-
-            var success = Database.SetAndTestDbConnection();
-            if (!success)
+            SplashView splash = new SplashView();
+            splash.Show();
+            var databaseOk = await Task.Run(StartupMethod);
+            if (!databaseOk)
             {
-                Application.Current.StartupUri = new Uri("/Globeweigh.UI.Shared;component/ErrorHandling/DbErrorWindow.xaml", UriKind.Relative);
+                var errorWindow = new DbErrorWindow();
+                errorWindow.Show();
+                splash.Close();
                 return;
             }
+            MainWindow main = new MainWindow();
+            main.InitializeComponent();
+            Application.Current.MainWindow = main;
+            splash.Close();
+            main.Show();
 
+        }
+
+        private async Task<bool> StartupMethod()
+        {
+            ExceptionHelper.Initialize();
+            var success = Database.SetAndTestDbConnection();
+            if (!success) { return false; }
             SimpleIocRegistration();
-
+//            GlobalVariables.GlobalDbSettings = await SimpleIoc.Default.GetInstance<ISettingsRepository>().GetSettings();
             DispatcherHelper.Initialize();
-
+            UtilitiesShared.RegisterDevice(SimpleIoc.Default.GetInstance<IDeviceRepository>(), false);
+            return true;
         }
 
 
         private async void SimpleIocRegistration()
         {
+            SimpleIoc.Default.Register<IDeviceRepository>(() => new DeviceRepository());
             SimpleIoc.Default.Register<IDialogService>(() => new DialogService());
             SimpleIoc.Default.Register<IReferenceDataRepository>(() => new ReferenceDataRepository());
             SimpleIoc.Default.Register<IBatchRepository>(() => new BatchRepository());
@@ -53,6 +67,7 @@ namespace Globeweigh.UI.Touch
             SimpleIoc.Default.Register<IProductRepository>(() => new ProductRepository());
             SimpleIoc.Default.Register<IPortionRepository>(() => new PortionRepository());
             SimpleIoc.Default.Register<IScaleRepository>(() => new ScaleRepository());
+            SimpleIoc.Default.Register<IPortionDisplayRepository>(() => new PortionDisplayRepository());
         }
 
 

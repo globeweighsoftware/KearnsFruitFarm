@@ -87,7 +87,7 @@ namespace Globeweigh.UI.Touch
             if (GlobalVariables.CurrentDevice.IsDisplayDevice)
             {
                 InTestMode = GlobalVariables.InTestMode;
-                var homeViewModel = SimpleIoc.Default.GetInstance<BatchWaitViewModel>();
+                var homeViewModel = SimpleIoc.Default.GetInstance<BatchDisplay2ViewModel>();
                 CurrentViewModel = homeViewModel;
             }
             else

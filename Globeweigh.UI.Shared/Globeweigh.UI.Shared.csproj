@@ -136,6 +136,7 @@
     <Compile Include="frmError.xaml.cs">
       <DependentUpon>frmError.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\IPortionDisplayRepository.cs" />
     <Compile Include="Services\IProductRepository.cs" />
     <Compile Include="Services\IPortionRepository.cs" />
     <Compile Include="Services\IReferenceDataRepository.cs" />

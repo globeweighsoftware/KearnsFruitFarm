@@ -237,6 +237,10 @@
       <DependentUpon>BatchWaitView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Batch\BatchWaitViewModel.cs" />
+    <Compile Include="Modules\Display\BatchDisplay2View.xaml.cs">
+      <DependentUpon>BatchDisplay2View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Display\BatchDisplay2ViewModel.cs" />
     <Compile Include="Modules\Operator\SelectOperatorView.xaml.cs">
       <DependentUpon>SelectOperatorView.xaml</DependentUpon>
     </Compile>
@@ -305,6 +309,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Modules\Batch\BatchWaitView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Display\BatchDisplay2View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

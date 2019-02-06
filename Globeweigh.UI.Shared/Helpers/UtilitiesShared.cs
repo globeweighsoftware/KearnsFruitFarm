@@ -20,7 +20,7 @@ namespace Globeweigh.UI.Shared.Helpers
     {
 
         public static readonly bool InDesignMode = System.ComponentModel.DesignerProperties.GetIsInDesignMode(new DependencyObject());
-        public static bool IsMyMachine => Environment.MachineName == "NEIL-DELLXPS";
+        public static bool IsMyMachine => Environment.MachineName == "NEIL-XPS15";
 
 
         public static System.Boolean IsNumeric(System.Object Expression)
