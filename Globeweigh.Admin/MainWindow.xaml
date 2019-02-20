@@ -13,7 +13,7 @@
         xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
         x:Class="Globeweigh.Admin.MainWindow" 
         md:DialogServiceViews.IsRegistered="True"
-        dx:DXSplashScreen.SplashScreenType="{x:Type shared:SplashView}" 
+      
         mc:Ignorable="d" shared:ViewModelBehavior.LoadUnload="True" 
         Height="1024" Width="1600" WindowStartupLocation="CenterScreen" WindowTitleBrush="#FF3F3F46"
         DataContext="{Binding MainWindow, Source={StaticResource Locator}}" Icon="Globe-96.ico">
@@ -26,8 +26,8 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:TrueToVisibilityConverter x:Key="TrueToVisibilityConverter"/>
 
-            <DataTemplate DataType="{x:Type local:BatchListViewModel}">
-                <local:BatchListView/>
+            <DataTemplate DataType="{x:Type local:PortionControlMasterViewModel}">
+                <local:PortionControlMasterView/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type local:ProductListViewModel}">

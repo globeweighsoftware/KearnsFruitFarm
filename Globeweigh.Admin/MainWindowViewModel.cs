@@ -109,7 +109,7 @@ namespace Globeweigh.Admin
             switch (SelectedNavItem.Name)
             {
                 case "batch":
-                    CurrentViewModel = SimpleIoc.Default.GetInstance<BatchListViewModel>();
+                    CurrentViewModel = SimpleIoc.Default.GetInstance<PortionControlMasterViewModel>();
                     MainHeader = "Batches";
                     break;
                 case "products":

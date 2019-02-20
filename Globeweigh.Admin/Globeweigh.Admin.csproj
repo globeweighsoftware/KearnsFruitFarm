@@ -166,6 +166,14 @@
       <DependentUpon>BatchListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Modules\Batch\BatchListViewModel.cs" />
+    <Compile Include="Modules\Batch\OperatorPerformanceView.xaml.cs">
+      <DependentUpon>OperatorPerformanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Batch\OperatorPerformanceViewModel.cs" />
+    <Compile Include="Modules\Batch\PortionControlMasterView.xaml.cs">
+      <DependentUpon>PortionControlMasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Batch\PortionControlMasterViewModel.cs" />
     <Compile Include="Modules\Operators\AddEditOperatorView.xaml.cs">
       <DependentUpon>AddEditOperatorView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +227,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Modules\Batch\BatchListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Batch\OperatorPerformanceView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Batch\PortionControlMasterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

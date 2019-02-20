@@ -28,7 +28,7 @@ namespace Globeweigh.Model.Helpers
                 newConfig.database = "GbKearnsFruitFarm";
                 newConfig.user = "sa";
                 newConfig.password = "ButternutSquash09";
-                newConfig.ReleaseBuildDirectory = @"192.168.16.106\Releases";
+                newConfig.ReleaseBuildDirectory = @"\\192.168.16.106\Releases";
                 CreateCommonApplicationDataConfigFile(newConfig);
 
                 return newConfig;

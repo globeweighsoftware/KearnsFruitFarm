@@ -274,6 +274,10 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
         <Function Name="spOperatorBatch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="batchId" Type="int" Mode="In" />
         </Function>
+        <Function Name="spOperatorStats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateFrom" Type="datetime" Mode="In" />
+          <Parameter Name="dateTo" Type="datetime" Mode="In" />
+        </Function>
         <EntityContainer Name="GlobeweighModelStoreContainer">
           <EntitySet Name="Batch" EntityType="Self.Batch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Batch_OperatorTime" EntityType="Self.Batch_OperatorTime" Schema="dbo" store:Type="Tables" />
@@ -356,11 +360,6 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
     <edmx:ConceptualModels>
       <Schema Namespace="GlobeweighModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GlobeweighEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="spGetDispatchPalletProductsGrouped" ReturnType="Collection(GlobeweighModel.spGetDispatchPalletProductsGrouped_Result)">
-            <Parameter Name="dispatchOrderId" Mode="In" Type="Int32" />
-            <Parameter Name="dispatchPalletId" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="spAllProductsForOperaLink" ReturnType="Collection(GlobeweighModel.spAllProductsForOperaLink_Result)" />
           <FunctionImport Name="spOperatorBatch" ReturnType="Collection(GlobeweighModel.spOperatorBatch_Result)">
           <Parameter Name="batchId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -380,6 +379,10 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <EntitySet Name="vwOperatorRefDatas" EntityType="GlobeweighModel.vwOperatorRefData" />
           <EntitySet Name="vwPortionViews" EntityType="GlobeweighModel.vwPortionView" />
           <EntitySet Name="UserDisplays" EntityType="GlobeweighModel.UserDisplay" />
+          <FunctionImport Name="spOperatorStats" ReturnType="Collection(GlobeweighModel.spOperatorStats_Result)">
+            <Parameter Name="dateFrom" Mode="In" Type="DateTime" />
+            <Parameter Name="dateTo" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="spGetDispatchPalletProductsGrouped_Result">
           <Property Type="Int32" Name="BoxCount" Nullable="true" />
@@ -669,6 +672,14 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
           <Property Name="PacksPerMin" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
           <Property Name="NoOfPacks" Type="Int32" Nullable="false" />
         </EntityType>
+        <ComplexType Name="spOperatorStats_Result">
+          <Property Type="Int32" Name="OperatorId" Nullable="false" />
+          <Property Type="Int32" Name="PortionCount" Nullable="true" />
+          <Property Type="Int64" Name="TotalTimeTicks" Nullable="true" />
+          <Property Type="Int32" Name="TotalWeightGrams" Nullable="true" />
+          <Property Type="Int32" Name="TotalGiveawayGrams" Nullable="true" />
+          <Property Type="String" Name="OperatorName" Nullable="false" MaxLength="101" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -942,6 +953,18 @@ warning 6002: The table/view 'GbKearnsFruitFarm.dbo.vwPortionView' does not have
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spOperatorStats" FunctionName="GlobeweighModel.Store.spOperatorStats">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobeweighModel.spOperatorStats_Result">
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="PortionCount" ColumnName="PortionCount" />
+                <ScalarProperty Name="TotalTimeTicks" ColumnName="TotalTimeTicks" />
+                <ScalarProperty Name="TotalWeightGrams" ColumnName="TotalWeightGrams" />
+                <ScalarProperty Name="TotalGiveawayGrams" ColumnName="TotalGiveawayGrams" />
+                <ScalarProperty Name="OperatorName" ColumnName="OperatorName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

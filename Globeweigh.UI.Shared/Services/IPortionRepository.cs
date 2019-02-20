@@ -15,10 +15,19 @@ namespace Globeweigh.UI.Shared.Services
         Task<Portion> AddUpdatePortionAsync(Portion portion);
         Task<Portion> AddDummyPortionAsync(int scaleNo, int operatorId, int batchId, int? lowerLimit, int? upperLimit);
         Task<Portion> AddPortionAsync(int scaleNo, int operatorId, int batchId, int weight, int tare);
+        List<spOperatorStats_Result> GetOperatorStats(DateTime dateFrom, DateTime dateTo);
     }
 
     public class PortionRepository : IPortionRepository
     {
+
+        public List<spOperatorStats_Result> GetOperatorStats(DateTime dateFrom, DateTime dateTo)
+        {
+            using (var context = new GlobeweighEntities(GlobalVariables.ConnectionString))
+            {
+                return context.spOperatorStats(dateFrom, dateTo).ToList();
+            }
+        }
 
         public async Task<List<vwPortionView>> GetPortionsAsync(int batchId)
         {

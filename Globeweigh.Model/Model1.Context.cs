@@ -44,24 +44,6 @@ namespace Globeweigh.Model
         public virtual DbSet<vwPortionView> vwPortionViews { get; set; }
         public virtual DbSet<UserDisplay> UserDisplays { get; set; }
     
-        public virtual ObjectResult<spGetDispatchPalletProductsGrouped_Result> spGetDispatchPalletProductsGrouped(Nullable<int> dispatchOrderId, Nullable<int> dispatchPalletId)
-        {
-            var dispatchOrderIdParameter = dispatchOrderId.HasValue ?
-                new ObjectParameter("dispatchOrderId", dispatchOrderId) :
-                new ObjectParameter("dispatchOrderId", typeof(int));
-    
-            var dispatchPalletIdParameter = dispatchPalletId.HasValue ?
-                new ObjectParameter("dispatchPalletId", dispatchPalletId) :
-                new ObjectParameter("dispatchPalletId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetDispatchPalletProductsGrouped_Result>("spGetDispatchPalletProductsGrouped", dispatchOrderIdParameter, dispatchPalletIdParameter);
-        }
-    
-        public virtual ObjectResult<spAllProductsForOperaLink_Result> spAllProductsForOperaLink()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spAllProductsForOperaLink_Result>("spAllProductsForOperaLink");
-        }
-    
         public virtual ObjectResult<spOperatorBatch_Result> spOperatorBatch(Nullable<int> batchId)
         {
             var batchIdParameter = batchId.HasValue ?
@@ -69,6 +51,19 @@ namespace Globeweigh.Model
                 new ObjectParameter("batchId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spOperatorBatch_Result>("spOperatorBatch", batchIdParameter);
+        }
+    
+        public virtual ObjectResult<spOperatorStats_Result> spOperatorStats(Nullable<System.DateTime> dateFrom, Nullable<System.DateTime> dateTo)
+        {
+            var dateFromParameter = dateFrom.HasValue ?
+                new ObjectParameter("dateFrom", dateFrom) :
+                new ObjectParameter("dateFrom", typeof(System.DateTime));
+    
+            var dateToParameter = dateTo.HasValue ?
+                new ObjectParameter("dateTo", dateTo) :
+                new ObjectParameter("dateTo", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spOperatorStats_Result>("spOperatorStats", dateFromParameter, dateToParameter);
         }
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="Partial\Portion.cs" />
     <Compile Include="Partial\Operator.cs" />
     <Compile Include="Partial\Scale.cs" />
+    <Compile Include="Partial\spOperatorStats_Result.cs" />
     <Compile Include="Partial\vwBatchView.cs" />
     <Compile Include="Partial\spOperatorBatch_Result.cs" />
     <Compile Include="Partial\vwOperatorBatch.cs" />
@@ -127,6 +128,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="spOperatorBatch_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spOperatorStats_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="UserDisplay.cs">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using Globeweigh.Model;
 using System.Windows;
 using DevExpress.Xpf.Core;
@@ -19,33 +20,38 @@ namespace Globeweigh.Admin
             ApplicationThemeHelper.UseLegacyDefaultTheme = true;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected async override void OnStartup(StartupEventArgs e)
+        {
+            SplashView splash = new SplashView();
+            splash.Show();
+            var databaseOk = await Task.Run(StartupMethod);
+            if (!databaseOk)
+            {
+                var errorWindow = new DbErrorWindow();
+                errorWindow.Show();
+                splash.Close();
+                return;
+            }
+            MainWindow main = new MainWindow();
+            main.InitializeComponent();
+            Application.Current.MainWindow = main;
+            //            await Task.Delay(3000);
+            splash.Close();
+            main.Show();
+
+
+        }
+
+        private async Task<bool> StartupMethod()
         {
             ExceptionHelper.Initialize();
             var success = Database.SetAndTestDbConnection();
-            if (!success)
-            {
-                Application.Current.StartupUri = new Uri("/Globeweigh.UI.Shared;component/ErrorHandling/DbErrorWindow.xaml", UriKind.Relative);
-                return;
-            }
+            if (!success) { return false; }
             SimpleIocRegistration();
+//            GlobalVariables.GlobalDbSettings = await SimpleIoc.Default.GetInstance<ISettingsRepository>().GetSettings();
             DispatcherHelper.Initialize();
             UtilitiesShared.RegisterDevice(SimpleIoc.Default.GetInstance<IDeviceRepository>(), false);
-
-//            var dialog = new LoginView();
-//
-//            if (dialog.ShowDialog() == true)
-//            {
-//                var mainWindow = new MainWindow();
-//                mainWindow.Show();
-//                //Re-enable normal shutdown mode.
-//                Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
-//                Current.MainWindow = mainWindow;
-//                mainWindow.Show();
-//                dialog.Close();
-//            }
-
-
+            return true;
         }
 
         private void SimpleIocRegistration()
