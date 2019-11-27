@@ -100,7 +100,7 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Kearns Fruit Farm Portion Control" VerticalAlignment="Center" FontSize="48" FontFamily="Segoe UI Light"/>
+                <TextBlock Text="Moypark Portion Control" VerticalAlignment="Center" FontSize="48" FontFamily="Segoe UI Light"/>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" >
                     <TextBlock Text="{Binding CurrentDate, FallbackValue=Tuesday 4th September, StringFormat=D}" VerticalAlignment="Center" FontSize="26" FontFamily="Segoe UI Light" Grid.Row="2" Margin="0"/>
 

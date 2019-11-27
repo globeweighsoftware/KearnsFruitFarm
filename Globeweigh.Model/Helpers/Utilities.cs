@@ -36,7 +36,7 @@ namespace Globeweigh.Model.Helpers
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(GlobeweighConfig));
-                using (FileStream fs = new FileStream(ConfigFilename, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(ConfigFilename, FileMode.Open, FileAccess.ReadWrite))
                 {
                     var config = (GlobeweighConfig)serializer.Deserialize(fs);
                     fs.Close();
